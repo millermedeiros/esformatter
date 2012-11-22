@@ -23,7 +23,7 @@
     "jasmine-node" : "~1.0.26"
   },
   "dependencies" : {
-    "falafel" : "~0.1.4",
+    "esprima" : ">= 1.0 < 1.2",
     "amd-utils" : "~0.8"
   },
   "license": "MIT"

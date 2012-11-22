@@ -2,7 +2,8 @@
 "use strict";
 
 
-var _falafel = require('falafel');
+// using local version since I modified the code
+var _falafel = require('./lib/falafel');
 
 var pluck = require('amd-utils/array/pluck');
 var merge = require('amd-utils/object/merge');
@@ -23,7 +24,6 @@ var PARSE_OPTS = {
 // using an object to store each transform method to avoid a long switch
 // statement, will be more organized in the long run.
 var TRANSFORMS = {};
-var SPECIAL_LINE_BREAKS = {};
 
 // All supported options also default options)
 var DEFAULT_OPTS = {
@@ -41,13 +41,18 @@ var DEFAULT_OPTS = {
 
         before : {
             FunctionDeclaration : true,
+            FunctionDeclarationOpeningBrace : false,
+            FunctionDeclarationClosingBrace : true,
             ReturnStatement : true,
             BlockStatement : false,
-            BlockStatementClosingBrace : true
+            BlockStatementClosingBrace : false
         },
 
         after : {
-            FunctionDeclaration : true,
+            FunctionDeclaration : false,
+            FunctionDeclarationOpeningBrace : true,
+            FunctionDeclarationClosingBrace : true,
+            ReturnStatement : true,
             BlockStatement : false,
             BlockStatementClosingBrace : false
         }
@@ -80,132 +85,47 @@ var DEFAULT_OPTS = {
 
 
 // some nodes shouldn't be affected by indent rules, so we simply ignore them
-var SKIP_INDENT_RULES = {
+var BYPASS_INDENT = {
     Identifier : true
+};
+
+var BYPASS_CHILD_INDENT = {
+    ReturnStatement : true
 };
 
 
 // ---
 
 var _curOpts;
+var _br;
 
 
 exports.format = function(str, opts){
     // everything is sync so we use a local var for brevity
     _curOpts = merge(DEFAULT_OPTS, opts);
+    _br = _curOpts.lineBreak.value;
 
     // we remove indent and trailing whitespace before since it's simpler, code
     // is responsible for re-indenting
     str = removeIndent(str);
     str = removeTrailingWhiteSpace(str);
     str = removeEmptyLines(str);
-    // str = _falafel(str, PARSE_OPTS, addLineBreaks).toString();
     str = _falafel(str, PARSE_OPTS, addWhiteSpaces).toString();
-    // str = _falafel(str, PARSE_OPTS, transformNode).toString();
 
     return str;
 };
 
 
-/*
-function transformNode(node){
-    addLineBreaks(node);
-    addWhiteSpaces(node);
-}
-*/
 
-
-var _addedLineBreaks = [];
-
-
-function addLineBreaks(node){
-    if (_addedLineBreaks.indexOf(node) !== -1) {
-        // add line break only once
-        return;
-    }
-
-    var before = getLineBreakBefore(node.type);
-    var after = getLineBreakAfter(node.type);
-
-    if ( before ) {
-        if ( (node.prev && (node.prev.loc.end.line < node.loc.start.line)) ||
-             (node.parent && (node.parent.loc.start.line < node.loc.start.line)) ) {
-            before = '';
-        } else {
-            node.loc.start.line += 1;
-            node.loc.end.line += 1;
-            bumpNextLines(node);
-            bumpParentLines(node);
-        }
-    }
-
-    if (after) {
-        if (node.next && (node.next.loc.start.line > node.loc.end.line)) {
-            after = '';
-        } else {
-            node.loc.end.line += 1;
-            bumpNextLines(node);
-            bumpParentLines(node);
-        }
-    }
-
-    if ( before || after || node.type in SPECIAL_LINE_BREAKS ) {
-        var content = (node.type in SPECIAL_LINE_BREAKS)?
-                        SPECIAL_LINE_BREAKS[node.type](node) :
-                        node.source();
-        node.update( before + content + after );
-        _addedLineBreaks.push(node);
-    }
-}
-
-
-function bumpNextLines(node){
-    var next = node.next;
-    while (next) {
-        next.loc.start.line += 1;
-        next.loc.end.line += 1;
-        next = next.next;
-    }
-}
-
-
-function bumpParentLines(node){
-    var parent = node.parent;
-    while (parent) {
-        parent.loc.end.line += 1;
-        bumpNextLines(parent);
-        parent = parent.parent;
-    }
-}
-
-
-SPECIAL_LINE_BREAKS.BlockStatement = function(node){
-    var str = node.source();
-    str = str.substring(0, str.length - 2) + wrapLineBreak('}', 'BlockStatementClosingBrace');
-    return str;
-};
 
 
 // ========
 
 
-// var _addedSpaces = [];
-
 function addWhiteSpaces(node){
-    // process only once
-    // if (_addedSpaces.indexOf(node)) {
-        // return;
-    // }
-
-    node.indentLevel = (node.type in SKIP_INDENT_RULES)? null : getIndentLevel(node);
-
-    // if (node.indentLevel != null) {
-        // console.log(node.type, node.indentLevel);
-    // }
-
+    node.indentLevel = (node.type in BYPASS_INDENT || (node.parent && node.parent.type in BYPASS_CHILD_INDENT))? null : getIndentLevel(node);
     if (node.type in TRANSFORMS) {
         node.update( TRANSFORMS[node.type](node) );
-        // _addedSpaces.push(node);
     }
 }
 
@@ -213,8 +133,26 @@ function addWhiteSpaces(node){
 // ---
 
 
+/*
+TRANSFORMS.BlockStatement = function(node){
+    var str = '';
+    str += wrapLineBreak('{', 'BlockStatementClosingBrace');
+    // var body = node.source();
+    // str += body.substring(1, body.length - 2);
+    str += node.source();
+    str += wrapLineBreak('}', 'BlockStatementClosingBrace');
+    return str;
+};
+*/
+
+
 TRANSFORMS.FunctionDeclaration = function(node){
-    var str = getIndent(node.indentLevel);
+    var str = '';
+
+    if (node.id.name === 'deep') {
+        console.log(node.type, node.id.name, node.indentLevel, node.parent.type, node.parent.indentLevel)
+    }
+    str += getIndent(node.indentLevel);
 
     // easier to regenarate the function declaration
     str += 'function ';
@@ -228,35 +166,39 @@ TRANSFORMS.FunctionDeclaration = function(node){
     // str += getSpaceBefore('FunctionDeclarationOpeningBrace');
 
     // console.log('======')
-    // console.log(str)
+    // console.log(node.id.name)
     // console.log('------')
     // console.log(node.body.source())
     // console.log('======')
 
-    str += node.body.source();
-    // str = str.substring(0, str.length - 2) + getSpaceBefore('FunctionDeclarationClosingBrace') + '}';
-
-    return str;
-};
-
-/* */
-TRANSFORMS.BlockStatement = function(node){
-    var str = getSpaceBefore('FunctionDeclarationOpeningBrace');
-    str += '{';
-    // console.log(node.type, '\n-----\n', node.source(), '\n======' )
-    var body = node.source();
-    // str += body.substring(1, body.length - 2);
+    // function.body is a BlockStatement but we have separate rules for it
+    var body = node.body.source();
+    // body = body.substring(1, body.length - 2);
+    str += getSpaceBefore('FunctionDeclarationOpeningBrace');
+    str += wrapLineBreak('{', 'FunctionDeclarationOpeningBrace');
     str += body;
     str += getSpaceBefore('FunctionDeclarationClosingBrace');
-    str += '}';
+    str += getIndent(node.indentLevel - 1);
+    str += wrapLineBreak('}', 'FunctionDeclarationClosingBrace');
+
     return str;
 };
-/* */
+
 
 TRANSFORMS.ReturnStatement = function(node){
     // console.log('=======')
     // console.log( get(node, 'parent.parent.id.name'), '"'+ node.argument.source() +'"')
-    var str = getIndent(node.indentLevel) + 'return ';
+    var str = '';
+
+    if (node.startToken.prev &&
+        (node.startToken.prev.loc.end.line === node.loc.start.line) &&
+        hasLineBreakBefore('ReturnStatement')
+       ) {
+           node.updateStartLine(1);
+           str += _br;
+    }
+
+    str += getIndent(node.indentLevel) + node.startToken.value +' ';
     switch (node.argument.type) {
         case 'Identifier':
             str += node.argument.name;
@@ -268,6 +210,22 @@ TRANSFORMS.ReturnStatement = function(node){
             str += node.argument.source();
             break;
     }
+
+    if (node.endToken) {
+        // avoid ASI
+        str += node.endToken.value;
+    }
+
+    if (node.nextToken &&
+        (node.nextToken.loc.start.line === node.loc.end.line) &&
+        hasLineBreakAfter('ReturnStatement')
+    ){
+        node.nextToken.loc.start.line += 1;
+        node.nextToken.loc.end.line += 1;
+        node.updateEndLine(1);
+        str += _br;
+    }
+
     return str;
 };
 
@@ -318,7 +276,8 @@ function removeIndent(str){
 function getIndentLevel(node) {
     var level = 0;
     while (node) {
-        if ( (!node.parent && _curOpts.indent[node.type]) || (node.parent && _curOpts.indent[node.parent.type] && (node.loc.start.line !== node.parent.loc.start.line) ) ) {
+        if ( (!node.parent && _curOpts.indent[node.type]) || (node.parent && _curOpts.indent[node.parent.type] ) ) {
+            // && (node.loc.start.line !== node.parent.loc.start.line)
             level++;
         }
         node = node.parent;
@@ -360,12 +319,20 @@ function wrapLineBreak(node, type){
 
 
 function getLineBreakBefore(type){
-    return _curOpts.lineBreak.before[type]? _curOpts.lineBreak.value : '';
+    return hasLineBreakBefore(type)? _curOpts.lineBreak.value : '';
 }
 
 
 function getLineBreakAfter(type){
-    return _curOpts.lineBreak.after[type]? _curOpts.lineBreak.value : '';
+    return hasLineBreakAfter(type)? _curOpts.lineBreak.value : '';
+}
+
+function hasLineBreakBefore(type){
+    return _curOpts.lineBreak.before[type];
+}
+
+function hasLineBreakAfter(type){
+    return _curOpts.lineBreak.after[type];
 }
 
 

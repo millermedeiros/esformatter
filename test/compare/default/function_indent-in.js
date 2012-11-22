@@ -4,14 +4,15 @@ function foo( x ){ return x; }
 // test space on params
 function bar(a,b,c){
 // test indentation
-return 'lorem'; // test comment
+return 'baz'; // test comment
 }
 
         // test nested fn
     function dolor(){
         // trailing white space       
+        // missing semicolon
         function fn(){      
-        function deep(){return 'foo';
+        function deep(){return 'very'
             }
             return deep();
         }
