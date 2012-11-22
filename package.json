@@ -1,0 +1,30 @@
+{
+  "name": "esbeautify",
+  "version": "0.0.0",
+  "description": "ECMAScript code beautifier/formatter",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/.bin/jasmine-node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/millermedeiros/esbeautify.git"
+  },
+  "keywords": [
+    "beautifier",
+    "beautify",
+    "formatter"
+  ],
+  "author": {
+    "name" : "Miller Medeiros",
+    "url" : "http://blog.millermedeiros.com/"
+  },
+  "devDependencies" : {
+    "jasmine-node" : "~1.0.26"
+  },
+  "dependencies" : {
+    "falafel" : "~0.1.4",
+    "amd-utils" : "~0.8"
+  },
+  "license": "MIT"
+}
