@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "esbeautify",
   "version": "0.0.0",
   "description": "ECMAScript code beautifier/formatter",
@@ -16,15 +17,15 @@
     "formatter"
   ],
   "author": {
-    "name" : "Miller Medeiros",
-    "url" : "http://blog.millermedeiros.com/"
+    "name": "Miller Medeiros",
+    "url": "http://blog.millermedeiros.com/"
   },
-  "devDependencies" : {
-    "jasmine-node" : "~1.0.26"
+  "devDependencies": {
+    "jasmine-node": "~1.0.26"
   },
-  "dependencies" : {
-    "esprima" : ">= 1.0 < 1.2",
-    "amd-utils" : "~0.8"
+  "dependencies": {
+    "amd-utils": "~0.8",
+    "es-ast-walker": "0.0.0"
   },
   "license": "MIT"
 }

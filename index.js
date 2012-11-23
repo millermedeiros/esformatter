@@ -3,7 +3,8 @@
 
 
 // using local version since I modified the code
-var _falafel = require('./lib/falafel');
+// var _falafel = require('./lib/falafel');
+var walker = require('es-ast-walker');
 
 var pluck = require('amd-utils/array/pluck');
 var merge = require('amd-utils/object/merge');
@@ -14,12 +15,6 @@ var get = require('amd-utils/object/get'); //TODO: delete, used only for debug
 
 // ---
 
-var PARSE_OPTS = {
-    comment : true,
-    loc : true,
-    raw : true,
-    tolerant : true
-};
 
 // using an object to store each transform method to avoid a long switch
 // statement, will be more organized in the long run.
@@ -109,8 +104,8 @@ exports.format = function(str, opts){
     // is responsible for re-indenting
     str = removeIndent(str);
     str = removeTrailingWhiteSpace(str);
+    str = walker.moonwalk(str, transformNode).toString();
     str = removeEmptyLines(str);
-    str = _falafel(str, PARSE_OPTS, addWhiteSpaces).toString();
 
     return str;
 };
@@ -122,7 +117,7 @@ exports.format = function(str, opts){
 // ========
 
 
-function addWhiteSpaces(node){
+function transformNode(node){
     node.indentLevel = (node.type in BYPASS_INDENT || (node.parent && node.parent.type in BYPASS_CHILD_INDENT))? null : getIndentLevel(node);
     if (node.type in TRANSFORMS) {
         node.update( TRANSFORMS[node.type](node) );
@@ -149,34 +144,25 @@ TRANSFORMS.BlockStatement = function(node){
 TRANSFORMS.FunctionDeclaration = function(node){
     var str = '';
 
-    if (node.id.name === 'deep') {
-        console.log(node.type, node.id.name, node.indentLevel, node.parent.type, node.parent.indentLevel)
-    }
     str += getIndent(node.indentLevel);
 
-    // easier to regenarate the function declaration
+    // easier to regenarate the function declaration than to parse tokens
     str += 'function ';
     str += wrapSpace(node.id.name, 'FunctionName');
     str += '(';
     str += getSpaceBefore('ParameterList');
+    // TODO: check comma first and multiple lines
     str += pluck(node.params, 'name').join( wrapSpace(',', 'ParameterComma') );
     str += getSpaceAfter('ParameterList');
     str += ')';
 
-    // str += getSpaceBefore('FunctionDeclarationOpeningBrace');
-
-    // console.log('======')
-    // console.log(node.id.name)
-    // console.log('------')
-    // console.log(node.body.source())
-    // console.log('======')
-
-    // function.body is a BlockStatement but we have separate rules for it
-    var body = node.body.source();
-    // body = body.substring(1, body.length - 2);
     str += getSpaceBefore('FunctionDeclarationOpeningBrace');
     str += wrapLineBreak('{', 'FunctionDeclarationOpeningBrace');
-    str += body;
+
+    // function.body is a BlockStatement but we have separate rules for it
+    var body = node.body.toString();
+    str += body.substring(1, body.length - 1);
+
     str += getSpaceBefore('FunctionDeclarationClosingBrace');
     str += getIndent(node.indentLevel - 1);
     str += wrapLineBreak('}', 'FunctionDeclarationClosingBrace');
@@ -186,44 +172,32 @@ TRANSFORMS.FunctionDeclaration = function(node){
 
 
 TRANSFORMS.ReturnStatement = function(node){
-    // console.log('=======')
-    // console.log( get(node, 'parent.parent.id.name'), '"'+ node.argument.source() +'"')
     var str = '';
+    var prevToken = node.getPrevToken();
 
-    if (node.startToken.prev &&
-        (node.startToken.prev.loc.end.line === node.loc.start.line) &&
+    if (prevToken && prevToken.type !== 'WhiteSpace' &&
+        (prevToken.loc.end.line === node.loc.start.line) &&
         hasLineBreakBefore('ReturnStatement')
        ) {
-           node.updateStartLine(1);
            str += _br;
     }
 
-    str += getIndent(node.indentLevel) + node.startToken.value +' ';
-    switch (node.argument.type) {
-        case 'Identifier':
-            str += node.argument.name;
-            break;
-        case 'Literal':
-            str += node.argument.raw;
-            break;
-        default:
-            str += node.argument.source();
-            break;
-    }
+    str += getIndent(node.indentLevel) + node.getStartToken().value +' ';
+    str += node.argument.toString();
+    // avoid ASI
+    str += node.getEndToken().value;
 
-    if (node.endToken) {
-        // avoid ASI
-        str += node.endToken.value;
-    }
-
-    if (node.nextToken &&
-        (node.nextToken.loc.start.line === node.loc.end.line) &&
-        hasLineBreakAfter('ReturnStatement')
-    ){
-        node.nextToken.loc.start.line += 1;
-        node.nextToken.loc.end.line += 1;
-        node.updateEndLine(1);
-        str += _br;
+    var nextToken = node.getNextToken();
+    if (nextToken && hasLineBreakAfter('ReturnStatement')) {
+        switch (nextToken.type) {
+            case 'LineComment':
+            case 'BlockComment':
+                break;
+            default:
+                if(nextToken.loc.start.line === node.loc.end.line) {
+                    str += _br;
+                }
+        }
     }
 
     return str;
@@ -244,7 +218,7 @@ TRANSFORMS.CallExpression = function(node){
             } else if (arg.type === 'Literal'){
                 return arg.raw;
             } else {
-                return arg.source();
+                return arg.toString();
             }
         });
         str += args.join( wrapSpace(',', 'ArgumentComma') );
