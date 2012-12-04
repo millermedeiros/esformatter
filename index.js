@@ -2,11 +2,16 @@
 "use strict";
 
 
-// using local version since I modified the code
-// var _falafel = require('./lib/falafel');
+// non-destructive changes to EcmaScript code using an "enhanced" AST for the
+// process, it updates the tokens in place and add/remove spaces & line breaks
+// based on user settings.
+// not using any kind of code rewrite based on string concatenation to avoid
+// breaking the program correctness and/or undesired side-effects.
+
+
+
 var walker = require('es-ast-walker');
 
-var pluck = require('amd-utils/array/pluck');
 var merge = require('amd-utils/object/merge');
 var repeat = require('amd-utils/string/repeat');
 
@@ -59,6 +64,7 @@ var DEFAULT_OPTS = {
         removeTrailing : true,
 
         before : {
+            BinaryExpressionOperator : true,
             FunctionDeclarationOpeningBrace : true,
             FunctionDeclarationClosingBrace : true,
             ParameterList : false,
@@ -68,6 +74,7 @@ var DEFAULT_OPTS = {
         },
 
         after : {
+            BinaryExpressionOperator : true,
             FunctionName : false,
             ParameterList : false,
             ParameterComma : true,
@@ -104,8 +111,8 @@ exports.format = function(str, opts){
     // is responsible for re-indenting
     str = removeIndent(str);
     str = removeTrailingWhiteSpace(str);
-    str = walker.moonwalk(str, transformNode).toString();
     str = removeEmptyLines(str);
+    str = walker.moonwalk(str, transformNode).toString();
 
     return str;
 };
@@ -119,121 +126,228 @@ exports.format = function(str, opts){
 
 function transformNode(node){
     node.indentLevel = (node.type in BYPASS_INDENT || (node.parent && node.parent.type in BYPASS_CHILD_INDENT))? null : getIndentLevel(node);
-    if (node.type in TRANSFORMS) {
-        node.update( TRANSFORMS[node.type](node) );
+
+    insertLineBreakBeforeNodeIfNeeded(node);
+
+    if (node.indentLevel) {
+        insertWhiteSpaceBeforeToken(node.startToken, getIndent(node.indentLevel));
     }
+
+    if (node.type in TRANSFORMS) {
+        TRANSFORMS[node.type](node);
+    }
+
+    insertLineBreakAfterNodeIfNeeded(node);
 }
 
 
 // ---
 
 
-/*
-TRANSFORMS.BlockStatement = function(node){
-    var str = '';
-    str += wrapLineBreak('{', 'BlockStatementClosingBrace');
-    // var body = node.source();
-    // str += body.substring(1, body.length - 2);
-    str += node.source();
-    str += wrapLineBreak('}', 'BlockStatementClosingBrace');
-    return str;
-};
-*/
+//TODO: abstract the white space and line break insertion even further
+//      it is really dumb to constantly check if it needs to be inserted
+//      maybe a config object will be able to process 99% of the cases
 
 
 TRANSFORMS.FunctionDeclaration = function(node){
-    var str = '';
+    insertWhiteSpaceAfterTokenIfNeeded(node.id.startToken, 'FunctionName');
 
-    str += getIndent(node.indentLevel);
-
-    // easier to regenarate the function declaration than to parse tokens
-    str += 'function ';
-    str += wrapSpace(node.id.name, 'FunctionName');
-    str += '(';
-    str += getSpaceBefore('ParameterList');
-    // TODO: check comma first and multiple lines
-    str += pluck(node.params, 'name').join( wrapSpace(',', 'ParameterComma') );
-    str += getSpaceAfter('ParameterList');
-    str += ')';
-
-    str += getSpaceBefore('FunctionDeclarationOpeningBrace');
-    str += wrapLineBreak('{', 'FunctionDeclarationOpeningBrace');
-
-    // function.body is a BlockStatement but we have separate rules for it
-    var body = node.body.toString();
-    str += body.substring(1, body.length - 1);
-
-    str += getSpaceBefore('FunctionDeclarationClosingBrace');
-    str += getIndent(node.indentLevel - 1);
-    str += wrapLineBreak('}', 'FunctionDeclarationClosingBrace');
-
-    return str;
-};
-
-
-TRANSFORMS.ReturnStatement = function(node){
-    var str = '';
-    var prevToken = node.getPrevToken();
-
-    if (prevToken && prevToken.type !== 'WhiteSpace' &&
-        (prevToken.loc.end.line === node.loc.start.line) &&
-        hasLineBreakBefore('ReturnStatement')
-       ) {
-           str += _br;
-    }
-
-    str += getIndent(node.indentLevel) + node.getStartToken().value +' ';
-    str += node.argument.toString();
-    // avoid ASI
-    str += node.getEndToken().value;
-
-    var nextToken = node.getNextToken();
-    if (nextToken && hasLineBreakAfter('ReturnStatement')) {
-        switch (nextToken.type) {
-            case 'LineComment':
-            case 'BlockComment':
-                break;
-            default:
-                if(nextToken.loc.start.line === node.loc.end.line) {
-                    str += _br;
-                }
-        }
-    }
-
-    return str;
-};
-
-
-TRANSFORMS.CallExpression = function(node){
-    var str = '';
-    str += getIndent(node.indentLevel);
-    str += node.callee.name;
-    str += '(';
-    var args = node['arguments'];
-    if (args.length) {
-        str += getSpaceBefore('ArgumentList');
-        args = args.map(function(arg){
-            if (arg.type === 'Identifier') {
-                return arg.name;
-            } else if (arg.type === 'Literal'){
-                return arg.raw;
-            } else {
-                return arg.toString();
+    if (node.params.length) {
+        insertWhiteSpaceBeforeTokenIfNeeded(node.params[0].startToken, 'ParameterList');
+        node.params.forEach(function(param){
+            if (param.startToken.next.value === ',') {
+                insertWhiteSpaceAroundTokenIfNeeded(param.startToken.next, 'ParameterComma');
             }
         });
-        str += args.join( wrapSpace(',', 'ArgumentComma') );
-        str += getSpaceAfter('ArgumentList');
+        insertWhiteSpaceAfterTokenIfNeeded(node.params[node.params.length - 1].endToken, 'ParameterList');
     }
-    str += ')';
-    return str;
+
+    insertLineBreakAroundTokenIfNeeded(node.body.startToken, 'FunctionDeclarationOpeningBrace');
+    insertLineBreakAroundTokenIfNeeded(node.body.endToken, 'FunctionDeclarationClosingBrace');
 };
 
+
+
+TRANSFORMS.BinaryExpression = function(node){
+    insertWhiteSpaceAfterTokenIfNeeded(node.startToken, 'BinaryExpressionOperator');
+    insertWhiteSpaceBeforeTokenIfNeeded(node.right.startToken, 'BinaryExpressionOperator');
+};
 
 
 
 // -------
 // HELPERS
 // =======
+
+
+function insertWhiteSpaceBeforeTokenIfNeeded(token, type){
+    if (needsSpaceBefore(type) && token.prev && token.prev.type !== 'WhiteSpace') {
+        insertWhiteSpaceBeforeToken(token, _curOpts.whiteSpace.value);
+    }
+}
+
+function insertWhiteSpaceAfterTokenIfNeeded(token, type){
+    if (needsSpaceAfter(type) && token.next && token.next.type !== 'WhiteSpace') {
+        insertWhiteSpaceAfterToken(token, _curOpts.whiteSpace.value);
+    }
+}
+
+function insertWhiteSpaceAroundTokenIfNeeded(token, type){
+    insertWhiteSpaceBeforeTokenIfNeeded(token, type);
+    insertWhiteSpaceAfterTokenIfNeeded(token, type);
+}
+
+
+function insertLineBreakBeforeNodeIfNeeded(node){
+    insertLineBreakBeforeTokenIfNeeded(node.startToken, node.type);
+}
+
+function insertLineBreakBeforeTokenIfNeeded(token, nodeType){
+    var prevToken = token.prev;
+    if (prevToken &&
+        prevToken.type !== 'WhiteSpace' &&
+        prevToken.type !== 'LineBreak' &&
+        (prevToken.loc.end.line === token.loc.start.line) &&
+        needsLineBreakBefore(nodeType)
+       ) {
+           insertLineBreakBeforeToken(token);
+    }
+}
+
+
+function insertLineBreakAfterNodeIfNeeded(node){
+    insertLineBreakAfterTokenIfNeeded(node.endToken, node.type);
+}
+
+
+function insertLineBreakAroundTokenIfNeeded(token, nodeType){
+    insertLineBreakBeforeTokenIfNeeded(token, nodeType);
+    insertLineBreakAfterTokenIfNeeded(token, nodeType);
+}
+
+
+function insertLineBreakAfterTokenIfNeeded(token, nodeType){
+    var nextToken = token.next;
+    if (needsLineBreakAfter(nodeType)) {
+        if (nextToken) {
+            switch (nextToken.type) {
+                case 'LineComment':
+                case 'BlockComment':
+                case 'LineBreak':
+                    break;
+                default:
+                    if(nextToken.loc.start.line === token.loc.end.line) {
+                        insertLineBreakBeforeToken(nextToken);
+                    }
+            }
+        } else {
+            insertLineBreakAfterToken(token);
+        }
+    }
+}
+
+
+// TODO: refactor node insertion and abstract it inside ast-walker
+
+function insertWhiteSpaceBeforeToken(token, value) {
+    var startRange = token.prev.range[1] + 1;
+    var startLine = token.prev.loc.end.line;
+    var startColumn = token.prev.loc.end.column;
+    var ws = {
+        type : 'WhiteSpace',
+        value : value,
+        range : [startRange, startRange + value.length],
+        loc : {
+            start : {
+                line : startLine,
+                column : startColumn
+            },
+            end : {
+                line : startLine,
+                column : startColumn + value.length
+            }
+        }
+    };
+    token.before(ws);
+    return ws;
+}
+
+
+function insertWhiteSpaceAfterToken(token, value) {
+    var startRange = token.range[1] + 1;
+    var startLine = token.loc.end.line;
+    var startColumn = token.loc.end.column;
+    var ws = {
+        type : 'WhiteSpace',
+        value : value,
+        range : [startRange, startRange + value.length],
+        loc : {
+            start : {
+                line : startLine,
+                column : startColumn
+            },
+            end : {
+                line : startLine,
+                column : startColumn + value.length
+            }
+        }
+    };
+    token.after(ws);
+    return ws;
+}
+
+
+function insertLineBreakBeforeToken(token){
+    var value = _curOpts.lineBreak.value;
+    var startRange = token.prev.range[1] + 1;
+    var endRange = startRange + value.length;
+    var startLine = token.prev.loc.end.line;
+    var startColumn = token.prev.loc.end.column;
+    var br = {
+        type : 'LineBreak',
+        value : value,
+        range : [startRange, endRange],
+        loc : {
+            start : {
+                line : startLine,
+                column : startColumn
+            },
+            end : {
+                line : startLine + 1,
+                column : startColumn + value.length
+            }
+        }
+    };
+    token.before(br);
+    return br;
+}
+
+function insertLineBreakAfterToken(token){
+    var value = _curOpts.lineBreak.value;
+    var startRange = token.range[1] + 1;
+    var endRange = startRange + value.length;
+    var startLine = token.loc.end.line;
+    var startColumn = token.loc.end.column;
+    var br = {
+        type : 'LineBreak',
+        value : value,
+        range : [startRange, endRange],
+        loc : {
+            start : {
+                line : startLine,
+                column : startColumn
+            },
+            end : {
+                line : startLine + 1,
+                column : startColumn + value.length
+            }
+        }
+    };
+    token.after(br);
+    return br;
+}
+
+
 
 // indent
 // ------
@@ -262,18 +376,14 @@ function getIndentLevel(node) {
 // white space
 // -----------
 
-function wrapSpace(node, type) {
-    return getSpaceBefore(type) + node + getSpaceAfter(type);
+
+function needsSpaceBefore(type){
+    return !!_curOpts.whiteSpace.before[type];
 }
 
 
-function getSpaceBefore(type){
-    return _curOpts.whiteSpace.before[type]? _curOpts.whiteSpace.value : '';
-}
-
-
-function getSpaceAfter(type) {
-    return _curOpts.whiteSpace.after[type]? _curOpts.whiteSpace.value : '';
+function needsSpaceAfter(type) {
+    return !!_curOpts.whiteSpace.after[type];
 }
 
 
@@ -287,26 +397,12 @@ function removeTrailingWhiteSpace(str){
 // line break
 // ----------
 
-function wrapLineBreak(node, type){
-    return getLineBreakBefore(type) + node + getLineBreakAfter(type);
+function needsLineBreakBefore(type){
+    return !!_curOpts.lineBreak.before[type];
 }
 
-
-function getLineBreakBefore(type){
-    return hasLineBreakBefore(type)? _curOpts.lineBreak.value : '';
-}
-
-
-function getLineBreakAfter(type){
-    return hasLineBreakAfter(type)? _curOpts.lineBreak.value : '';
-}
-
-function hasLineBreakBefore(type){
-    return _curOpts.lineBreak.before[type];
-}
-
-function hasLineBreakAfter(type){
-    return _curOpts.lineBreak.after[type];
+function needsLineBreakAfter(type){
+    return !!_curOpts.lineBreak.after[type];
 }
 
 

@@ -1,5 +1,5 @@
 
-var esbeauty = require('../index');
+var esformatter = require('../index');
 var _helpers = require('./helpers');
 
 var readFile    = _helpers.readFile;
@@ -12,18 +12,23 @@ var mkdir       = _helpers.mkdir;
 // ---
 
 
-describe('esbeauty.format()', function () {
+describe('esformatter.format()', function () {
 
     describe('default options', function () {
 
 
         describe('function', function () {
 
-            it('should indent function and add spaces around parameters and brackets', function () {
-                var id = 'default/function_indent';
-                var result = esbeauty.format( readIn(id) );
-                // expect( result ).toEqual( readOut(id) );
-                expect( result ).toEqual( '==fake==' );
+            it('should indent function and add spaces around parameters', function () {
+                var id = 'default/basic_function_indent';
+                var result = esformatter.format( readIn(id) );
+                expect( result ).toEqual( readOut(id) );
+            });
+
+            it('should indent nested functions and function calls', function () {
+                var id = 'default/mixed_function_indent';
+                var result = esformatter.format( readIn(id) );
+                expect( result ).toEqual( readOut(id) );
             });
 
         });

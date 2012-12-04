@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "esbeautify",
+  "name": "esformatter",
   "version": "0.0.0",
   "description": "ECMAScript code beautifier/formatter",
   "main": "index.js",
