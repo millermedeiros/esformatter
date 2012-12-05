@@ -25,7 +25,7 @@ describe('esformatter.format()', function () {
         _glob.sync( pattern ).forEach(function(fileName){
             var id = 'default/'+ _path.basename(fileName).slice(0, -6);
 
-            it('should indent and add white spaces accordingly: '+ id, function () {
+            it('indent and add white spaces - '+ id, function () {
                 var result = esformatter.format( readIn(id) );
                 expect( result ).to.equal( readOut(id) );
             });

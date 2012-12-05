@@ -13,3 +13,4 @@ ipsum({flag:true,other:false},789,'bar');
 var obj = {foo:"bar", 'lorem'   :  123,     
     dolor :new Date()
 , "re": /\w+/g}    ;
+

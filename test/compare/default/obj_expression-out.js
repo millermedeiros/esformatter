@@ -29,3 +29,4 @@ var obj = {
     dolor : new Date(),
     "re" : /\w+/g
 };
+

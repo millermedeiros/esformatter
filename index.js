@@ -23,7 +23,9 @@ var repeat = require('amd-utils/string/repeat');
 // using an object to store each transform method to avoid a long switch
 // statement, will be more organized in the long run and we could potentially
 // monkey-patch these methods in the future.
-var TRANSFORMS = {};
+var HOOKS = {};
+exports.hooks = HOOKS;
+
 
 // All supported options also default options)
 var DEFAULT_OPTS = {
@@ -31,7 +33,8 @@ var DEFAULT_OPTS = {
     indent : {
         value : '    ', // 4 spaces
         FunctionDeclaration : true,
-        ObjectExpression : true
+        ObjectExpression : true,
+        VariableDeclarator : false
     },
 
 
@@ -47,7 +50,10 @@ var DEFAULT_OPTS = {
             FunctionDeclarationOpeningBrace : false,
             ObjectExpressionClosingBrace : true,
             Property : true,
-            ReturnStatement : true
+            ReturnStatement : true,
+            VariableName : true,
+            VariableValue : false,
+            VariableDeclaration : true
         },
 
         after : {
@@ -76,7 +82,8 @@ var DEFAULT_OPTS = {
             LineComment : true,
             PropertyValue : true,
             ParameterComma : false,
-            ParameterList : false
+            ParameterList : false,
+            VariableValue : true
         },
 
         after : {
@@ -86,7 +93,9 @@ var DEFAULT_OPTS = {
             FunctionName : false,
             PropertyName : true,
             ParameterComma : true,
-            ParameterList : false
+            ParameterList : false,
+            VariableName : true,
+            VarToken : true
         }
     }
 
@@ -108,6 +117,13 @@ var BYPASS_CHILD_INDENT = {
     Property : true,
     ReturnStatement : true,
     VariableDeclarator : true
+};
+
+
+// some child nodes of nodes that usually bypass indent still need the closing
+// bracket indent
+var CLOSING_CHILD_INDENT = {
+    ObjectExpression : true
 };
 
 
@@ -173,10 +189,12 @@ function transformNode(node){
 
     if ( node.indentLevel ) {
         wsBefore(node.startToken, getIndent(node.indentLevel));
+    } else if (node.type in CLOSING_CHILD_INDENT) {
+        node.closingIndentLevel = getIndentLevel(node.parent);
     }
 
-    if (node.type in TRANSFORMS) {
-        TRANSFORMS[node.type](node);
+    if (node.type in exports.hooks) {
+        exports.hooks[node.type](node);
     }
 
     brAfterIfNeeded(node.endToken, node.type);
@@ -212,7 +230,7 @@ function processComments(node){
 //      maybe a config object will be able to process 99% of the cases
 
 
-TRANSFORMS.FunctionDeclaration = function(node){
+HOOKS.FunctionDeclaration = function(node){
     wsAfterIfNeeded(node.id.startToken, 'FunctionName');
 
     if (node.params.length) {
@@ -247,19 +265,20 @@ TRANSFORMS.FunctionDeclaration = function(node){
 
 
 
-TRANSFORMS.BinaryExpression = function(node){
+HOOKS.BinaryExpression = function(node){
     wsAfterIfNeeded(node.startToken, 'BinaryExpressionOperator');
     wsBeforeIfNeeded(node.right.startToken, 'BinaryExpressionOperator');
 };
 
 
-TRANSFORMS.CallExpression = function(node){
+
+HOOKS.CallExpression = function(node){
     var args = node['arguments'];
     if ( args.length ) {
         wsBeforeIfNeeded(args[0].startToken, 'ArgumentList');
         args.forEach(function(arg){
-            if (arg.startToken.next.value === ',') {
-                wsAroundIfNeeded(arg.startToken.next, 'ArgumentComma');
+            if (arg.endToken.next.value === ',') {
+                wsAroundIfNeeded(arg.endToken.next, 'ArgumentComma');
             }
         });
         wsAfterIfNeeded(args[args.length - 1].endToken, 'ArgumentList');
@@ -267,7 +286,8 @@ TRANSFORMS.CallExpression = function(node){
 };
 
 
-TRANSFORMS.ObjectExpression = function(node){
+
+HOOKS.ObjectExpression = function(node){
     if (! node.properties.length) return;
 
     brAroundIfNeeded(node.startToken, 'ObjectExpressionOpeningBrace');
@@ -276,7 +296,7 @@ TRANSFORMS.ObjectExpression = function(node){
         brBeforeIfNeeded(prop.startToken, 'Property');
         wsAfterIfNeeded(prop.key.endToken, 'PropertyName');
         var token = prop.endToken.next;
-        while (token && token.value !== ',' && token.value !== ')') {
+        while (token && token.value !== ',' && token.value !== '}') {
             // TODO: toggle behavior if comma-first
             if (token.type === 'LineBreak') {
                 token.remove();
@@ -288,6 +308,30 @@ TRANSFORMS.ObjectExpression = function(node){
     });
 
     brAroundIfNeeded(node.endToken, 'ObjectExpressionClosingBrace');
+
+    wsBefore(node.endToken, getIndent(node.closingIndentLevel));
+};
+
+
+
+HOOKS.VariableDeclaration = function(node){
+    node.declarations.forEach(function(declarator, i){
+        if (! i) {
+            removeAdjacentBefore(declarator.id.startToken, 'LineBreak');
+        } else {
+            brBeforeIfNeeded(declarator.id.startToken, 'VariableName');
+            wsBefore(declarator.id.startToken, getIndent(node.indentLevel + 1));
+        }
+
+        if (declarator.init) {
+            wsAfterIfNeeded(declarator.id.endToken, 'VariableName');
+            removeAdjacentBefore(declarator.init.startToken, 'LineBreak');
+            brBeforeIfNeeded(declarator.init.startToken, 'VariableValue');
+            wsBeforeIfNeeded(declarator.init.startToken, 'VariableValue');
+        }
+    });
+
+    wsAfterIfNeeded(node.startToken, 'VarToken');
 };
 
 
@@ -295,6 +339,15 @@ TRANSFORMS.ObjectExpression = function(node){
 // -------
 // HELPERS
 // =======
+
+
+function removeAdjacentBefore(token, type){
+    var prev = token.prev;
+    while (prev && prev.type === type) {
+        prev.remove();
+        prev = prev.prev;
+    }
+}
 
 
 function wsBeforeIfNeeded(token, type){
@@ -366,9 +419,10 @@ function brAfterIfNeeded(token, nodeType){
 // TODO: refactor node insertion and abstract it inside ast-walker
 
 function wsBefore(token, value) {
-    var startRange = token.prev.range[1] + 1;
-    var startLine = token.prev.loc.end.line;
-    var startColumn = token.prev.loc.end.column;
+    if (!value) return; // avoid inserting non-space
+    var startRange = token.range[0];
+    var startLine = token.loc.start.line;
+    var startColumn = token.loc.start.column;
     var ws = {
         type : 'WhiteSpace',
         value : value,
