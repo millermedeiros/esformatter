@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "esformatter",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "ECMAScript code beautifier/formatter",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "url": "http://blog.millermedeiros.com/"
   },
   "devDependencies": {
-    "mocha": "~1.7.3",
+    "mocha": "1.7.x",
     "expect.js": "~0.2.0",
     "glob" : "3.1.x"
   },
