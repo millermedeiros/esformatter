@@ -13,14 +13,14 @@ function bar(a, b, c) {
 function dolor() {
     // trailing white space
     // missing semicolon
-    function fn(){
-        function deep(){
+    function fn() {
+        function deep() {
             return 'very'
         }
         return deep();
     }
     // test invocation
-    setTimeout(fn,100);
+    setTimeout(fn, 100);
 }
 
 // invocation

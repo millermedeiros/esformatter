@@ -12,9 +12,9 @@ return 'baz'; // test comment
         // trailing white space       
         // missing semicolon
         function fn(){      
-        function deep(){return 'very'
+        function deep()   {return 'very'
             }
-            return deep();
+            return deep(   )  ;
         }
             // test invocation
             setTimeout(fn,100);

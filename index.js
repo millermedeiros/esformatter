@@ -15,7 +15,6 @@ var walker = require('es-ast-walker');
 var merge = require('amd-utils/object/merge');
 var repeat = require('amd-utils/string/repeat');
 
-var get = require('amd-utils/object/get'); //TODO: delete, used only for debug
 
 
 // ---
@@ -30,8 +29,7 @@ var DEFAULT_OPTS = {
 
     indent : {
         value : '    ', // 4 spaces
-        FunctionDeclaration : false,
-        BlockStatement : true
+        FunctionDeclaration : true
     },
 
 
@@ -40,21 +38,23 @@ var DEFAULT_OPTS = {
         keepEmptyLines : true,
 
         before : {
-            FunctionDeclaration : true,
-            FunctionDeclarationOpeningBrace : false,
-            FunctionDeclarationClosingBrace : true,
-            ReturnStatement : true,
             BlockStatement : false,
-            BlockStatementClosingBrace : false
+            BlockStatementClosingBrace : false,
+            FunctionDeclaration : true,
+            FunctionDeclarationClosingBrace : true,
+            FunctionDeclarationOpeningBrace : false,
+            Property : true,
+            ReturnStatement : true
         },
 
         after : {
-            FunctionDeclaration : false,
-            FunctionDeclarationOpeningBrace : true,
-            FunctionDeclarationClosingBrace : true,
-            ReturnStatement : true,
             BlockStatement : false,
-            BlockStatementClosingBrace : false
+            BlockStatementClosingBrace : false,
+            FunctionDeclaration : false,
+            FunctionDeclarationClosingBrace : true,
+            FunctionDeclarationOpeningBrace : true,
+            Property : true,
+            ReturnStatement : true
         }
     },
 
@@ -64,22 +64,23 @@ var DEFAULT_OPTS = {
         removeTrailing : true,
 
         before : {
-            BinaryExpressionOperator : true,
-            FunctionDeclarationOpeningBrace : true,
-            FunctionDeclarationClosingBrace : true,
-            ParameterList : false,
-            ParameterComma : false,
+            ArgumentComma : false,
             ArgumentList : false,
-            ArgumentComma : false
+            BinaryExpressionOperator : true,
+            FunctionDeclarationClosingBrace : true,
+            FunctionDeclarationOpeningBrace : true,
+            LineComment : true,
+            ParameterComma : false,
+            ParameterList : false
         },
 
         after : {
+            ArgumentComma : true,
+            ArgumentList : false,
             BinaryExpressionOperator : true,
             FunctionName : false,
-            ParameterList : false,
             ParameterComma : true,
-            ArgumentList : false,
-            ArgumentComma : true
+            ParameterList : false
         }
     }
 
@@ -88,11 +89,26 @@ var DEFAULT_OPTS = {
 
 // some nodes shouldn't be affected by indent rules, so we simply ignore them
 var BYPASS_INDENT = {
-    Identifier : true
+    Identifier : true,
+    Literal : true,
+    BlockStatement : true // child nodes already add indent
 };
 
+
+// some child nodes are already responsible for indentation
 var BYPASS_CHILD_INDENT = {
-    ReturnStatement : true
+    ReturnStatement : true,
+    ExpressionStatement : true
+};
+
+
+// no need for spaces before/after these tokens
+var UNNECESSARY_WHITE_SPACE = {
+    WhiteSpace : true,
+    LineBreak : true,
+    LineComment : true,
+    BlockComment : true,
+    Punctuator : true
 };
 
 
@@ -112,24 +128,41 @@ exports.format = function(str, opts){
     str = removeIndent(str);
     str = removeTrailingWhiteSpace(str);
     str = removeEmptyLines(str);
-    str = walker.moonwalk(str, transformNode).toString();
+
+    var ast = walker.parse(str);
+    sanitizeWhiteSpaces( ast.startToken );
+    walker.moonwalk(ast, transformNode);
+
+    str = ast.toString();
 
     return str;
 };
 
 
+function sanitizeWhiteSpaces(startToken) {
+    while (startToken) {
+        // remove unnecessary white spaces (this might not be the desired
+        // effect in some cases but for now it's simpler to do it like this)
+        if (startToken.type === 'WhiteSpace' && (
+            (startToken.prev && startToken.prev.type in UNNECESSARY_WHITE_SPACE) ||
+            (startToken.next && startToken.next.type in UNNECESSARY_WHITE_SPACE) )
+        ) {
+            startToken.remove();
+        }
+        startToken = startToken.next;
+    }
+}
 
-
-
-// ========
 
 
 function transformNode(node){
-    node.indentLevel = (node.type in BYPASS_INDENT || (node.parent && node.parent.type in BYPASS_CHILD_INDENT))? null : getIndentLevel(node);
+    node.indentLevel = (node.type in BYPASS_INDENT) || (node.parent && node.parent.type in BYPASS_CHILD_INDENT)? null : getIndentLevel(node);
 
-    insertLineBreakBeforeNodeIfNeeded(node);
+    insertLineBreakBeforeTokenIfNeeded(node.startToken, node.type);
 
-    if (node.indentLevel) {
+    processComments(node);
+
+    if ( node.indentLevel ) {
         insertWhiteSpaceBeforeToken(node.startToken, getIndent(node.indentLevel));
     }
 
@@ -137,11 +170,32 @@ function transformNode(node){
         TRANSFORMS[node.type](node);
     }
 
-    insertLineBreakAfterNodeIfNeeded(node);
+    insertLineBreakAfterTokenIfNeeded(node.endToken, node.type);
 }
 
 
-// ---
+function processComments(node){
+    var token = node.startToken;
+    var endToken = node.endToken;
+
+    while (token && token !== endToken) {
+        if (!token._processed && (token.type === 'LineComment' || token.type === 'BlockComment') ) {
+            insertWhiteSpaceBeforeTokenIfNeeded(token, token.type);
+            // need to add 1 since comment is a child of the node
+            var indentLevel = node.type !== 'Program'? node.indentLevel + 1 : node.indentLevel;
+            if (indentLevel && token.prev && token.prev.type === 'LineBreak') {
+                insertWhiteSpaceBeforeToken(token, getIndent(indentLevel));
+            }
+            // we avoid processing same comment multiple times
+            token._processed = true;
+        }
+        token = token.next;
+    }
+}
+
+
+
+// ====
 
 
 //TODO: abstract the white space and line break insertion even further
@@ -162,8 +216,24 @@ TRANSFORMS.FunctionDeclaration = function(node){
         insertWhiteSpaceAfterTokenIfNeeded(node.params[node.params.length - 1].endToken, 'ParameterList');
     }
 
+    // only insert space before if it doesn't break line otherwise we indent it
+    if (! needsLineBreakBefore('FunctionDeclarationOpeningBrace') ) {
+        insertWhiteSpaceBeforeTokenIfNeeded(node.body.startToken, 'FunctionDeclarationOpeningBrace');
+    } else {
+        insertWhiteSpaceBeforeToken(node.body.startToken, getIndent(node.indentLevel));
+    }
+
     insertLineBreakAroundTokenIfNeeded(node.body.startToken, 'FunctionDeclarationOpeningBrace');
+
+    if (!needsLineBreakBefore('FunctionDeclarationClosingBrace') ) {
+        insertWhiteSpaceBeforeTokenIfNeeded(node.body.endToken, 'FunctionDeclarationClosingBrace');
+    }
     insertLineBreakAroundTokenIfNeeded(node.body.endToken, 'FunctionDeclarationClosingBrace');
+
+
+    if (node.indentLevel) {
+        insertWhiteSpaceBeforeToken(node.body.endToken, getIndent(node.indentLevel));
+    }
 };
 
 
@@ -174,6 +244,38 @@ TRANSFORMS.BinaryExpression = function(node){
 };
 
 
+TRANSFORMS.CallExpression = function(node){
+    var args = node['arguments'];
+    if ( args.length ) {
+        insertWhiteSpaceBeforeTokenIfNeeded(args[0].startToken, 'ArgumentList');
+        args.forEach(function(arg){
+            if (arg.startToken.next.value === ',') {
+                insertWhiteSpaceAroundTokenIfNeeded(arg.startToken.next, 'ArgumentComma');
+            }
+        });
+        insertWhiteSpaceAfterTokenIfNeeded(args[args.length - 1].endToken, 'ArgumentList');
+    }
+};
+
+
+TRANSFORMS.ObjectExpression = function(node){
+    if (node.properties.length) {
+        node.properties.forEach(function(prop){
+            insertLineBreakBeforeTokenIfNeeded(prop.startToken, 'Property');
+            var token = prop.endToken.next;
+            while (token.value !== ',') {
+                // XXX: toggle behavior if comma-first
+                if (token.type === 'LineBreak') {
+                    token.remove();
+                }
+                token = token.next;
+            }
+            insertLineBreakAfterTokenIfNeeded(token, 'Property');
+        });
+    }
+};
+
+
 
 // -------
 // HELPERS
@@ -181,13 +283,13 @@ TRANSFORMS.BinaryExpression = function(node){
 
 
 function insertWhiteSpaceBeforeTokenIfNeeded(token, type){
-    if (needsSpaceBefore(type) && token.prev && token.prev.type !== 'WhiteSpace') {
+    if (needsSpaceBefore(type) && token.prev && token.prev.type !== 'WhiteSpace' && token.prev.type !== 'LineBreak') {
         insertWhiteSpaceBeforeToken(token, _curOpts.whiteSpace.value);
     }
 }
 
 function insertWhiteSpaceAfterTokenIfNeeded(token, type){
-    if (needsSpaceAfter(type) && token.next && token.next.type !== 'WhiteSpace') {
+    if (needsSpaceAfter(type) && token.next && token.next.type !== 'WhiteSpace' && token.next.type !== 'LineBreak') {
         insertWhiteSpaceAfterToken(token, _curOpts.whiteSpace.value);
     }
 }
@@ -198,25 +300,24 @@ function insertWhiteSpaceAroundTokenIfNeeded(token, type){
 }
 
 
-function insertLineBreakBeforeNodeIfNeeded(node){
-    insertLineBreakBeforeTokenIfNeeded(node.startToken, node.type);
-}
 
 function insertLineBreakBeforeTokenIfNeeded(token, nodeType){
     var prevToken = token.prev;
-    if (prevToken &&
-        prevToken.type !== 'WhiteSpace' &&
-        prevToken.type !== 'LineBreak' &&
-        (prevToken.loc.end.line === token.loc.start.line) &&
-        needsLineBreakBefore(nodeType)
-       ) {
-           insertLineBreakBeforeToken(token);
+    if ( needsLineBreakBefore(nodeType) ) {
+        if (prevToken) {
+            switch (prevToken.type) {
+                case 'LineBreak':
+                case 'WhiteSpace':
+                    break;
+                default:
+                    if (prevToken.loc.end.line === token.loc.start.line) {
+                    insertLineBreakBeforeToken(token);
+                }
+            }
+        } else {
+            insertLineBreakBeforeToken(token);
+        }
     }
-}
-
-
-function insertLineBreakAfterNodeIfNeeded(node){
-    insertLineBreakAfterTokenIfNeeded(node.endToken, node.type);
 }
 
 
@@ -237,7 +338,7 @@ function insertLineBreakAfterTokenIfNeeded(token, nodeType){
                     break;
                 default:
                     if(nextToken.loc.start.line === token.loc.end.line) {
-                        insertLineBreakBeforeToken(nextToken);
+                        insertLineBreakAfterToken(token);
                     }
             }
         } else {
@@ -299,10 +400,10 @@ function insertWhiteSpaceAfterToken(token, value) {
 
 function insertLineBreakBeforeToken(token){
     var value = _curOpts.lineBreak.value;
-    var startRange = token.prev.range[1] + 1;
+    var startRange = token.range[0];
     var endRange = startRange + value.length;
-    var startLine = token.prev.loc.end.line;
-    var startColumn = token.prev.loc.end.column;
+    var startLine = token.loc.start.line;
+    var startColumn = token.loc.start.column;
     var br = {
         type : 'LineBreak',
         value : value,
@@ -388,7 +489,7 @@ function needsSpaceAfter(type) {
 
 
 function removeTrailingWhiteSpace(str){
-    return _curOpts.whiteSpace.removeTrailing? str.replace(/\s+$/g, '') : str;
+    return _curOpts.whiteSpace.removeTrailing? str.replace(/[ \t]+$/gm, '') : str;
 }
 
 
