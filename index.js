@@ -21,7 +21,8 @@ var repeat = require('amd-utils/string/repeat');
 
 
 // using an object to store each transform method to avoid a long switch
-// statement, will be more organized in the long run.
+// statement, will be more organized in the long run and we could potentially
+// monkey-patch these methods in the future.
 var TRANSFORMS = {};
 
 // All supported options also default options)
@@ -29,7 +30,8 @@ var DEFAULT_OPTS = {
 
     indent : {
         value : '    ', // 4 spaces
-        FunctionDeclaration : true
+        FunctionDeclaration : true,
+        ObjectExpression : true
     },
 
 
@@ -43,6 +45,7 @@ var DEFAULT_OPTS = {
             FunctionDeclaration : true,
             FunctionDeclarationClosingBrace : true,
             FunctionDeclarationOpeningBrace : false,
+            ObjectExpressionClosingBrace : true,
             Property : true,
             ReturnStatement : true
         },
@@ -53,7 +56,8 @@ var DEFAULT_OPTS = {
             FunctionDeclaration : false,
             FunctionDeclarationClosingBrace : true,
             FunctionDeclarationOpeningBrace : true,
-            Property : true,
+            ObjectExpressionOpeningBrace : true,
+            Property : false,
             ReturnStatement : true
         }
     },
@@ -70,6 +74,7 @@ var DEFAULT_OPTS = {
             FunctionDeclarationClosingBrace : true,
             FunctionDeclarationOpeningBrace : true,
             LineComment : true,
+            PropertyValue : true,
             ParameterComma : false,
             ParameterList : false
         },
@@ -79,6 +84,7 @@ var DEFAULT_OPTS = {
             ArgumentList : false,
             BinaryExpressionOperator : true,
             FunctionName : false,
+            PropertyName : true,
             ParameterComma : true,
             ParameterList : false
         }
@@ -89,26 +95,29 @@ var DEFAULT_OPTS = {
 
 // some nodes shouldn't be affected by indent rules, so we simply ignore them
 var BYPASS_INDENT = {
+    BlockStatement : true, // child nodes already add indent
     Identifier : true,
-    Literal : true,
-    BlockStatement : true // child nodes already add indent
+    Literal : true
 };
 
 
 // some child nodes are already responsible for indentation
 var BYPASS_CHILD_INDENT = {
+    CallExpression : true,
+    ExpressionStatement : true,
+    Property : true,
     ReturnStatement : true,
-    ExpressionStatement : true
+    VariableDeclarator : true
 };
 
 
 // no need for spaces before/after these tokens
 var UNNECESSARY_WHITE_SPACE = {
-    WhiteSpace : true,
+    BlockComment : true,
     LineBreak : true,
     LineComment : true,
-    BlockComment : true,
-    Punctuator : true
+    Punctuator : true,
+    WhiteSpace : true
 };
 
 
@@ -158,19 +167,19 @@ function sanitizeWhiteSpaces(startToken) {
 function transformNode(node){
     node.indentLevel = (node.type in BYPASS_INDENT) || (node.parent && node.parent.type in BYPASS_CHILD_INDENT)? null : getIndentLevel(node);
 
-    insertLineBreakBeforeTokenIfNeeded(node.startToken, node.type);
+    brBeforeIfNeeded(node.startToken, node.type);
 
     processComments(node);
 
     if ( node.indentLevel ) {
-        insertWhiteSpaceBeforeToken(node.startToken, getIndent(node.indentLevel));
+        wsBefore(node.startToken, getIndent(node.indentLevel));
     }
 
     if (node.type in TRANSFORMS) {
         TRANSFORMS[node.type](node);
     }
 
-    insertLineBreakAfterTokenIfNeeded(node.endToken, node.type);
+    brAfterIfNeeded(node.endToken, node.type);
 }
 
 
@@ -180,11 +189,11 @@ function processComments(node){
 
     while (token && token !== endToken) {
         if (!token._processed && (token.type === 'LineComment' || token.type === 'BlockComment') ) {
-            insertWhiteSpaceBeforeTokenIfNeeded(token, token.type);
+            wsBeforeIfNeeded(token, token.type);
             // need to add 1 since comment is a child of the node
             var indentLevel = node.type !== 'Program'? node.indentLevel + 1 : node.indentLevel;
             if (indentLevel && token.prev && token.prev.type === 'LineBreak') {
-                insertWhiteSpaceBeforeToken(token, getIndent(indentLevel));
+                wsBefore(token, getIndent(indentLevel));
             }
             // we avoid processing same comment multiple times
             token._processed = true;
@@ -204,75 +213,81 @@ function processComments(node){
 
 
 TRANSFORMS.FunctionDeclaration = function(node){
-    insertWhiteSpaceAfterTokenIfNeeded(node.id.startToken, 'FunctionName');
+    wsAfterIfNeeded(node.id.startToken, 'FunctionName');
 
     if (node.params.length) {
-        insertWhiteSpaceBeforeTokenIfNeeded(node.params[0].startToken, 'ParameterList');
+        wsBeforeIfNeeded(node.params[0].startToken, 'ParameterList');
         node.params.forEach(function(param){
             if (param.startToken.next.value === ',') {
-                insertWhiteSpaceAroundTokenIfNeeded(param.startToken.next, 'ParameterComma');
+                wsAroundIfNeeded(param.startToken.next, 'ParameterComma');
             }
         });
-        insertWhiteSpaceAfterTokenIfNeeded(node.params[node.params.length - 1].endToken, 'ParameterList');
+        wsAfterIfNeeded(node.params[node.params.length - 1].endToken, 'ParameterList');
     }
 
     // only insert space before if it doesn't break line otherwise we indent it
     if (! needsLineBreakBefore('FunctionDeclarationOpeningBrace') ) {
-        insertWhiteSpaceBeforeTokenIfNeeded(node.body.startToken, 'FunctionDeclarationOpeningBrace');
+        wsBeforeIfNeeded(node.body.startToken, 'FunctionDeclarationOpeningBrace');
     } else {
-        insertWhiteSpaceBeforeToken(node.body.startToken, getIndent(node.indentLevel));
+        wsBefore(node.body.startToken, getIndent(node.indentLevel));
     }
 
-    insertLineBreakAroundTokenIfNeeded(node.body.startToken, 'FunctionDeclarationOpeningBrace');
+    brAroundIfNeeded(node.body.startToken, 'FunctionDeclarationOpeningBrace');
 
     if (!needsLineBreakBefore('FunctionDeclarationClosingBrace') ) {
-        insertWhiteSpaceBeforeTokenIfNeeded(node.body.endToken, 'FunctionDeclarationClosingBrace');
+        wsBeforeIfNeeded(node.body.endToken, 'FunctionDeclarationClosingBrace');
     }
-    insertLineBreakAroundTokenIfNeeded(node.body.endToken, 'FunctionDeclarationClosingBrace');
+    brAroundIfNeeded(node.body.endToken, 'FunctionDeclarationClosingBrace');
 
 
     if (node.indentLevel) {
-        insertWhiteSpaceBeforeToken(node.body.endToken, getIndent(node.indentLevel));
+        wsBefore(node.body.endToken, getIndent(node.indentLevel));
     }
 };
 
 
 
 TRANSFORMS.BinaryExpression = function(node){
-    insertWhiteSpaceAfterTokenIfNeeded(node.startToken, 'BinaryExpressionOperator');
-    insertWhiteSpaceBeforeTokenIfNeeded(node.right.startToken, 'BinaryExpressionOperator');
+    wsAfterIfNeeded(node.startToken, 'BinaryExpressionOperator');
+    wsBeforeIfNeeded(node.right.startToken, 'BinaryExpressionOperator');
 };
 
 
 TRANSFORMS.CallExpression = function(node){
     var args = node['arguments'];
     if ( args.length ) {
-        insertWhiteSpaceBeforeTokenIfNeeded(args[0].startToken, 'ArgumentList');
+        wsBeforeIfNeeded(args[0].startToken, 'ArgumentList');
         args.forEach(function(arg){
             if (arg.startToken.next.value === ',') {
-                insertWhiteSpaceAroundTokenIfNeeded(arg.startToken.next, 'ArgumentComma');
+                wsAroundIfNeeded(arg.startToken.next, 'ArgumentComma');
             }
         });
-        insertWhiteSpaceAfterTokenIfNeeded(args[args.length - 1].endToken, 'ArgumentList');
+        wsAfterIfNeeded(args[args.length - 1].endToken, 'ArgumentList');
     }
 };
 
 
 TRANSFORMS.ObjectExpression = function(node){
-    if (node.properties.length) {
-        node.properties.forEach(function(prop){
-            insertLineBreakBeforeTokenIfNeeded(prop.startToken, 'Property');
-            var token = prop.endToken.next;
-            while (token.value !== ',') {
-                // XXX: toggle behavior if comma-first
-                if (token.type === 'LineBreak') {
-                    token.remove();
-                }
-                token = token.next;
+    if (! node.properties.length) return;
+
+    brAroundIfNeeded(node.startToken, 'ObjectExpressionOpeningBrace');
+
+    node.properties.forEach(function(prop){
+        brBeforeIfNeeded(prop.startToken, 'Property');
+        wsAfterIfNeeded(prop.key.endToken, 'PropertyName');
+        var token = prop.endToken.next;
+        while (token && token.value !== ',' && token.value !== ')') {
+            // TODO: toggle behavior if comma-first
+            if (token.type === 'LineBreak') {
+                token.remove();
             }
-            insertLineBreakAfterTokenIfNeeded(token, 'Property');
-        });
-    }
+            token = token.next;
+        }
+        wsBeforeIfNeeded(prop.value.startToken, 'PropertyValue');
+        brAfterIfNeeded(prop.endToken, 'Property');
+    });
+
+    brAroundIfNeeded(node.endToken, 'ObjectExpressionClosingBrace');
 };
 
 
@@ -282,26 +297,26 @@ TRANSFORMS.ObjectExpression = function(node){
 // =======
 
 
-function insertWhiteSpaceBeforeTokenIfNeeded(token, type){
+function wsBeforeIfNeeded(token, type){
     if (needsSpaceBefore(type) && token.prev && token.prev.type !== 'WhiteSpace' && token.prev.type !== 'LineBreak') {
-        insertWhiteSpaceBeforeToken(token, _curOpts.whiteSpace.value);
+        wsBefore(token, _curOpts.whiteSpace.value);
     }
 }
 
-function insertWhiteSpaceAfterTokenIfNeeded(token, type){
+function wsAfterIfNeeded(token, type){
     if (needsSpaceAfter(type) && token.next && token.next.type !== 'WhiteSpace' && token.next.type !== 'LineBreak') {
-        insertWhiteSpaceAfterToken(token, _curOpts.whiteSpace.value);
+        wsAfter(token, _curOpts.whiteSpace.value);
     }
 }
 
-function insertWhiteSpaceAroundTokenIfNeeded(token, type){
-    insertWhiteSpaceBeforeTokenIfNeeded(token, type);
-    insertWhiteSpaceAfterTokenIfNeeded(token, type);
+function wsAroundIfNeeded(token, type){
+    wsBeforeIfNeeded(token, type);
+    wsAfterIfNeeded(token, type);
 }
 
 
 
-function insertLineBreakBeforeTokenIfNeeded(token, nodeType){
+function brBeforeIfNeeded(token, nodeType){
     var prevToken = token.prev;
     if ( needsLineBreakBefore(nodeType) ) {
         if (prevToken) {
@@ -311,23 +326,23 @@ function insertLineBreakBeforeTokenIfNeeded(token, nodeType){
                     break;
                 default:
                     if (prevToken.loc.end.line === token.loc.start.line) {
-                    insertLineBreakBeforeToken(token);
+                    brBefore(token);
                 }
             }
         } else {
-            insertLineBreakBeforeToken(token);
+            brBefore(token);
         }
     }
 }
 
 
-function insertLineBreakAroundTokenIfNeeded(token, nodeType){
-    insertLineBreakBeforeTokenIfNeeded(token, nodeType);
-    insertLineBreakAfterTokenIfNeeded(token, nodeType);
+function brAroundIfNeeded(token, nodeType){
+    brBeforeIfNeeded(token, nodeType);
+    brAfterIfNeeded(token, nodeType);
 }
 
 
-function insertLineBreakAfterTokenIfNeeded(token, nodeType){
+function brAfterIfNeeded(token, nodeType){
     var nextToken = token.next;
     if (needsLineBreakAfter(nodeType)) {
         if (nextToken) {
@@ -338,11 +353,11 @@ function insertLineBreakAfterTokenIfNeeded(token, nodeType){
                     break;
                 default:
                     if(nextToken.loc.start.line === token.loc.end.line) {
-                        insertLineBreakAfterToken(token);
+                        brAfter(token);
                     }
             }
         } else {
-            insertLineBreakAfterToken(token);
+            brAfter(token);
         }
     }
 }
@@ -350,7 +365,7 @@ function insertLineBreakAfterTokenIfNeeded(token, nodeType){
 
 // TODO: refactor node insertion and abstract it inside ast-walker
 
-function insertWhiteSpaceBeforeToken(token, value) {
+function wsBefore(token, value) {
     var startRange = token.prev.range[1] + 1;
     var startLine = token.prev.loc.end.line;
     var startColumn = token.prev.loc.end.column;
@@ -374,7 +389,7 @@ function insertWhiteSpaceBeforeToken(token, value) {
 }
 
 
-function insertWhiteSpaceAfterToken(token, value) {
+function wsAfter(token, value) {
     var startRange = token.range[1] + 1;
     var startLine = token.loc.end.line;
     var startColumn = token.loc.end.column;
@@ -398,7 +413,7 @@ function insertWhiteSpaceAfterToken(token, value) {
 }
 
 
-function insertLineBreakBeforeToken(token){
+function brBefore(token){
     var value = _curOpts.lineBreak.value;
     var startRange = token.range[0];
     var endRange = startRange + value.length;
@@ -423,7 +438,7 @@ function insertLineBreakBeforeToken(token){
     return br;
 }
 
-function insertLineBreakAfterToken(token){
+function brAfter(token){
     var value = _curOpts.lineBreak.value;
     var startRange = token.range[1] + 1;
     var endRange = startRange + value.length;
