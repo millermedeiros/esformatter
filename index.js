@@ -43,8 +43,10 @@ var DEFAULT_OPTS = {
         keepEmptyLines : true,
 
         before : {
+            AssignmentExpression : true,
             BlockStatement : false,
             BlockStatementClosingBrace : false,
+            CallExpression : true,
             FunctionDeclaration : true,
             FunctionDeclarationClosingBrace : true,
             FunctionDeclarationOpeningBrace : false,
@@ -57,8 +59,10 @@ var DEFAULT_OPTS = {
         },
 
         after : {
+            AssignmentExpression : true,
             BlockStatement : false,
             BlockStatementClosingBrace : false,
+            CallExpression : true,
             FunctionDeclaration : false,
             FunctionDeclarationClosingBrace : true,
             FunctionDeclarationOpeningBrace : true,
@@ -76,6 +80,7 @@ var DEFAULT_OPTS = {
         before : {
             ArgumentComma : false,
             ArgumentList : false,
+            AssignmentOperator : true,
             BinaryExpressionOperator : true,
             FunctionDeclarationClosingBrace : true,
             FunctionDeclarationOpeningBrace : true,
@@ -89,6 +94,7 @@ var DEFAULT_OPTS = {
         after : {
             ArgumentComma : true,
             ArgumentList : false,
+            AssignmentOperator : true,
             BinaryExpressionOperator : true,
             FunctionName : false,
             PropertyName : true,
@@ -134,6 +140,13 @@ var UNNECESSARY_WHITE_SPACE = {
     LineComment : true,
     Punctuator : true,
     WhiteSpace : true
+};
+
+
+// tokens that only break line for special reasons
+var BYPASS_AUTOMATIC_LINE_BREAK = {
+    CallExpression : true,
+    AssignmentExpression : true
 };
 
 
@@ -183,7 +196,9 @@ function sanitizeWhiteSpaces(startToken) {
 function transformNode(node){
     node.indentLevel = (node.type in BYPASS_INDENT) || (node.parent && node.parent.type in BYPASS_CHILD_INDENT)? null : getIndentLevel(node);
 
-    brBeforeIfNeeded(node.startToken, node.type);
+    if (! (node.type in BYPASS_AUTOMATIC_LINE_BREAK)) {
+        brBeforeIfNeeded(node.startToken, node.type);
+    }
 
     processComments(node);
 
@@ -197,7 +212,9 @@ function transformNode(node){
         exports.hooks[node.type](node);
     }
 
-    brAfterIfNeeded(node.endToken, node.type);
+    if (! (node.type in BYPASS_AUTOMATIC_LINE_BREAK)) {
+        brAfterIfNeeded(node.endToken, node.type);
+    }
 }
 
 
@@ -209,7 +226,7 @@ function processComments(node){
         if (!token._processed && (token.type === 'LineComment' || token.type === 'BlockComment') ) {
             wsBeforeIfNeeded(token, token.type);
             // need to add 1 since comment is a child of the node
-            var indentLevel = node.type !== 'Program'? node.indentLevel + 1 : node.indentLevel;
+            var indentLevel = node.type !== 'Program' && node.type !== 'ExpressionStatement'? node.indentLevel + 1 : node.indentLevel;
             if (indentLevel && token.prev && token.prev.type === 'LineBreak') {
                 wsBefore(token, getIndent(indentLevel));
             }
@@ -283,6 +300,16 @@ HOOKS.CallExpression = function(node){
         });
         wsAfterIfNeeded(args[args.length - 1].endToken, 'ArgumentList');
     }
+
+    var gp = node.parent.parent;
+    if (gp && (gp.type === 'Program' || gp.type === 'BlockStatement')) {
+        brBeforeIfNeeded(node.startToken, 'CallExpression');
+        if (node.endToken.next && node.endToken.next.value === ';') {
+            brAfterIfNeeded(node.endToken.next, 'CallExpression');
+        } else {
+            brAfterIfNeeded(node.endToken, 'CallExpression');
+        }
+    }
 };
 
 
@@ -335,6 +362,24 @@ HOOKS.VariableDeclaration = function(node){
 };
 
 
+HOOKS.AssignmentExpression = function(node){
+    removeAdjacentAfter(node.left.endToken, 'LineBreak');
+    removeAdjacentBefore(node.right.startToken, 'LineBreak');
+
+    wsAfterIfNeeded( node.left.endToken, 'AssignmentOperator' );
+    wsBeforeIfNeeded( node.right.startToken, 'AssignmentOperator' );
+
+    var gp = node.parent.parent;
+    if (gp && (gp.type === 'Program' || gp.type === 'BlockStatement') ){
+        brBeforeIfNeeded(node.startToken, 'AssignmentExpression');
+        if (node.nextToken && node.nextToken.value === ';') {
+            brAfterIfNeeded(node.nextToken, 'AssignmentExpression');
+        } else {
+            brAfterIfNeeded(node.endToken, 'AssignmentExpression');
+        }
+    }
+};
+
 
 // -------
 // HELPERS
@@ -346,6 +391,15 @@ function removeAdjacentBefore(token, type){
     while (prev && prev.type === type) {
         prev.remove();
         prev = prev.prev;
+    }
+}
+
+
+function removeAdjacentAfter(token, type){
+    var next = token.next;
+    while (next && next.type === type) {
+        next.remove();
+        next = next.next;
     }
 }
 
