@@ -85,6 +85,7 @@ var DEFAULT_OPTS = {
             FunctionDeclarationClosingBrace : true,
             FunctionDeclarationOpeningBrace : true,
             LineComment : true,
+            LogicalExpressionOperator : true,
             PropertyValue : true,
             ParameterComma : false,
             ParameterList : false,
@@ -97,6 +98,7 @@ var DEFAULT_OPTS = {
             AssignmentOperator : true,
             BinaryExpressionOperator : true,
             FunctionName : false,
+            LogicalExpressionOperator : true,
             PropertyName : true,
             ParameterComma : true,
             ParameterList : false,
@@ -382,9 +384,28 @@ HOOKS.AssignmentExpression = function(node){
 };
 
 
+HOOKS.LogicalExpression = function(node){
+    var operator = node.left.endToken.next;
+    if (operator.value === ')') {
+        operator = operator.next;
+    }
+    wsAroundIfNeeded(operator, 'LogicalExpressionOperator');
+};
+
+
 // -------
 // HELPERS
 // =======
+
+
+function removeBrBetween(startToken, endToken){
+    while(startToken !== endToken) {
+        if (startToken.type === 'LineBreak') {
+            startToken.remove();
+        }
+        startToken = startToken.next;
+    }
+}
 
 
 function removeAdjacentBefore(token, type){
