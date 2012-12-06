@@ -82,6 +82,7 @@ var DEFAULT_OPTS = {
             ArgumentList : false,
             AssignmentOperator : true,
             BinaryExpressionOperator : true,
+            CommaOperator : false,
             FunctionDeclarationClosingBrace : true,
             FunctionDeclarationOpeningBrace : true,
             LineComment : true,
@@ -97,6 +98,7 @@ var DEFAULT_OPTS = {
             ArgumentList : false,
             AssignmentOperator : true,
             BinaryExpressionOperator : true,
+            CommaOperator : true,
             FunctionName : false,
             LogicalExpressionOperator : true,
             PropertyName : true,
@@ -391,6 +393,21 @@ HOOKS.LogicalExpression = function(node){
     }
     wsAroundIfNeeded(operator, 'LogicalExpressionOperator');
 };
+
+
+
+HOOKS.SequenceExpression = function(node){
+    node.expressions.forEach(function(expr, i){
+        if (i) {
+            var operator = expr.startToken.prev;
+            while (operator.value !== ',') {
+                operator = operator.prev;
+            }
+            wsAroundIfNeeded(operator, 'CommaOperator');
+        }
+    });
+};
+
 
 
 // -------
