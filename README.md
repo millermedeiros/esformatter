@@ -1,6 +1,7 @@
-# esbeauty
+# esformatter
 
 ECMAScript code beautifier/formatter.
+
 
 
 ## Why?
@@ -16,15 +17,25 @@ This tool could also be reused by other node.js libs like
 (so each lib has a single responsibility).
 
 
+
 ## How?
 
-This tool uses [falafel](https://github.com/substack/node-falafel) (based on
-Esprima) to recursively parse the code and transform it *in place*.
+This tool uses [rocambole](https://github.com/millermedeiros/rocambole) (based
+on Esprima) to recursively parse the tokens and transform it *in place*.
+
+
+
+## Important
+
+This tool is still on early development and is missing support for many
+important features.
+
 
 
 ## Popular Alternatives
 
  - [jsbeautifier](http://jsbeautifier.org/)
+
 
 
 ## License

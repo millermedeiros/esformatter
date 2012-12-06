@@ -10,7 +10,7 @@
 
 
 
-var walker = require('es-ast-walker');
+var walker = require('rocambole');
 
 var merge = require('amd-utils/object/merge');
 var repeat = require('amd-utils/string/repeat');

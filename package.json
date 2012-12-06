@@ -1,7 +1,6 @@
 {
-  "private": true,
   "name": "esformatter",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "ECMAScript code beautifier/formatter",
   "main": "index.js",
   "scripts": {
@@ -9,12 +8,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/millermedeiros/esbeautify.git"
+    "url": "https://github.com/millermedeiros/esformatter.git"
+  },
+  "bugs" : {
+    "url" : "https://github.com/millermedeiros/esformatter/issues"
   },
   "keywords": [
     "beautifier",
     "beautify",
-    "formatter"
+    "formatter",
+    "ecmascript",
+    "javascript",
+    "syntax",
+    "source",
+    "esprima"
   ],
   "author": {
     "name": "Miller Medeiros",
@@ -27,7 +34,7 @@
   },
   "dependencies": {
     "amd-utils": "~0.8",
-    "es-ast-walker": "0.0.0"
+    "rocambole": "~0.1"
   },
   "license": "MIT"
 }
