@@ -372,8 +372,9 @@ HOOKS.AssignmentExpression = function(node){
     var gp = node.parent.parent;
     if (gp && (gp.type === 'Program' || gp.type === 'BlockStatement') ){
         brBeforeIfNeeded(node.startToken, 'AssignmentExpression');
-        if (node.nextToken && node.nextToken.value === ';') {
-            brAfterIfNeeded(node.nextToken, 'AssignmentExpression');
+        var nextToken = node.endToken.next;
+        if (nextToken && nextToken.value === ';') {
+            brAfterIfNeeded(nextToken, 'AssignmentExpression');
         } else {
             brAfterIfNeeded(node.endToken, 'AssignmentExpression');
         }
@@ -426,15 +427,11 @@ function wsAroundIfNeeded(token, type){
 function brBeforeIfNeeded(token, nodeType){
     var prevToken = token.prev;
     if ( needsLineBreakBefore(nodeType) ) {
-        if (prevToken) {
-            switch (prevToken.type) {
-                case 'LineBreak':
-                case 'WhiteSpace':
-                    break;
-                default:
-                    if (prevToken.loc.end.line === token.loc.start.line) {
-                    brBefore(token);
-                }
+        if (prevToken){
+            if(prevToken.type !== 'LineBreak' &&
+               prevToken.type !== 'WhiteSpace' &&
+               prevToken.loc.end.line === token.loc.start.line) {
+                brBefore(token);
             }
         } else {
             brBefore(token);
