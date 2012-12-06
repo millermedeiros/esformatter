@@ -10,11 +10,3 @@ foo && bar
 ;((a && b) || c) || d
 
 
-// "!" is actually a UnaryExpression but we use it as logical
-!a
-!!foo
-!(foo);
-;(!!foo)
-!(!foo);
-!!(!foo)
-
