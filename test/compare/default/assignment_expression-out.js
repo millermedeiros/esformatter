@@ -6,7 +6,21 @@ dolor = "amet"
 maecennas += "ullamcor"
 // end multi-line
 
-lorem >>>= 0
 
 foo = fn(1);
+
+
+// assignment operators
+
+x += y
+x -= y
+x *= y
+x /= y
+x %= y
+x <<= y
+x >>= y
+x >>>= y
+x &= y
+x ^= y
+x |= y
 
