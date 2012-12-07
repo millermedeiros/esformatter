@@ -1,0 +1,19 @@
+{
+    "lineBreak" : {
+        "before" : {
+            "AssignmentExpression" : false
+        },
+        "after" : {
+            "AssignmentExpression" : false
+        }
+    },
+    "whiteSpace" : {
+        "before" : {
+            "AssignmentOperator" : false
+        },
+        "after" : {
+            "AssignmentOperator" : false
+        }
+    }
+}
+

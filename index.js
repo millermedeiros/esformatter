@@ -45,7 +45,6 @@ var DEFAULT_OPTS = {
         before : {
             AssignmentExpression : true,
             BlockStatement : false,
-            BlockStatementClosingBrace : false,
             CallExpression : true,
             FunctionDeclaration : true,
             FunctionDeclarationClosingBrace : true,
@@ -61,7 +60,6 @@ var DEFAULT_OPTS = {
         after : {
             AssignmentExpression : true,
             BlockStatement : false,
-            BlockStatementClosingBrace : false,
             CallExpression : true,
             FunctionDeclaration : false,
             FunctionDeclarationClosingBrace : true,
@@ -104,6 +102,7 @@ var DEFAULT_OPTS = {
             PropertyName : true,
             ParameterComma : true,
             ParameterList : false,
+            SemiColon : true,
             VariableName : true,
             VarToken : true
         }
@@ -174,6 +173,7 @@ exports.format = function(str, opts){
     var ast = walker.parse(str);
     sanitizeWhiteSpaces( ast.startToken );
     walker.moonwalk(ast, transformNode);
+    processTokens(ast);
 
     str = ast.toString();
 
@@ -243,6 +243,19 @@ function processComments(node){
 
 
 
+function processTokens(ast) {
+    if (! needsSpaceAfter('SemiColon') && ! needsSpaceBefore('SemiColon')) return;
+    var token = ast.startToken;
+    while (token) {
+        //XXX: unsure about this behavior
+        if (token.value === ';' && token.next && token.next.type !== 'Punctuator') {
+            wsAroundIfNeeded(token, 'SemiColon');
+        }
+        token = token.next;
+    }
+}
+
+
 // ====
 
 
@@ -269,6 +282,10 @@ HOOKS.FunctionDeclaration = function(node){
         wsBeforeIfNeeded(node.body.startToken, 'FunctionDeclarationOpeningBrace');
     } else {
         wsBefore(node.body.startToken, getIndent(node.indentLevel));
+    }
+
+    if (! needsLineBreakAfter('FunctionDeclarationOpeningBrace') ) {
+        wsAfterIfNeeded(node.body.startToken, 'FunctionDeclarationOpeningBrace');
     }
 
     brAroundIfNeeded(node.body.startToken, 'FunctionDeclarationOpeningBrace');

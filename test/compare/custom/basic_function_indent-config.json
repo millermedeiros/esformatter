@@ -1,0 +1,32 @@
+{
+    "indent" : {
+        "FunctionDeclaration" : false
+    },
+    "lineBreak" : {
+        "before" : {
+            "FunctionDeclarationOpeningBrace" : false,
+            "FunctionDeclarationClosingBrace" : false,
+            "ReturnStatement" : false
+        },
+        "after" : {
+            "FunctionDeclarationOpeningBrace" : false,
+            "FunctionDeclarationClosingBrace" : false
+        }
+    },
+    "whiteSpace" : {
+        "before" : {
+            "ParameterList" : true,
+            "ParameterComma" : false,
+            "ParameterList" : true,
+            "FunctionDeclarationOpeningBrace" : false,
+            "FunctionDeclarationClosingBrace" : true
+        },
+        "after" : {
+            "FunctionName" : true,
+            "ParameterComma" : false,
+            "ParameterList" : true,
+            "FunctionDeclarationOpeningBrace" : true
+        }
+    }
+}
+

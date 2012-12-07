@@ -11,7 +11,6 @@ var _path = require('path');
 // ---
 
 
-exports.SHOULD_PURGE = true;
 exports.COMPARE_FOLDER = _path.join(__dirname, 'compare');
 
 
@@ -25,6 +24,12 @@ exports.readIn = function(id){
 
 exports.readOut = function(id){
     return exports.readFile( _path.join(exports.COMPARE_FOLDER, id +'-out.js') );
+};
+
+
+exports.readConfig = function(id){
+    var filePath = _path.join(exports.COMPARE_FOLDER, id +'-config.json');
+    return JSON.parse( exports.readFile(filePath) +'\n' );
 };
 
 
