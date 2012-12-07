@@ -207,7 +207,7 @@ function transformNode(node){
     processComments(node);
 
     if ( node.indentLevel ) {
-        wsBefore(node.startToken, getIndent(node.indentLevel));
+        indent(node.startToken, node.indentLevel);
     } else if (node.type in CLOSING_CHILD_INDENT) {
         node.closingIndentLevel = getIndentLevel(node.parent);
     }
@@ -232,7 +232,7 @@ function processComments(node){
             // need to add 1 since comment is a child of the node
             var indentLevel = node.type !== 'Program' && node.type !== 'ExpressionStatement'? node.indentLevel + 1 : node.indentLevel;
             if (indentLevel && token.prev && token.prev.type === 'LineBreak') {
-                wsBefore(token, getIndent(indentLevel));
+                indent(token, indentLevel);
             }
             // we avoid processing same comment multiple times
             token._processed = true;
@@ -281,7 +281,7 @@ HOOKS.FunctionDeclaration = function(node){
     if (! needsLineBreakBefore('FunctionDeclarationOpeningBrace') ) {
         wsBeforeIfNeeded(node.body.startToken, 'FunctionDeclarationOpeningBrace');
     } else {
-        wsBefore(node.body.startToken, getIndent(node.indentLevel));
+        indent(node.body.startToken, node.indentLevel);
     }
 
     if (! needsLineBreakAfter('FunctionDeclarationOpeningBrace') ) {
@@ -297,7 +297,7 @@ HOOKS.FunctionDeclaration = function(node){
 
 
     if (node.indentLevel) {
-        wsBefore(node.body.endToken, getIndent(node.indentLevel));
+        indent(node.body.endToken, node.indentLevel);
     }
 };
 
@@ -357,7 +357,7 @@ HOOKS.ObjectExpression = function(node){
 
     brAroundIfNeeded(node.endToken, 'ObjectExpressionClosingBrace');
 
-    wsBefore(node.endToken, getIndent(node.closingIndentLevel));
+    indent(node.endToken, node.closingIndentLevel);
 };
 
 
@@ -368,7 +368,7 @@ HOOKS.VariableDeclaration = function(node){
             removeAdjacentBefore(declarator.id.startToken, 'LineBreak');
         } else {
             brBeforeIfNeeded(declarator.id.startToken, 'VariableName');
-            wsBefore(declarator.id.startToken, getIndent(node.indentLevel + 1));
+            indent(declarator.id.startToken, node.indentLevel + 1);
         }
 
         if (declarator.init) {
@@ -461,13 +461,19 @@ function removeAdjacentAfter(token, type){
 
 
 function wsBeforeIfNeeded(token, type){
-    if (needsSpaceBefore(type) && token.prev && token.prev.type !== 'WhiteSpace' && token.prev.type !== 'LineBreak') {
+    var prev = token.prev;
+    if (needsSpaceBefore(type) && prev &&
+        prev.type !== 'WhiteSpace' &&
+        prev.type !== 'LineBreak') {
         wsBefore(token, _curOpts.whiteSpace.value);
     }
 }
 
 function wsAfterIfNeeded(token, type){
-    if (needsSpaceAfter(type) && token.next && token.next.type !== 'WhiteSpace' && token.next.type !== 'LineBreak') {
+    var next = token.next;
+    if (needsSpaceAfter(type) && next &&
+        next.type !== 'WhiteSpace' &&
+        next.type !== 'LineBreak') {
         wsAfter(token, _curOpts.whiteSpace.value);
     }
 }
@@ -628,14 +634,23 @@ function brAfter(token){
 // indent
 // ------
 
+function indent(token, indentLevel) {
+    if (indentLevel && indentLevel > 0){
+        wsBefore(token, getIndent(indentLevel));
+    }
+}
+
+
 function getIndent(indentLevel) {
     indentLevel = Math.max(indentLevel, 0);
     return indentLevel? repeat(_curOpts.indent.value, indentLevel) : '';
 }
 
+
 function removeIndent(str){
     return str.replace(/^[ \t]+/gm, '');
 }
+
 
 function getIndentLevel(node) {
     var level = 0;
@@ -648,6 +663,8 @@ function getIndentLevel(node) {
     }
     return level;
 }
+
+
 
 // white space
 // -----------
