@@ -4,14 +4,14 @@
   "description": "ECMAScript code beautifier/formatter",
   "main": "index.js",
   "scripts": {
-    "test": "node ./node_modules/.bin/mocha test"
+    "test": "node ./node_modules/.bin/istanbul test test/runner.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/millermedeiros/esformatter.git"
   },
-  "bugs" : {
-    "url" : "https://github.com/millermedeiros/esformatter/issues"
+  "bugs": {
+    "url": "https://github.com/millermedeiros/esformatter/issues"
   },
   "keywords": [
     "beautifier",
@@ -28,9 +28,10 @@
     "url": "http://blog.millermedeiros.com/"
   },
   "devDependencies": {
-    "mocha": "1.7.x",
-    "expect.js": "~0.2.0",
-    "glob" : "3.1.x"
+    "mocha": "1.7",
+    "expect.js": "0.2",
+    "glob": "3.1",
+    "istanbul": "~0.1.23"
   },
   "dependencies": {
     "amd-utils": "~0.8",

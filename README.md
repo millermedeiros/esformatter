@@ -82,6 +82,8 @@ messages. See [mocha/issues/657](https://github.com/visionmedia/mocha/pull/657)
 and [expect.js/issues/34](https://github.com/LearnBoost/expect.js/pull/34) for
 more info.
 
+To check code coverage run `npm test --coverage`.
+
 
 
 
