@@ -28,6 +28,7 @@
     "url": "http://blog.millermedeiros.com/"
   },
   "devDependencies": {
+    "esprima": "1.0",
     "mocha": "1.7",
     "expect.js": "0.2",
     "glob": "3.1",

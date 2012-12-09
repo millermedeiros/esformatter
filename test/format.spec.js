@@ -2,6 +2,7 @@
 /*global describe:false, it:false*/
 "use strict";
 
+var esprima = require('esprima');
 var expect = require('expect.js');
 var _glob = require('glob');
 var _path = require('path');
@@ -31,6 +32,10 @@ describe('esformatter.format()', function () {
             it(id, function () {
                 var result = esformatter.format( readIn(id) );
                 expect( result ).to.equal( readOut(id) );
+                // result should be valid JS
+                expect(function(){
+                    esprima.parse(result);
+                }).not.to.throwException();
             });
         });
 
@@ -45,6 +50,10 @@ describe('esformatter.format()', function () {
             it(id, function () {
                 var result = esformatter.format( readIn(id), readConfig(id) );
                 expect( result ).to.equal( readOut(id) );
+                // result should be valid JS
+                expect(function(){
+                    esprima.parse(result);
+                }).not.to.throwException();
             });
         });
 
