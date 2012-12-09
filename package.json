@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "amd-utils": "~0.8",
-    "rocambole": "~0.1"
+    "rocambole": "~0.2"
   },
   "license": "MIT"
 }

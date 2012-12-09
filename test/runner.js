@@ -5,7 +5,7 @@ var Mocha = require('mocha');
 
 var m = new Mocha({
     ui : 'bdd',
-    reporter : 'spec'
+    reporter : 'dot'
 });
 
 m.addFile('test/format.spec.js');

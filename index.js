@@ -15,6 +15,10 @@ var walker = require('rocambole');
 var merge = require('amd-utils/object/merge');
 var repeat = require('amd-utils/string/repeat');
 
+var tokenHelpers = require('./lib/tokenHelpers');
+var remove = tokenHelpers.remove;
+var before = tokenHelpers.before;
+var after = tokenHelpers.after;
 
 
 // ---
@@ -189,7 +193,7 @@ function sanitizeWhiteSpaces(startToken) {
             (startToken.prev && startToken.prev.type in UNNECESSARY_WHITE_SPACE) ||
             (startToken.next && startToken.next.type in UNNECESSARY_WHITE_SPACE) )
         ) {
-            startToken.remove();
+            remove(startToken);
         }
         startToken = startToken.next;
     }
@@ -347,7 +351,7 @@ HOOKS.ObjectExpression = function(node){
         while (token && token.value !== ',' && token.value !== '}') {
             // TODO: toggle behavior if comma-first
             if (token.type === 'LineBreak') {
-                token.remove();
+                remove(token);
             }
             token = token.next;
         }
@@ -435,7 +439,7 @@ HOOKS.SequenceExpression = function(node){
 function removeBrBetween(startToken, endToken){
     while(startToken !== endToken) {
         if (startToken.type === 'LineBreak') {
-            startToken.remove();
+            remove(startToken);
         }
         startToken = startToken.next;
     }
@@ -445,7 +449,7 @@ function removeBrBetween(startToken, endToken){
 function removeAdjacentBefore(token, type){
     var prev = token.prev;
     while (prev && prev.type === type) {
-        prev.remove();
+        remove(prev);
         prev = prev.prev;
     }
 }
@@ -454,7 +458,7 @@ function removeAdjacentBefore(token, type){
 function removeAdjacentAfter(token, type){
     var next = token.next;
     while (next && next.type === type) {
-        next.remove();
+        remove(next);
         next = next.next;
     }
 }
@@ -487,14 +491,10 @@ function wsAroundIfNeeded(token, type){
 
 function brBeforeIfNeeded(token, nodeType){
     var prevToken = token.prev;
-    if ( needsLineBreakBefore(nodeType) ) {
-        if (prevToken){
-            if(prevToken.type !== 'LineBreak' &&
-               prevToken.type !== 'WhiteSpace' &&
-               prevToken.loc.end.line === token.loc.start.line) {
-                brBefore(token);
-            }
-        } else {
+    if ( needsLineBreakBefore(nodeType) && prevToken){
+        if(prevToken.type !== 'LineBreak' &&
+           prevToken.type !== 'WhiteSpace' &&
+           prevToken.loc.end.line === token.loc.start.line) {
             brBefore(token);
         }
     }
@@ -528,104 +528,44 @@ function brAfterIfNeeded(token, nodeType){
 }
 
 
-// TODO: refactor node insertion and abstract it inside ast-walker
 
 function wsBefore(token, value) {
     if (!value) return; // avoid inserting non-space
-    var startRange = token.range[0];
-    var startLine = token.loc.start.line;
-    var startColumn = token.loc.start.column;
     var ws = {
         type : 'WhiteSpace',
-        value : value,
-        range : [startRange, startRange + value.length],
-        loc : {
-            start : {
-                line : startLine,
-                column : startColumn
-            },
-            end : {
-                line : startLine,
-                column : startColumn + value.length
-            }
-        }
+        value : value
     };
-    token.before(ws);
+    before(token, ws);
     return ws;
 }
 
 
 function wsAfter(token, value) {
-    var startRange = token.range[1] + 1;
-    var startLine = token.loc.end.line;
-    var startColumn = token.loc.end.column;
+    if (!value) return; // avoid inserting non-space
     var ws = {
         type : 'WhiteSpace',
-        value : value,
-        range : [startRange, startRange + value.length],
-        loc : {
-            start : {
-                line : startLine,
-                column : startColumn
-            },
-            end : {
-                line : startLine,
-                column : startColumn + value.length
-            }
-        }
+        value : value
     };
-    token.after(ws);
+    after(token, ws);
     return ws;
 }
 
 
 function brBefore(token){
-    var value = _curOpts.lineBreak.value;
-    var startRange = token.range[0];
-    var endRange = startRange + value.length;
-    var startLine = token.loc.start.line;
-    var startColumn = token.loc.start.column;
     var br = {
         type : 'LineBreak',
-        value : value,
-        range : [startRange, endRange],
-        loc : {
-            start : {
-                line : startLine,
-                column : startColumn
-            },
-            end : {
-                line : startLine + 1,
-                column : startColumn + value.length
-            }
-        }
+        value : _curOpts.lineBreak.value
     };
-    token.before(br);
+    before(token, br);
     return br;
 }
 
 function brAfter(token){
-    var value = _curOpts.lineBreak.value;
-    var startRange = token.range[1] + 1;
-    var endRange = startRange + value.length;
-    var startLine = token.loc.end.line;
-    var startColumn = token.loc.end.column;
     var br = {
         type : 'LineBreak',
-        value : value,
-        range : [startRange, endRange],
-        loc : {
-            start : {
-                line : startLine,
-                column : startColumn
-            },
-            end : {
-                line : startLine + 1,
-                column : startColumn + value.length
-            }
-        }
+        value : _curOpts.lineBreak.value
     };
-    token.after(br);
+    after(token, br);
     return br;
 }
 

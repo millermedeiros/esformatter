@@ -1,3 +1,8 @@
 __*
 coverage/
+node_modules/*/test/
+node_modules/*/*.jpg
+node_modules/*/*.png
+node_modules/*/*.gif
+node_modules/*/.*
 
