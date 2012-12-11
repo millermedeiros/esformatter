@@ -1,0 +1,80 @@
+{
+    "indent" : {
+        "value" : "    ",
+        "FunctionDeclaration" : 1,
+        "ObjectExpression" : 1,
+        "VariableDeclarator" : 0
+    },
+
+
+    "lineBreak" : {
+        "value" : "\n",
+        "keepEmptyLines" : 1,
+
+        "before" : {
+            "AssignmentExpression" : 1,
+            "BlockStatement" : 0,
+            "CallExpression" : 1,
+            "FunctionDeclaration" : 1,
+            "FunctionDeclarationClosingBrace" : 1,
+            "FunctionDeclarationOpeningBrace" : 0,
+            "ObjectExpressionClosingBrace" : 1,
+            "Property" : 1,
+            "ReturnStatement" : 1,
+            "VariableName" : 1,
+            "VariableValue" : 0,
+            "VariableDeclaration" : 1
+        },
+
+        "after" : {
+            "AssignmentExpression" : 1,
+            "BlockStatement" : 0,
+            "CallExpression" : 1,
+            "FunctionDeclaration" : 0,
+            "FunctionDeclarationClosingBrace" : 1,
+            "FunctionDeclarationOpeningBrace" : 1,
+            "ObjectExpressionOpeningBrace" : 1,
+            "Property" : 0,
+            "ReturnStatement" : 1
+        }
+    },
+
+
+    "whiteSpace" : {
+        "value" : " ",
+        "removeTrailing" : 1,
+
+        "before" : {
+            "ArgumentComma" : 0,
+            "ArgumentList" : 0,
+            "AssignmentOperator" : 1,
+            "BinaryExpressionOperator" : 1,
+            "CommaOperator" : 0,
+            "FunctionDeclarationClosingBrace" : 1,
+            "FunctionDeclarationOpeningBrace" : 1,
+            "LineComment" : 1,
+            "LogicalExpressionOperator" : 1,
+            "PropertyValue" : 1,
+            "ParameterComma" : 0,
+            "ParameterList" : 0,
+            "VariableValue" : 1
+        },
+
+        "after" : {
+            "ArgumentComma" : 1,
+            "ArgumentList" : 0,
+            "AssignmentOperator" : 1,
+            "BinaryExpressionOperator" : 1,
+            "CommaOperator" : 1,
+            "FunctionName" : 0,
+            "LogicalExpressionOperator" : 1,
+            "PropertyName" : 1,
+            "ParameterComma" : 1,
+            "ParameterList" : 0,
+            "SemiColon" : 1,
+            "VariableName" : 1,
+            "VarToken" : 1
+        }
+    }
+
+}

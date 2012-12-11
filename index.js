@@ -15,10 +15,12 @@ var walker = require('rocambole');
 var merge = require('amd-utils/object/merge');
 var repeat = require('amd-utils/string/repeat');
 
-var tokenHelpers = require('./lib/tokenHelpers');
+var tokenHelpers = require('./lib/helpers/tokens');
 var remove = tokenHelpers.remove;
 var before = tokenHelpers.before;
 var after = tokenHelpers.after;
+
+var fs = require('./lib/fs');
 
 
 // ---
@@ -29,90 +31,6 @@ var after = tokenHelpers.after;
 // monkey-patch these methods in the future.
 var HOOKS = {};
 exports.hooks = HOOKS;
-
-
-// All supported options also default options)
-var DEFAULT_OPTS = {
-
-    indent : {
-        value : '    ', // 4 spaces
-        FunctionDeclaration : true,
-        ObjectExpression : true,
-        VariableDeclarator : false
-    },
-
-
-    lineBreak : {
-        value : '\n', // unix format
-        keepEmptyLines : true,
-
-        before : {
-            AssignmentExpression : true,
-            BlockStatement : false,
-            CallExpression : true,
-            FunctionDeclaration : true,
-            FunctionDeclarationClosingBrace : true,
-            FunctionDeclarationOpeningBrace : false,
-            ObjectExpressionClosingBrace : true,
-            Property : true,
-            ReturnStatement : true,
-            VariableName : true,
-            VariableValue : false,
-            VariableDeclaration : true
-        },
-
-        after : {
-            AssignmentExpression : true,
-            BlockStatement : false,
-            CallExpression : true,
-            FunctionDeclaration : false,
-            FunctionDeclarationClosingBrace : true,
-            FunctionDeclarationOpeningBrace : true,
-            ObjectExpressionOpeningBrace : true,
-            Property : false,
-            ReturnStatement : true
-        }
-    },
-
-
-    whiteSpace : {
-        value : ' ', // single space
-        removeTrailing : true,
-
-        before : {
-            ArgumentComma : false,
-            ArgumentList : false,
-            AssignmentOperator : true,
-            BinaryExpressionOperator : true,
-            CommaOperator : false,
-            FunctionDeclarationClosingBrace : true,
-            FunctionDeclarationOpeningBrace : true,
-            LineComment : true,
-            LogicalExpressionOperator : true,
-            PropertyValue : true,
-            ParameterComma : false,
-            ParameterList : false,
-            VariableValue : true
-        },
-
-        after : {
-            ArgumentComma : true,
-            ArgumentList : false,
-            AssignmentOperator : true,
-            BinaryExpressionOperator : true,
-            CommaOperator : true,
-            FunctionName : false,
-            LogicalExpressionOperator : true,
-            PropertyName : true,
-            ParameterComma : true,
-            ParameterList : false,
-            SemiColon : true,
-            VariableName : true,
-            VarToken : true
-        }
-    }
-
-};
 
 
 // some nodes shouldn't be affected by indent rules, so we simply ignore them
@@ -164,8 +82,10 @@ var _br;
 
 
 exports.format = function(str, opts){
+    var preset = opts && opts.preset? opts.preset : 'default';
+    var baseOpts = fs.readJSON('./lib/presets/'+ preset +'.json');
     // everything is sync so we use a local var for brevity
-    _curOpts = merge(DEFAULT_OPTS, opts);
+    _curOpts = merge(baseOpts, opts);
     _br = _curOpts.lineBreak.value;
 
     // we remove indent and trailing whitespace before since it's simpler, code
