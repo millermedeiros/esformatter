@@ -5,7 +5,8 @@ var Mocha = require('mocha');
 
 var m = new Mocha({
     ui : 'bdd',
-    reporter : 'dot'
+    // we use the dot reporter on travis
+    reporter : !!process.env.npm_config_dot? 'dot' : 'spec'
 });
 
 m.addFile('test/format.spec.js');
