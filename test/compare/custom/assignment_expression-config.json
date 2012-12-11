@@ -9,6 +9,7 @@
     },
     "whiteSpace" : {
         "before" : {
+            "AssignmentExpression" : true,
             "AssignmentOperator" : false
         },
         "after" : {

@@ -24,6 +24,7 @@ var _indent = require('./lib/util/indent');
 
 exports.hooks = require('./lib/hooks');
 exports.format = format;
+// XXX: expose utils package?
 
 
 // ---
@@ -90,7 +91,6 @@ function format(str, opts){
     _ws.setOptions(opts);
     _br.setOptions(opts);
     _indent.setOptions(opts);
-    // _tk needs no options
 
     // we remove indent and trailing whitespace before since it's simpler, code
     // is responsible for re-indenting
@@ -101,7 +101,6 @@ function format(str, opts){
     var ast = walker.parse(str);
     sanitizeWhiteSpaces( ast.startToken );
     walker.moonwalk(ast, transformNode);
-    processTokens(ast);
 
     str = ast.toString();
 
@@ -113,6 +112,9 @@ function sanitizeWhiteSpaces(startToken) {
     while (startToken) {
         // remove unnecessary white spaces (this might not be the desired
         // effect in some cases but for now it's simpler to do it like this)
+        // TODO: change this logic to allow keeping white spaces, see issue #1.
+        //       will probably remove this method and handle it inside
+        //       util/whiteSpace.
         if (startToken.type === 'WhiteSpace' && (
             (startToken.prev && startToken.prev.type in UNNECESSARY_WHITE_SPACE) ||
             (startToken.next && startToken.next.type in UNNECESSARY_WHITE_SPACE) )
@@ -132,6 +134,8 @@ function transformNode(node){
         _br.beforeIfNeeded(node.startToken, node.type);
     }
 
+    _ws.beforeIfNeeded(node.startToken, node.type);
+
     processComments(node);
 
     if ( node.indentLevel ) {
@@ -147,9 +151,13 @@ function transformNode(node){
     if (! (node.type in BYPASS_AUTOMATIC_LINE_BREAK)) {
         _br.afterIfNeeded(node.endToken, node.type);
     }
+
+    _ws.afterIfNeeded(node.endToken, node.type);
 }
 
 
+// we process comments inside the node automatically since they are not really
+// part of the AST, so we need to indent it relative to the node and location.
 function processComments(node){
     var token = node.startToken;
     var endToken = node.endToken;
@@ -164,20 +172,6 @@ function processComments(node){
             }
             // we avoid processing same comment multiple times
             token._processed = true;
-        }
-        token = token.next;
-    }
-}
-
-
-
-function processTokens(ast) {
-    if (! _ws.needsAfter('SemiColon') && ! _ws.needsBefore('SemiColon')) return;
-    var token = ast.startToken;
-    while (token) {
-        //XXX: unsure about this behavior
-        if (token.value === ';' && token.next && token.next.type !== 'Punctuator') {
-            _ws.aroundIfNeeded(token, 'SemiColon');
         }
         token = token.next;
     }

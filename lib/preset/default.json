@@ -71,9 +71,7 @@
             "PropertyName" : 1,
             "ParameterComma" : 1,
             "ParameterList" : 0,
-            "SemiColon" : 1,
-            "VariableName" : 1,
-            "VarToken" : 1
+            "VariableName" : 1
         }
     }
 
