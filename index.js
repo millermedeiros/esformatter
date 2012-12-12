@@ -36,35 +36,9 @@ exports.format = format;
 // these are only settings that can't be configured by the user.
 
 
-// some nodes shouldn't be affected by indent rules, so we simply ignore them
-var BYPASS_INDENT = {
-    BlockStatement : true, // child nodes already add indent
-    Identifier : true,
-    Literal : true,
-    LogicalExpression : true
-};
-
-
-// some child nodes are already responsible for indentation
-var BYPASS_CHILD_INDENT = {
-    AssignmentExpression : true,
-    BinaryExpression : true,
-    CallExpression : true,
-    ExpressionStatement : true,
-    MemberExpression : true,
-    Property : true,
-    ReturnStatement : true,
-    VariableDeclarator : true,
-    VariableDeclaration : true
-};
 
 
 
-// some child nodes of nodes that usually bypass indent still need the closing
-// bracket indent
-var CLOSING_CHILD_INDENT = {
-    ObjectExpression : true
-};
 
 
 // statements that have direct child that should not be indented (mostly
@@ -94,12 +68,6 @@ var CONTEXTUAL_LINE_BREAK = {
 
 
 
-// bypass automatic line break of direct child
-var BYPASS_CHILD_LINE_BREAK = {
-    IfStatement : true,
-    WhileStatement : true,
-    ForStatement : true
-};
 
 
 
@@ -156,21 +124,20 @@ function sanitizeWhiteSpaces(startToken) {
 
 
 function transformNode(node){
-    node.indentLevel = (node.type in BYPASS_INDENT) || (node.parent && node.parent.type in BYPASS_CHILD_INDENT)? null : _indent.getLevel(node);
+    node.indentLevel = _indent.getLevel(node);
 
     if (! (node.type in CONTEXTUAL_LINE_BREAK)) {
         _br.aroundNodeIfNeeded(node);
-    } else if (! (node.parent.type in BYPASS_CHILD_LINE_BREAK)) {
-        var gp = node.parent.parent;
-        if ( gp && (gp.type === 'Program' || gp.type === 'BlockStatement') ) {
-            _br.aroundNodeIfNeeded(node);
-        }
+    } else if ( shouldAddLineBreak(node) ) {
+        _br.aroundNodeIfNeeded(node);
     }
 
     if ( shouldIndent(node) ) {
         _indent.before(node.startToken, node.indentLevel);
-    } else if (node.type in CLOSING_CHILD_INDENT) {
-        node.closingIndentLevel = _indent.getLevel(node.parent);
+    } else if (node.parent) {
+        // some child nodes of nodes that usually bypass indent still need the
+        // closing bracket indent (like ObjectExpression)
+        node.closingIndentLevel = _indent.getLevelLoose(node.parent);
     }
 
     _ws.beforeIfNeeded(node.startToken, node.type);
@@ -244,3 +211,33 @@ function shouldIndent(node) {
     }
 }
 
+
+// ---
+
+
+// bypass automatic line break of direct child
+var BYPASS_CHILD_LINE_BREAK = {
+    CallExpression : 1,
+    IfStatement : 1,
+    WhileStatement : 1,
+    ForStatement : 1
+};
+
+// add line break only if great parent is one of these
+var CONTEXTUAL_LINE_BREAK_GREAT_PARENTS = {
+    Program : 1,
+    BlockStatement : 1,
+    FunctionExpression : 1
+};
+
+function shouldAddLineBreak(node) {
+    if ( node.parent.type in BYPASS_CHILD_LINE_BREAK ) {
+        return false;
+    }
+
+    var gp = node.parent.parent;
+    if ( gp && gp.type in CONTEXTUAL_LINE_BREAK_GREAT_PARENTS ) {
+        return true;
+    }
+    return false;
+}
