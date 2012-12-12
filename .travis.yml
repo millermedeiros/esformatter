@@ -1,5 +1,4 @@
  language: node_js
  node_js: 0.8
- # dot reporter works better on travis, should come after coverage flag
- script: "npm test --coverage --reporter dot"
+ script: "npm test --coverage"
 
