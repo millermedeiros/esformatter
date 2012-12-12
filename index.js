@@ -40,7 +40,8 @@ exports.format = format;
 var BYPASS_INDENT = {
     BlockStatement : true, // child nodes already add indent
     Identifier : true,
-    Literal : true
+    Literal : true,
+    LogicalExpression : true
 };
 
 
@@ -66,6 +67,15 @@ var CLOSING_CHILD_INDENT = {
 };
 
 
+// statements that have direct child that should not be indented (mostly
+// related to the "test" conditionals and non-block statements)
+var CONTEXTUAL_CHILD_INDENT = {
+    IfStatement : true,
+    ForStatement : true,
+    WhileStatement : true
+};
+
+
 // no need for spaces before/after these tokens
 var UNNECESSARY_WHITE_SPACE = {
     BlockComment : true,
@@ -86,6 +96,7 @@ var CONTEXTUAL_LINE_BREAK = {
 
 // bypass automatic line break of direct child
 var BYPASS_CHILD_LINE_BREAK = {
+    IfStatement : true,
     WhileStatement : true,
     ForStatement : true
 };
@@ -205,7 +216,9 @@ function getCommentIndentLevel(node) {
     var level = 0;
     while (node) {
         if ( _curOpts.indent[node.type] ) {
-            level += 1;
+            if (node.type !== 'IfStatement' || node.parent.type !== 'IfStatement' || _ast.getNodeKey(node) !== 'alternate') {
+                level += 1;
+            }
         }
         node = node.parent;
     }
@@ -216,8 +229,9 @@ function getCommentIndentLevel(node) {
 function shouldIndent(node) {
     if (! node.indentLevel) return false;
 
-    if (node.parent.type === 'WhileStatement' || node.parent.type === 'ForStatement') {
-        if (_ast.getNodeKey(node) === 'test') {
+    if (node.parent.type in CONTEXTUAL_CHILD_INDENT) {
+        var subType = _ast.getNodeKey(node);
+        if (subType === 'test' || subType === 'consequent' || subType === 'alternate') {
             return false;
         }
         if (node.type !== 'BlockStatement') {
