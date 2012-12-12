@@ -17,6 +17,7 @@ var _tk = require('./lib/util/token');
 var _br = require('./lib/util/lineBreak');
 var _ws = require('./lib/util/whiteSpace');
 var _indent = require('./lib/util/indent');
+var _ast = require('./lib/util/ast');
 
 
 // ---
@@ -75,7 +76,7 @@ var UNNECESSARY_WHITE_SPACE = {
 
 
 // tokens that only break line for special reasons
-var BYPASS_AUTOMATIC_LINE_BREAK = {
+var CONTEXTUAL_LINE_BREAK = {
     CallExpression : true,
     AssignmentExpression : true
 };
@@ -137,29 +138,30 @@ function sanitizeWhiteSpaces(startToken) {
 function transformNode(node){
     node.indentLevel = (node.type in BYPASS_INDENT) || (node.parent && node.parent.type in BYPASS_CHILD_INDENT)? null : _indent.getLevel(node);
 
-    if (! (node.type in BYPASS_AUTOMATIC_LINE_BREAK)) {
-        _br.beforeIfNeeded(node.startToken, node.type);
+    if (! (node.type in CONTEXTUAL_LINE_BREAK)) {
+        _br.aroundNodeIfNeeded(node);
+    } else if (node.parent.type !== 'WhileStatement') {
+        var gp = node.parent.parent;
+        if ( gp && (gp.type === 'Program' || gp.type === 'BlockStatement') ) {
+            _br.aroundNodeIfNeeded(node);
+        }
     }
 
     _ws.beforeIfNeeded(node.startToken, node.type);
+    _ws.afterIfNeeded(node.endToken, node.type);
 
-    processComments(node);
-
-    if ( node.indentLevel ) {
+    if ( shouldIndent(node) ) {
         _indent.before(node.startToken, node.indentLevel);
     } else if (node.type in CLOSING_CHILD_INDENT) {
         node.closingIndentLevel = _indent.getLevel(node.parent);
     }
 
+    // we apply hooks afterwards so they can revert the automatic changes
     if (node.type in exports.hooks) {
         exports.hooks[node.type](node);
     }
 
-    if (! (node.type in BYPASS_AUTOMATIC_LINE_BREAK)) {
-        _br.afterIfNeeded(node.endToken, node.type);
-    }
-
-    _ws.afterIfNeeded(node.endToken, node.type);
+    processComments(node);
 }
 
 
@@ -197,3 +199,21 @@ function getCommentIndentLevel(node) {
     }
     return level;
 }
+
+
+function shouldIndent(node) {
+    if (! node.indentLevel) return false;
+
+    if (node.parent.type === 'WhileStatement') {
+        if (_ast.getNodeKey(node) === 'test') {
+            return false;
+        }
+        if (node.type !== 'BlockStatement') {
+            return false;
+        }
+        return !!node.indentLevel;
+    } else {
+        return !!node.indentLevel;
+    }
+}
+
