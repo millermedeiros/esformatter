@@ -15,12 +15,16 @@ function dolor() {
     // missing semicolon
     function fn() {
         function deep() {
-            return 'very'
+            // moar
+            function moar() {
+                // nested comment
+                return "inner";
+            }
+            return moar();
         }
-        return deep();
+        // test invocation
+        setTimeout(fn, 100);
     }
-    // test invocation
-    setTimeout(fn, 100);
 }
 
 // invocation

@@ -45,12 +45,16 @@ var BYPASS_INDENT = {
 
 // some child nodes are already responsible for indentation
 var BYPASS_CHILD_INDENT = {
+    AssignmentExpression : true,
+    BinaryExpression : true,
     CallExpression : true,
     ExpressionStatement : true,
+    MemberExpression : true,
     Property : true,
     ReturnStatement : true,
     VariableDeclarator : true
 };
+
 
 
 // some child nodes of nodes that usually bypass indent still need the closing
@@ -77,8 +81,11 @@ var BYPASS_AUTOMATIC_LINE_BREAK = {
 };
 
 
+
 // ---
 
+
+var _curOpts;
 
 
 function format(str, opts){
@@ -87,7 +94,7 @@ function format(str, opts){
     // TODO: check if it is a valid preset and throw descriptive errors if not
     var preset = opts && opts.preset? opts.preset : 'default';
     var baseOpts = require('./lib/preset/'+ preset +'.json');
-    opts = merge(baseOpts, opts);
+    _curOpts = opts = merge(baseOpts, opts);
     _ws.setOptions(opts);
     _br.setOptions(opts);
     _indent.setOptions(opts);
@@ -165,12 +172,14 @@ function processComments(node){
     while (token && token !== endToken) {
         if (!token._processed && (token.type === 'LineComment' || token.type === 'BlockComment') ) {
             _ws.beforeIfNeeded(token, token.type);
-            // need to add 1 since comment is a child of the node
-            var indentLevel = node.type !== 'Program' && node.type !== 'ExpressionStatement'? node.indentLevel + 1 : node.indentLevel;
-            if (indentLevel && token.prev && token.prev.type === 'LineBreak') {
+            // no need to indent if same line
+            if (token.prev && (token.prev.type === 'LineBreak' || token.prev.loc.end.line !== token.loc.start.line)) {
+                var indentLevel = getCommentIndentLevel(node);
                 _indent.before(token, indentLevel);
             }
-            // we avoid processing same comment multiple times
+            // we avoid processing same comment multiple times since same
+            // comment will be part of multiple nodes (all comments are inside
+            // Program)
             token._processed = true;
         }
         token = token.next;
@@ -178,3 +187,13 @@ function processComments(node){
 }
 
 
+function getCommentIndentLevel(node) {
+    var level = 0;
+    while (node) {
+        if ( _curOpts.indent[node.type] ) {
+            level += 1;
+        }
+        node = node.parent;
+    }
+    return level;
+}

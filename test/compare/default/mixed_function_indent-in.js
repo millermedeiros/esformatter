@@ -11,14 +11,18 @@ return 'baz'; // test comment
     function dolor(){
         // trailing white space       
         // missing semicolon
-        function fn(){      
-        function deep()   {return 'very'
-            }
-            return deep(   )  ;
+        function fn(){      function deep()   {
+            // moar
+    function moar() {
+// nested comment
+            return "inner";
+        }
+            return moar(   )  ;
         }
             // test invocation
             setTimeout(fn,100);
         }
+}
 
 // invocation
 dolor();
