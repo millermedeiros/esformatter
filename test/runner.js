@@ -28,6 +28,7 @@ m.addFile('test/format.spec.js');
 
 m.run(function(err){
     var exitCode = err? 1 : 0;
+    if (err) console.log('failed tests: '+ err);
     process.exit(exitCode);
 });
 

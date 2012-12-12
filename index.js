@@ -53,7 +53,8 @@ var BYPASS_CHILD_INDENT = {
     MemberExpression : true,
     Property : true,
     ReturnStatement : true,
-    VariableDeclarator : true
+    VariableDeclarator : true,
+    VariableDeclaration : true
 };
 
 
@@ -79,6 +80,14 @@ var UNNECESSARY_WHITE_SPACE = {
 var CONTEXTUAL_LINE_BREAK = {
     CallExpression : true,
     AssignmentExpression : true
+};
+
+
+
+// bypass automatic line break of direct child
+var BYPASS_CHILD_LINE_BREAK = {
+    WhileStatement : true,
+    ForStatement : true
 };
 
 
@@ -140,7 +149,7 @@ function transformNode(node){
 
     if (! (node.type in CONTEXTUAL_LINE_BREAK)) {
         _br.aroundNodeIfNeeded(node);
-    } else if (node.parent.type !== 'WhileStatement') {
+    } else if (! (node.parent.type in BYPASS_CHILD_LINE_BREAK)) {
         var gp = node.parent.parent;
         if ( gp && (gp.type === 'Program' || gp.type === 'BlockStatement') ) {
             _br.aroundNodeIfNeeded(node);
@@ -173,12 +182,15 @@ function processComments(node){
 
     while (token && token !== endToken) {
         if (!token._processed && (token.type === 'LineComment' || token.type === 'BlockComment') ) {
-            _ws.beforeIfNeeded(token, token.type);
+            if (token.prev && token.prev.type === 'WhiteSpace') {
+                _tk.remove(token.prev);
+            }
             // no need to indent if same line
             if (token.prev && (token.prev.type === 'LineBreak' || token.prev.loc.end.line !== token.loc.start.line)) {
                 var indentLevel = getCommentIndentLevel(node);
                 _indent.before(token, indentLevel);
             }
+            _ws.beforeIfNeeded(token, token.type);
             // we avoid processing same comment multiple times since same
             // comment will be part of multiple nodes (all comments are inside
             // Program)
@@ -204,7 +216,7 @@ function getCommentIndentLevel(node) {
 function shouldIndent(node) {
     if (! node.indentLevel) return false;
 
-    if (node.parent.type === 'WhileStatement') {
+    if (node.parent.type === 'WhileStatement' || node.parent.type === 'ForStatement') {
         if (_ast.getNodeKey(node) === 'test') {
             return false;
         }
