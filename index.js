@@ -167,21 +167,22 @@ function transformNode(node){
         }
     }
 
-    _ws.beforeIfNeeded(node.startToken, node.type);
-    _ws.afterIfNeeded(node.endToken, node.type);
-
     if ( shouldIndent(node) ) {
         _indent.before(node.startToken, node.indentLevel);
     } else if (node.type in CLOSING_CHILD_INDENT) {
         node.closingIndentLevel = _indent.getLevel(node.parent);
     }
 
+    _ws.beforeIfNeeded(node.startToken, node.type);
+    _ws.afterIfNeeded(node.endToken, node.type);
+
+    processComments(node);
+
     // we apply hooks afterwards so they can revert the automatic changes
     if (node.type in exports.hooks) {
         exports.hooks[node.type](node);
     }
 
-    processComments(node);
 }
 
 
