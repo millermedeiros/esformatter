@@ -1,11 +1,13 @@
 {
     "lineBreak" : {
         "before" : {
-            "FunctionDeclarationOpeningBrace" : true,
-            "FunctionDeclarationClosingBrace" : true
+            "FunctionDeclarationOpeningBrace" : 1,
+            "FunctionDeclarationClosingBrace" : 1,
+            "ReturnStatement" : 1
         },
         "after" : {
-            "FunctionDeclarationOpeningBrace" : true
+            "FunctionDeclarationOpeningBrace" : 1,
+            "ReturnStatement" : 1
         }
     }
 }

@@ -5,7 +5,8 @@
         "FunctionDeclaration" : 1,
         "IfStatement" : 1,
         "ObjectExpression" : 1,
-        "WhileStatement" : 1
+        "WhileStatement" : 1,
+        "EmptyStatement" : 0
     },
 
 
@@ -50,7 +51,7 @@
             "ForStatement" : 1,
             "ForStatementOpeningBrace" : 1,
             "ForStatementClosingBrace" : 1,
-            "FunctionDeclaration" : 0,
+            "FunctionDeclaration" : 1,
             "FunctionDeclarationClosingBrace" : 1,
             "FunctionDeclarationOpeningBrace" : 1,
             "IfStatement" : 1,

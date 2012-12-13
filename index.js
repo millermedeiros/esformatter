@@ -17,7 +17,6 @@ var _tk = require('./lib/util/token');
 var _br = require('./lib/util/lineBreak');
 var _ws = require('./lib/util/whiteSpace');
 var _indent = require('./lib/util/indent');
-var _ast = require('./lib/util/ast');
 
 
 // ---
@@ -26,49 +25,6 @@ var _ast = require('./lib/util/ast');
 exports.hooks = require('./lib/hooks');
 exports.format = format;
 // XXX: expose utils package?
-
-
-// ---
-
-
-// we use these objectss to configure default behavior, will be simpler than
-// using multiple if/else and switch statements.
-// these are only settings that can't be configured by the user.
-
-
-
-
-
-
-
-// statements that have direct child that should not be indented (mostly
-// related to the "test" conditionals and non-block statements)
-var CONTEXTUAL_CHILD_INDENT = {
-    IfStatement : true,
-    ForStatement : true,
-    WhileStatement : true
-};
-
-
-// no need for spaces before/after these tokens
-var UNNECESSARY_WHITE_SPACE = {
-    BlockComment : true,
-    LineBreak : true,
-    LineComment : true,
-    Punctuator : true,
-    WhiteSpace : true
-};
-
-
-// tokens that only break line for special reasons
-var CONTEXTUAL_LINE_BREAK = {
-    CallExpression : true,
-    AssignmentExpression : true
-};
-
-
-
-
 
 
 // ---
@@ -95,7 +51,7 @@ function format(str, opts){
     str = _br.removeEmptyLines(str);
 
     var ast = walker.parse(str);
-    sanitizeWhiteSpaces( ast.startToken );
+    _ws.sanitizeWhiteSpaces( ast.startToken );
     walker.moonwalk(ast, transformNode);
 
     str = ast.toString();
@@ -104,44 +60,21 @@ function format(str, opts){
 }
 
 
-function sanitizeWhiteSpaces(startToken) {
-    while (startToken) {
-        // remove unnecessary white spaces (this might not be the desired
-        // effect in some cases but for now it's simpler to do it like this)
-        // TODO: change this logic to allow keeping white spaces, see issue #1.
-        //       will probably remove this method and handle it inside
-        //       util/whiteSpace.
-        if (startToken.type === 'WhiteSpace' && (
-            (startToken.prev && startToken.prev.type in UNNECESSARY_WHITE_SPACE) ||
-            (startToken.next && startToken.next.type in UNNECESSARY_WHITE_SPACE) )
-        ) {
-            _tk.remove(startToken);
-        }
-        startToken = startToken.next;
-    }
-}
-
-
 
 function transformNode(node){
     node.indentLevel = _indent.getLevel(node);
 
-    if (! (node.type in CONTEXTUAL_LINE_BREAK)) {
-        _br.aroundNodeIfNeeded(node);
-    } else if ( shouldAddLineBreak(node) ) {
+    if ( _br.shouldAddLineBreak(node) ) {
         _br.aroundNodeIfNeeded(node);
     }
 
-    if ( shouldIndent(node) ) {
+    if ( _indent.shouldIndent(node) ) {
         _indent.before(node.startToken, node.indentLevel);
     } else if (node.parent) {
         // some child nodes of nodes that usually bypass indent still need the
         // closing bracket indent (like ObjectExpression)
         node.closingIndentLevel = _indent.getLevelLoose(node.parent);
     }
-
-    _ws.beforeIfNeeded(node.startToken, node.type);
-    _ws.afterIfNeeded(node.endToken, node.type);
 
     processComments(node);
 
@@ -150,6 +83,9 @@ function transformNode(node){
         exports.hooks[node.type](node);
     }
 
+    // white spaces are less important so comes afterwards
+    _ws.beforeIfNeeded(node.startToken, node.type);
+    _ws.afterIfNeeded(node.endToken, node.type);
 }
 
 
@@ -166,7 +102,7 @@ function processComments(node){
             }
             // no need to indent if same line
             if (token.prev && (token.prev.type === 'LineBreak' || token.prev.loc.end.line !== token.loc.start.line)) {
-                var indentLevel = getCommentIndentLevel(node);
+                var indentLevel = _indent.getCommentIndentLevel(node);
                 _indent.before(token, indentLevel);
             }
             _ws.beforeIfNeeded(token, token.type);
@@ -180,64 +116,4 @@ function processComments(node){
 }
 
 
-function getCommentIndentLevel(node) {
-    var level = 0;
-    while (node) {
-        if ( _curOpts.indent[node.type] ) {
-            if (node.type !== 'IfStatement' || node.parent.type !== 'IfStatement' || _ast.getNodeKey(node) !== 'alternate') {
-                level += 1;
-            }
-        }
-        node = node.parent;
-    }
-    return level;
-}
 
-
-function shouldIndent(node) {
-    if (! node.indentLevel) return false;
-
-    if (node.parent.type in CONTEXTUAL_CHILD_INDENT) {
-        var subType = _ast.getNodeKey(node);
-        if (subType === 'test' || subType === 'consequent' || subType === 'alternate') {
-            return false;
-        }
-        if (node.type !== 'BlockStatement') {
-            return false;
-        }
-        return !!node.indentLevel;
-    } else {
-        return !!node.indentLevel;
-    }
-}
-
-
-// ---
-
-
-// bypass automatic line break of direct child
-var BYPASS_CHILD_LINE_BREAK = {
-    CallExpression : 1,
-    IfStatement : 1,
-    WhileStatement : 1,
-    ForStatement : 1
-};
-
-// add line break only if great parent is one of these
-var CONTEXTUAL_LINE_BREAK_GREAT_PARENTS = {
-    Program : 1,
-    BlockStatement : 1,
-    FunctionExpression : 1
-};
-
-function shouldAddLineBreak(node) {
-    if ( node.parent.type in BYPASS_CHILD_LINE_BREAK ) {
-        return false;
-    }
-
-    var gp = node.parent.parent;
-    if ( gp && gp.type in CONTEXTUAL_LINE_BREAK_GREAT_PARENTS ) {
-        return true;
-    }
-    return false;
-}
