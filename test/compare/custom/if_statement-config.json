@@ -1,0 +1,20 @@
+{
+    "lineBreak" : {
+        "before" : {
+            "ElseStatement" : 1,
+            "ElseIfStatement" : 1,
+            "IfStatementOpeningBrace" : 1,
+            "ElseIfStatementOpeningBrace" : 1,
+            "ElseStatementOpeningBrace" : 1
+        }
+    },
+
+    "whiteSpace" : {
+        "before" : {
+            "IfStatementConditional" : 0
+        },
+        "after" : {
+            "IfStatementConditional" : 1
+        }
+    }
+}
