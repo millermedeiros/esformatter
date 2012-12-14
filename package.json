@@ -3,6 +3,9 @@
   "version": "0.0.2",
   "description": "ECMAScript code beautifier/formatter",
   "main": "lib/esformatter.js",
+  "bin": {
+    "esformatter" : "./bin/esformatter"
+  },
   "scripts": {
     "test": "node ./node_modules/.bin/istanbul test test/runner.js"
   },

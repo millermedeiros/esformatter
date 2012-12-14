@@ -1,4 +1,6 @@
-# esformatter [![Build Status](https://secure.travis-ci.org/millermedeiros/esformatter.png?branch=master)](https://travis-ci.org/millermedeiros/esformatter)
+# esformatter
+
+[![Build Status](https://secure.travis-ci.org/millermedeiros/esformatter.png?branch=master)](https://travis-ci.org/millermedeiros/esformatter)
 
 ECMAScript code beautifier/formatter.
 
@@ -50,11 +52,21 @@ Contributors are always welcome.
 
 
 
-## Project structure
+## Project structure / Contributing
 
-The `master` branch will only contain *stable* code (tests should be passing to
-be merged into master). Development of new features will be done in separate
-branches and merged after *completion* (when tests are passing).
+We will create `-wip` branches (work in progress) for *unfinished* features
+(mostly because of failing tests) and try to keep master only with *stable*
+code. We will try hard to not rewrite the commit history of `master` branch but
+will do it for `-wip` branches.
+
+If you plan to implement a new feature check the existing branches, I will push
+all my local `-wip` branches if I don't complete the feature in the same day.
+So that should give a good idea on what I'm currently working.
+
+Try to split your pull requests into small chunks (separate features), that way
+it is easier to review and merge. But feel free to do large refactors as well,
+will be harder to merge but we can work it out.
+
 
 
 ### Default Settings
