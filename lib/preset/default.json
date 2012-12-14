@@ -41,6 +41,7 @@
             "Property" : 1,
             "ReturnStatement" : 1,
             "ThisExpression" : 0,
+            "ThrowStatement" : 1,
             "VariableName" : 1,
             "VariableValue" : 0,
             "VariableDeclaration" : 1,
@@ -75,6 +76,7 @@
             "Property" : 0,
             "ReturnStatement" : 1,
             "ThisExpression" : 0,
+            "ThrowStatement" : 0,
             "WhileStatement" : 1,
             "WhileStatementOpeningBrace" : 1,
             "WhileStatementClosingBrace" : 1
