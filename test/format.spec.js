@@ -7,7 +7,7 @@ var expect = require('expect.js');
 var _glob = require('glob');
 var _path = require('path');
 
-var esformatter = require('../index');
+var esformatter = require('../lib/esformatter');
 
 var _helpers = require('./helpers');
 var readOut    = _helpers.readOut;

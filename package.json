@@ -1,8 +1,8 @@
 {
   "name": "esformatter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ECMAScript code beautifier/formatter",
-  "main": "index.js",
+  "main": "lib/esformatter.js",
   "scripts": {
     "test": "node ./node_modules/.bin/istanbul test test/runner.js"
   },

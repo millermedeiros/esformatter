@@ -1,3 +1,4 @@
+"use strict";
 
 //
 // helpers used on the specs
