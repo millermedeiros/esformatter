@@ -36,3 +36,14 @@ dolor();
 
 
 // end test keepEmptyLines
+
+// test a bug related with indentation and multiple consecutive functions
+function outter() {
+    function a1() {
+        return true
+    }
+    function a2(val) {
+        return (val * 2)
+    }
+}
+

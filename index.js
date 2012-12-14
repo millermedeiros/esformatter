@@ -72,7 +72,7 @@ function transformNode(node){
         _indent.before(node.startToken, node.indentLevel);
     } else if (node.parent) {
         // some child nodes of nodes that usually bypass indent still need the
-        // closing bracket indent (like ObjectExpression)
+        // closing bracket indent (like ObjectExpression & FunctionExpression)
         node.closingIndentLevel = _indent.getLevelLoose(node.parent);
     }
 
