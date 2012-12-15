@@ -1,0 +1,12 @@
+{
+    "whiteSpace" : {
+        "before" : {
+            "ConditionalExpressionConsequent" : 0,
+            "ConditionalExpressionAlternate" : 0
+        },
+        "after" : {
+            "ConditionalExpressionConsequent" : 0,
+            "ConditionalExpressionTest" : 1
+        }
+    }
+}
