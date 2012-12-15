@@ -8,3 +8,7 @@ c = !a ?(!foo?d  :   function(){
     return a;
 }):b;
 }
+
+// should break lines
+foo.a = true; a?foo() : bar()
+
