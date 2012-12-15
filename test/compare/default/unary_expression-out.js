@@ -16,3 +16,14 @@ foo++;
 --bar;
 bar--;
 
+// delete is a UnaryExpression
+delete foo.bar;
+delete bar.amet;
+
+// need to check indent as well
+function fn() {
+    !!(!foo);
+    delete this.bar
+    delete this.amet;
+    delete this.ipsum;
+}
