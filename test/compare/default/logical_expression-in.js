@@ -10,3 +10,10 @@ foo&&bar
 ;((a&&b)||c)||d
 
 
+// test line break and indent
+if (true) {
+    var b;this.foo&&this.bar();
+}
+
+(foo || bar); (dolor || amet);
+
