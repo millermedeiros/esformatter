@@ -7,3 +7,5 @@ ipsum(3, {
 
 dolor = foo(2)
 
+// should remove line breaks
+foo(a, b, c, d)
