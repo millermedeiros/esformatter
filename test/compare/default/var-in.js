@@ -1,4 +1,4 @@
-var foo=true;var bar=   '123';
+var     foo=true;var bar=   '123';
 var lorem   =
     /\w+/;
 
