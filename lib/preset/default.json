@@ -105,6 +105,7 @@
         "removeTrailing" : 1,
 
         "before" : {
+            "ArrayExpressionComma" : 0,
             "ArgumentComma" : 0,
             "ArgumentList" : 0,
             "AssignmentOperator" : 1,
@@ -146,6 +147,7 @@
         },
 
         "after" : {
+            "ArrayExpressionComma" : 1,
             "ArgumentComma" : 1,
             "ArgumentList" : 0,
             "AssignmentOperator" : 1,
