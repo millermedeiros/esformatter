@@ -1,12 +1,3 @@
 __*
 coverage/
-# node_modules/
-
-
-# we keep mocha on repo since we edited the source code to get better error
-# reports on white space diffs.
-# see:
-#   https://github.com/visionmedia/mocha/pull/657#issuecomment-11109547
-
-node_modules/*
-!node_modules/mocha/
+node_modules/
