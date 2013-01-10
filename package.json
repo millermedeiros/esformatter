@@ -32,8 +32,8 @@
   },
   "devDependencies": {
     "esprima": "1.0",
-    "mocha": "https://github.com/millermedeiros/mocha/tarball/diff-ws",
-    "expect.js": "0.2",
+    "mocha": "https://github.com/millermedeiros/mocha/tarball/latest",
+    "chai" : "1.4",
     "glob": "3.1",
     "istanbul": "~0.1.23"
   },

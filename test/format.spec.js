@@ -3,7 +3,7 @@
 "use strict";
 
 var esprima = require('esprima');
-var expect = require('expect.js');
+var expect = require('chai').expect;
 var _glob = require('glob');
 var _path = require('path');
 
@@ -44,7 +44,7 @@ describe('esformatter.format()', function () {
                     } catch (e) {
                         throw new Error('esformatter.format() result produced a non-valid output.\n'+ e);
                     }
-                }).not.to.throwException();
+                }).to.not.Throw();
             });
 
         });
@@ -74,7 +74,7 @@ describe('esformatter.format()', function () {
                     } catch (e) {
                         throw new Error('esformatter.format() result produced a non-valid output.\n'+ e);
                     }
-                }).not.to.throwException();
+                }).to.not.Throw();
             });
 
         });
