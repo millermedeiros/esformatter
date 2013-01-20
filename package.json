@@ -1,6 +1,6 @@
 {
   "name": "esformatter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "ECMAScript code beautifier/formatter",
   "main": "lib/esformatter.js",
   "bin": {
@@ -33,7 +33,7 @@
   "devDependencies": {
     "esprima": "1.0",
     "mocha": "https://github.com/millermedeiros/mocha/tarball/latest",
-    "chai" : "1.4",
+    "chai": "1.4",
     "glob": "3.1",
     "istanbul": "~0.1.23"
   },
