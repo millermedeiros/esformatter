@@ -51,6 +51,59 @@ important features.
 Contributors are always welcome.
 
 
+## API
+
+### esformatter.format(str[, opts]):String
+
+So far `esformatter` exposes a single `format()` method which receives a string
+containing the code that you would like to format and the configuration options
+that you would like to use and returns a string with the result.
+
+```js
+var esformatter = require('esformatter');
+
+// for a list of available options check "lib/preset/default.json"
+var options = {
+    // inherit from the default preset
+    preset : 'default',
+    indent : {
+        value : '  '
+    },
+    lineBreak : {
+        before : {
+            BlockStatement : 1,
+            DoWhileStatementOpeningBrace : 1,
+            // ...
+        }
+    },
+    whiteSpace : {
+        // ...
+    }
+};
+
+var fs = require('fs');
+var codeStr = fs.readFileSync('path/to/js/file.js', 'utf-8');
+
+// return a string with the formatted code
+var formattedCode = esformatter.format(codeStr, options);
+```
+
+### CLI
+
+You can also use the simple CLI to process `stdin` and `stdout`:
+
+```sh
+# format "test.js" and output result to stdout
+cat test.js | esformatter
+# process "test.js" and writes to "test.out.js"
+esformatter < test.js > test.out.js
+```
+
+CLI will be highly improved after we complete the basic features of the
+library. We plan to add support for local/global settings and some flags to
+toggle the behavior.
+
+
 
 ## Project structure / Contributing
 
@@ -66,6 +119,11 @@ So that should give a good idea on what I'm currently working.
 Try to split your pull requests into small chunks (separate features), that way
 it is easier to review and merge. But feel free to do large refactors as well,
 will be harder to merge but we can work it out.
+
+The easiest way to add new features and fix bugs is to create a test file with
+mixed input and use the [esprima parser
+demo](http://esprima.org/demo/parse.html) to visualize the syntax tree and
+implement each step separately.
 
 
 
