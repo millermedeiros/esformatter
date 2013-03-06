@@ -39,3 +39,7 @@ function h(a, b, c, d, e) {
     this._priority = e || 0
 }
 
+
+// test for issue #5 (related to parenthesis)
+doc = (context && context.nodeType ? context.ownerDocument || context : document);
+
