@@ -1,0 +1,15 @@
+{
+    "indent" : {
+        "ChainedMemberExpression" : 0
+    },
+    "whiteSpace" : {
+        "before" : {
+            "ArgumentList" : 1,
+            "ArgumentComma" : 1
+        },
+        "after" : {
+            "ArgumentList" : 1,
+            "ArgumentComma" : 0
+        }
+    }
+}
