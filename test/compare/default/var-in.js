@@ -12,3 +12,11 @@ var
 amet= qwe();
 var asi    = true
 
+
+// test for issue #4
+var
+ // foo var
+     foo,
+         // bar variable
+ bar = 'dolor amet';
+
