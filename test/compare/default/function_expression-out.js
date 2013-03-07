@@ -28,3 +28,8 @@ this.foo = {
 
 var noop = function(){};
 
+
+var add = function(a, b) {
+    return a + b;
+}
+
