@@ -20,3 +20,8 @@ var
     // bar variable
     bar = 'dolor amet';
 
+
+// issue #28 : comma first
+var x = 33,
+    y = 12;
+
