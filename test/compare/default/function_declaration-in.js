@@ -1,3 +1,10 @@
+function simple(x,y){return x+y;}
+
+function simple_2(a,b,c)
+{
+                return a+b   +  c    ;
+}
+
 // indent, spaces
 function foo( x ){ return x; }
 
