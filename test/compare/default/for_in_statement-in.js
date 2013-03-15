@@ -12,3 +12,11 @@ for(prop in obj[key]) {
 console.log(prop)
 }
 }
+
+// issue #13 : ForInStatement should not mess with inline object indent
+function iss13() {
+    for (i in {submit : true, change : true, focusin : true}) {
+      console.log(i);
+    }
+}
+
