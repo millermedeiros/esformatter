@@ -39,3 +39,10 @@ function h(a,b,c,d,e){this._listener=b;this._isOnce=c;this.context=d;this._signa
 // test for issue #5 (related to parenthesis)
 doc=(context&&context.nodeType?context.ownerDocument||context:document);
 
+
+// issue #8 (multiple assignment + OR + indent)
+function iss8(){
+    if (proxy) {
+        proxy.guid = fn.guid = fn.guid || jQuery.guid++;
+    }
+}
