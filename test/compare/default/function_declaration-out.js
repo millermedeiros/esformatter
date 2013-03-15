@@ -54,4 +54,3 @@ function outter() {
         return (val * 2)
     }
 }
-
