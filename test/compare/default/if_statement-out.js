@@ -27,3 +27,10 @@ if (singleLine) singleLine();
 if (asi && noBraces) dolor()
 else amet();
 
+
+// issue #7
+function iss7() {
+    if (wait === true? --jQuery.readyWait : jQuery.isReady) {
+        return;
+    }
+}
