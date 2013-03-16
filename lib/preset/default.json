@@ -166,6 +166,7 @@
             "ElseIfStatementClosingBrace" : 1,
             "LineComment" : 1,
             "LogicalExpressionOperator" : 1,
+            "Property" : 1,
             "PropertyValue" : 1,
             "ParameterComma" : 0,
             "ParameterList" : 0,
