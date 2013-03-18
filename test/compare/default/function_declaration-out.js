@@ -54,3 +54,10 @@ function outter() {
         return (val * 2)
     }
 }
+
+
+// issue #29 : return + line break + ternary
+function iss29(a) {
+    return
+    a < 5 ? 23 : 12;
+}

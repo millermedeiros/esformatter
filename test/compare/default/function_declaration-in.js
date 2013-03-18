@@ -43,3 +43,10 @@ dolor();
 
 // test a bug related with indentation and multiple consecutive functions
 function outter(){ function a1(){return true}function a2(val){return (val*2)} }
+
+
+// issue #29 : return + line break + ternary
+function iss29(a){
+  return
+    a<5?23:12;
+}
