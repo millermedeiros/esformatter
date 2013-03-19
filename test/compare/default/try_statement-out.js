@@ -19,3 +19,12 @@ try {
 } finally {
     bar()
 }
+
+
+// issue #35: "catch" block indent + empty catch body
+jQuery.ready.promise = function(obj) {
+    try {
+        top = window.frameElement == null && document.documentElement;
+    } catch (e) {}
+};
+
