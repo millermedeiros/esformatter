@@ -40,6 +40,12 @@ var
     jQuery = function( selector, context ) {
         // The jQuery object is actually just the init constructor 'enhanced'
         return new jQuery.fn.init( selector, context, rootjQuery );
+    },
+
+    // literal object
+    obj = {
+        num : 123,
+        str : 'literal'
     };
 }());
 
