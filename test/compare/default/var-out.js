@@ -29,3 +29,17 @@ var x = 33,
     // comment
     w = 45;
 
+
+// issue #31: multiple var declaration + function expression = wrong indent
+(function(){
+    var
+        // A central reference to the root jQuery(document)
+        rootjQuery,
+
+        // Define a local copy of jQuery
+        jQuery = function(selector, context) {
+            // The jQuery object is actually just the init constructor 'enhanced'
+            return new jQuery.fn.init(selector, context, rootjQuery);
+        };
+}());
+
