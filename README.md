@@ -6,6 +6,15 @@ ECMAScript code beautifier/formatter.
 
 
 
+## Important
+
+This tool is still on early development and is missing support for many
+important features.
+
+**We are looking for contributors!!**
+
+
+
 ## Why?
 
 [jsbeautifier.org](http://jsbeautifier.org/) doesn't have enough options and
@@ -32,23 +41,15 @@ on Esprima) to recursively parse the tokens and transform it *in place*.
 
 ## Goals
 
- - granular control about white spaces, indent and line breaks.
- - have as many settings as possible so the user can tweak it to his own needs.
+ - *granular* control about white spaces, indent and line breaks.
  - command line interface (cli).
  - be non-destructive.
  - option to control automatic semicolon insertion (asi).
  - support for local/global config file so settings can be shared between team
    members.
+ - presets for the most popular style guides (Google, jQuery, Idiomatic.js).
  - be the best JavaScript code formatter.
 
-
-
-## Important
-
-This tool is still on early development and is missing support for many
-important features.
-
-Contributors are always welcome.
 
 
 ## API
@@ -107,53 +108,7 @@ toggle the behavior.
 
 ## Project structure / Contributing
 
-We will create `-wip` branches (work in progress) for *unfinished* features
-(mostly because of failing tests) and try to keep master only with *stable*
-code. We will try hard to not rewrite the commit history of `master` branch but
-will do it for `-wip` branches.
-
-If you plan to implement a new feature check the existing branches, I will push
-all my local `-wip` branches if I don't complete the feature in the same day.
-So that should give a good idea on what I'm currently working.
-
-Try to split your pull requests into small chunks (separate features), that way
-it is easier to review and merge. But feel free to do large refactors as well,
-will be harder to merge but we can work it out.
-
-The easiest way to add new features and fix bugs is to create a test file with
-mixed input and use the [esprima parser
-demo](http://esprima.org/demo/parse.html) to visualize the syntax tree and
-implement each step separately.
-
-
-
-### Default Settings
-
-The default settings should be as *conservative* as possible, [Google
-JavaScript Style
-Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
-should be used as a reference.
-
-
-### Tests
-
-Tests are done by comparing the result of `esformatter.parse()` of files with
-name ending on `-in.js` with the files `-out.js`. The folder
-`test/compare/default` tests the default settings and files inside
-`test/compare/custom` tests custom settings. Tests inside the `compare/custom`
-folder should try to test the *opposite* of the default settings whenever
-possible.
-
-To run the tests install the devDependencies by running `npm install --dev`
-(only required once) and then run `npm test`.
-
-`mocha` and `expect.js` source code was edited to provide better error
-messages. See [mocha/issues/657](https://github.com/visionmedia/mocha/pull/657)
-and [expect.js/issues/34](https://github.com/LearnBoost/expect.js/pull/34) for
-more info.
-
-To check code coverage run `npm test --coverage`.
-
+See [CONTRIBUTING.md](https://github.com/millermedeiros/esformatter/blob/master/CONTRIBUTING.md)
 
 
 
