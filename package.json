@@ -38,7 +38,7 @@
     "istanbul": "~0.1.23"
   },
   "dependencies": {
-    "amd-utils": "~0.8",
+    "mout": "~0.5",
     "rocambole": "~0.2"
   },
   "license": "MIT"
