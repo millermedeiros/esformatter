@@ -35,7 +35,7 @@ exports.readConfig = function(id){
 
 
 exports.readFile = function(path){
-    return _fs.readFileSync(path).toString();
+    return exports.lineFeed(_fs.readFileSync(path).toString());
 };
 
 
@@ -59,3 +59,6 @@ exports.mkdir = function(dir){
     }
 };
 
+exports.lineFeed = function(text){
+    return text.replace(/\r\n?|[\n\u2028\u2029]/g, "\n");
+};

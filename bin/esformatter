@@ -1,19 +1,65 @@
 #!/usr/bin/env node
 
+"use strict";
+
 var esformatter = require('../lib/esformatter');
+var cli = require('cli');
+var path = require('path');
+var fs = require('fs');
+
+var ARGV = {
+    // it would be nice to say that this is a file instead of a string, but it doesn't like some paths in windows
+    'config': ['c', 'Custom configuration object', 'string', null]
+};
 
 
-var buf = '';
+cli.setApp(path.join(__dirname, '/../package.json'));
+cli.enable('help', 'version');
+cli.setUsage(cli.app + ' [OPTIONS] <fileName>');
 
-process.stdin.on('data', function(chunk){
-    buf += chunk;
-});
+var options = cli.parse(ARGV);
+var config = loadConfigFile(options.config);
 
-process.stdin.on('end', function(){
-    var result = esformatter.format(buf);
+
+if (cli.args.length === 0) {
+    // Read from stdinput
+    cli.withStdin(formatToConsole);
+} else {
+    // Read from file
+    for (var i = 0, len = cli.args.length; i < len; i += 1) {
+        var toFormat = loadFile(cli.args[i]);
+        formatToConsole(toFormat);
+    }
+}
+
+
+function loadFile (file) {
+    try {
+        return fs.readFileSync(file).toString();
+    } catch (ex) {
+        cli.error("Can't read source file: " + file + "\nException: " + ex.message);
+        process.exit(2);
+    }
+}
+
+function loadConfigFile (file) {
+    if (!file) {
+        return;
+    }
+    if (!fs.existsSync(file)) {
+        cli.error("Can't find configuration file: " + file + "\nFile doesn't exist");
+        process.exit(1);
+    } else {
+        try {
+            return JSON.parse(fs.readFileSync(file).toString());
+        } catch (ex) {
+            cli.error("Can't parse configuration file: " + file + "\nException: " + ex.message);
+            process.exit(1);
+        }
+    }
+}
+
+function formatToConsole (source) {
+    var result = esformatter.format(source, config);
     console.log(result);
-    process.exit(0);
-});
-
-process.stdin.resume();
-
+}
