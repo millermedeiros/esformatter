@@ -91,14 +91,37 @@ var formattedCode = esformatter.format(codeStr, options);
 
 ### CLI
 
-You can also use the simple CLI to process `stdin` and `stdout`:
+You can also use the simple CLI to process `stdin` and `stdout` or reading from file:
 
+`stdin`
 ```sh
 # format "test.js" and output result to stdout
 cat test.js | esformatter
+# format "test.js" using options in "options.json" and output result to stdout
+cat test.js | esformatter --config options.json
 # process "test.js" and writes to "test.out.js"
 esformatter < test.js > test.out.js
 ```
+
+`file`
+````sh
+# format "test.js" and output result to stdout
+esformatter test.js
+# format "test.js" using options in "options.json" and output result to stdout
+esformatter --config options.json test.js
+# process "test.js" and writes to "test.out.js"
+esformatter test.js > test.out.js
+````
+
+````sh
+# Usage information
+esformatter --help
+esformatter -h
+
+# Version number
+esformatter --version
+esformatter -v
+````
 
 CLI will be highly improved after we complete the basic features of the
 library. We plan to add support for local/global settings and some flags to

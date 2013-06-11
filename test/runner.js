@@ -28,6 +28,7 @@ if (process.env.npm_config_invert) {
 
 
 m.addFile('test/format.spec.js');
+m.addFile('test/cli.spec.js');
 
 m.run(function(err){
     var exitCode = err? 1 : 0;
