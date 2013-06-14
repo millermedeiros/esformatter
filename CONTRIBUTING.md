@@ -34,8 +34,9 @@ matching `node`.
 
 The whole process is very similar to working with the DOM. Don't feel
 intimidated by *complex names* like `ConditionalExpressionConsequent`, use the
-[esprima parser demo](http://esprima.org/demo/parse.html) as reference and you
-should be good to go.
+[esprima parser demo](http://esprima.org/demo/parse.html) and/or
+[rocambole-visualize](http://piuccio.github.io/rocambole-visualize/) as reference
+and you should be good to go.
 
 
 
