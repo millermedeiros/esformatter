@@ -34,3 +34,20 @@ function iss7() {
         return;
     }
 }
+
+// issue #32
+if (foo === bar &&
+    foo > bar) {
+    foo = bar;
+}
+(function(){
+    if (foo === bar &&
+        foo > bar) {
+        foo = bar;
+    } else if (foo > bar ||
+        foo <= bar) {
+        foo = bar;
+    } else {
+        foo = bar;
+    }
+})();
