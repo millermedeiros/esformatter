@@ -42,5 +42,10 @@ if( foo===bar &&
     if( foo===bar &&
         foo>bar ){
         foo = bar;
+    }else if(foo>bar||
+        foo <=bar){
+        foo =bar;
+    }else{
+        foo = bar;
     }
 })();
