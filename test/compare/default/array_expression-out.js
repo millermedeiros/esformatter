@@ -13,5 +13,8 @@ var tuples = [
     // comment test
     ["resolve", "done", "bla", "resolved"],
     ["reject", "fail", "lorem", "rejected"],
+    [
+        ["lorem", "ipsum"]
+    ],
     ["notify", "progress", "ipsum"]
 ];
