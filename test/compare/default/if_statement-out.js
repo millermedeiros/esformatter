@@ -42,6 +42,7 @@ if (foo === bar &&
 }
 (function(){
     if (foo === bar &&
+        //bla bla bla
         foo > bar) {
         foo = bar;
     } else if (foo > bar ||
@@ -49,5 +50,12 @@ if (foo === bar &&
         foo = bar;
     } else {
         foo = bar;
+        if (foo !== bar) {
+            foo = bar;
+        } else if (foo > bar ||
+            //Hey ho
+            foo <= bar) {
+            bar = foo;
+        }
     }
 })();
