@@ -30,3 +30,8 @@ var obj = {
     "re" : /\w+/g
 };
 
+// ObjectEpression within CallExpression needs to indent comments
+declare({
+    // comment
+    create : {}
+});
