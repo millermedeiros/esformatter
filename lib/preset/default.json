@@ -126,6 +126,8 @@
         "removeTrailing" : 1,
 
         "before" : {
+            "ArrayExpressionOpening" : 0,
+            "ArrayExpressionClosing" : 0,
             "ArrayExpressionComma" : 0,
             "ArgumentComma" : 0,
             "ArgumentList" : 0,
@@ -180,6 +182,8 @@
         },
 
         "after" : {
+            "ArrayExpressionOpening" : 0,
+            "ArrayExpressionClosing" : 0,
             "ArrayExpressionComma" : 1,
             "ArgumentComma" : 1,
             "ArgumentList" : 0,
