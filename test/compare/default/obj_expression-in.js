@@ -10,7 +10,12 @@ ipsum({flag:true,other:false});
 ipsum({flag:true,other:false},789,'bar');
 
 
-var obj = {foo:"bar", 'lorem'   :  123,     
+var obj = {foo:"bar", 'lorem'   :  123,
     dolor :new Date()
 , "re": /\w+/g}    ;
 
+// ObjectEpression within CallExpression needs to indent comments
+declare({
+// comment
+create: {}
+});
