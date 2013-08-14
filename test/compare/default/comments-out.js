@@ -5,7 +5,7 @@
  */
 if (true) {
     // line comment, 1 indent
-    /*
+    /**
      * block comment, 1 indent
      */
     if (true) {
