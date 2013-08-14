@@ -1,0 +1,12 @@
+{
+    "whiteSpace" : {
+        "before" : {
+            "ArrayExpressionOpening" : 0,
+            "ArrayExpressionClosing" : 1
+        },
+        "after" : {
+            "ArrayExpressionOpening" : 1,
+            "ArrayExpressionClosing" : 0
+        }
+    }
+}
