@@ -27,3 +27,8 @@ var add = function(a, b)
     return a + b;
 }
 
+var obj = {
+    then: function( /* fnDone, fnFail, fnProgress */ ) {
+        var fns = arguments;
+    }
+};
