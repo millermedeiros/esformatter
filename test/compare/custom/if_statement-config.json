@@ -11,10 +11,12 @@
 
     "whiteSpace" : {
         "before" : {
-            "IfStatementConditional" : 0
+            "IfStatementConditionalOpening" : 0,
+            "IfStatementConditionalClosing" : 0
         },
         "after" : {
-            "IfStatementConditional" : 1
+            "IfStatementConditionalOpening" : 0,
+            "IfStatementConditionalClosing" : 1
         }
     }
 }
