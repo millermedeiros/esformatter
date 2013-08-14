@@ -21,3 +21,6 @@ function iss13() {
     }
 }
 
+// keep empty statement on one line
+var key;
+for (key in obj) {}

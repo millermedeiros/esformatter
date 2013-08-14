@@ -1,5 +1,5 @@
 for(key in obj){doFoo(obj[key]);}
-for(    key  
+for(    key
     in   obj    )doFoo(obj[key]);
 
 for(var k    in    o){
@@ -20,3 +20,6 @@ function iss13() {
     }
 }
 
+// keep empty statement on one line
+var key;
+for ( key in obj ) {}
