@@ -12,3 +12,28 @@ if (true) {
 foo.a = true;
 a ? foo() : bar()
 
+
+// from jquery
+x = function(num) {
+    return num == null ?
+
+        // Return a 'clean' array
+        this.toArray() :
+
+        // Return just the object
+        (object);
+}
+
+function x() {
+    x.test(y) ?
+        a :
+        b;
+}
+
+num == null ?
+
+    // Return a 'clean' array
+    this.toArray() :
+
+    // Return just the object
+    (num < 0 ? this[this.length + num] : this[num]);
