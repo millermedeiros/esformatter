@@ -1,6 +1,7 @@
 var     foo=true;var bar=   '123';
 var lorem   =
     /\w+/;
+var parentheses =(123);
 
 var dolor;
 
