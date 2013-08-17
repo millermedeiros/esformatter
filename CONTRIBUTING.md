@@ -8,12 +8,14 @@ fixed/implemented.
 ## New Features / Bugs
 
 The easiest way to add new features and fix bugs is to create a test file with
-mixed input and use the [esprima parser
-demo](http://esprima.org/demo/parse.html) to visualize the syntax tree and
-implement each step separately.
+mixed input and use the [rocambole-visualize](http://piuccio.github.io/rocambole-visualize/)
+or the [esprima parser demo](http://esprima.org/demo/parse.html) to visualize
+the syntax tree and implement each step separately.
 
 A good example of a commit that fixes a bug:
-https://github.com/millermedeiros/esformatter/commit/ebafa00f76
+https://github.com/millermedeiros/esformatter/commit/ebafa00f76 and a good
+example of a commit that introduces a new feature: 
+https://github.com/millermedeiros/esformatter/commit/e7d82cc81e
 
 
 
