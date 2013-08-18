@@ -12,14 +12,14 @@ b = function doB(q, wer, ty) {
 }
 
 this.foo = {
-    bar : function() {
+    bar: function() {
         var r = function() {
             re();
             draw();
             return log('foo') + 'bar';
         };
     },
-    ipsum : function(amet) {
+    ipsum: function(amet) {
         return function() {
             amet()
         }

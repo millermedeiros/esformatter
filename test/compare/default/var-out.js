@@ -45,8 +45,8 @@ var x = 33,
 
         // literal object
         obj = {
-            num : 123,
-            str : 'literal'
+            num: 123,
+            str: 'literal'
         };
 }());
 
