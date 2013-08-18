@@ -32,7 +32,7 @@ var x = 33,
 
 
 // issue #31: multiple var declaration + function expression = wrong indent
-(function(){
+(function() {
     var
         // A central reference to the root jQuery(document)
         rootjQuery,
