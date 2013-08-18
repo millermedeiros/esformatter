@@ -65,6 +65,7 @@
             "VariableName" : 1,
             "VariableValue" : 0,
             "VariableDeclaration" : 1,
+            "VariableDeclarationWithoutInit" : 1,
             "WhileStatement" : 1,
             "WhileStatementOpeningBrace" : 0,
             "WhileStatementClosingBrace" : 1
