@@ -229,7 +229,7 @@
             "ElseIfStatementOpeningBrace" : 1,
             "ElseIfStatementClosingBrace" : 1,
             "LogicalExpressionOperator" : 1,
-            "PropertyName" : 1,
+            "PropertyName" : 0,
             "ParameterComma" : 1,
             "ParameterList" : 0,
             "TryOpeningBrace" : 1,
