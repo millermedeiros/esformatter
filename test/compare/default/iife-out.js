@@ -1,4 +1,4 @@
-(function(i){
+(function(i) {
     function h(a, b, c, d, e) {
         this._listener = b;
         this._isOnce = c;

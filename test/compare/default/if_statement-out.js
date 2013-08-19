@@ -40,7 +40,7 @@ if (foo === bar &&
     foo > bar) {
     foo = bar;
 }
-(function(){
+(function() {
     if (foo === bar &&
         //bla bla bla
         foo > bar) {
