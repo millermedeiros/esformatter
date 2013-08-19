@@ -5,6 +5,13 @@ Check open issues for a list of features/bugs that we would like to see
 fixed/implemented.
 
 
+## EditorConfig
+
+To make sure we all use the same basic settings (indent, EOL, EOF) please
+install [EditorConfig](http://editorconfig.org/#download). It will make code
+review/merge easier.
+
+
 ## New Features / Bugs
 
 The easiest way to add new features and fix bugs is to create a test file with
