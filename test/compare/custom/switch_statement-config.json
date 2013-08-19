@@ -1,0 +1,13 @@
+{
+    "indent" : {
+        "SwitchStatement" : 0
+    },
+    "whiteSpace" : {
+        "before" : {
+            "SwitchDiscriminantClosing" : 1
+        },
+        "after" : {
+            "SwitchDiscriminantOpening" : 1
+        }
+    }
+}
