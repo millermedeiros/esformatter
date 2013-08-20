@@ -28,7 +28,7 @@ jQuery.ready.promise = function(obj) {
     } catch (e) {}
 };
 
-// issue #__: "catch" brace indent
+// "catch" brace indent
 function issueNN(obj) {
     try {
         x = y;
@@ -37,7 +37,7 @@ function issueNN(obj) {
     }
 }
 
-// issue #__: "finally" brace indent
+// "finally" brace indent
 jQuery.ready.promise = function(obj) {
     try {
         top = window.frameElement == null && document.documentElement;
