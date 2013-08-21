@@ -11,7 +11,8 @@
         "ObjectExpression" : 1,
         "TryStatement" : 1,
         "WhileStatement" : 1,
-        "EmptyStatement" : 0
+        "EmptyStatement" : 0,
+        "TopLevelFunctionBlock" : 1
     },
 
 
