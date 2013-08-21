@@ -1,0 +1,17 @@
+{
+    "whiteSpace" : {
+        "before" : {
+            "ArgumentList" : 1,
+            "ArgumentListArrayExpression" : 0,
+            "ArgumentListFunctionExpression" : 0,
+            "ArgumentListObjectExpression" : 0
+        },
+        "after" : {
+            "ArgumentList" : 1,
+            "ArgumentListArrayExpression" : 0,
+            "ArgumentListFunctionExpression" : 0,
+            "ArgumentListObjectExpression" : 0
+        }
+    }
+}
+
