@@ -35,14 +35,32 @@ function issueNN( obj ) {
 }
 
 // "finally" brace indent
-jQuery.ready.promise = function( obj ) {
+function foo(obj) {
     try {
         top = window.frameElement == null && document.documentElement;
     } catch (e) {
         console.log(e);
     } finally {
+        // finally a comment
         top = 0;
+        // weird
     }
+}
+
+jQuery.ready.promise = function( obj ) {
+try{
+// try 2
+top = window.frameElement == null && document.documentElement;
+// try after 2
+}catch(e){
+// catch 2
+console.log(e);
+// catch after 2
+}finally{
+// finally a comment 2
+top = 0;
+// finally after 2
+}
 };
 
 // nested try-catch
@@ -51,9 +69,13 @@ function nestedTryCatch() {
         normalPath();
     }catch(e) {
         try {
+            // try
             alternatePath();
+            // just a little bit harder
         } catch(e){
+            // catch
             console.log(e);
+            // if you can
         }finally{}
     }finally{ shouldBreak = true; } next();
 }
