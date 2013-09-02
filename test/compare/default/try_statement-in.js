@@ -25,3 +25,35 @@ jQuery.ready.promise = function( obj ) {
     } catch(e) {}
 };
 
+// "catch" brace indent
+function issueNN( obj ) {
+    try {
+        x = y;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+// "finally" brace indent
+jQuery.ready.promise = function( obj ) {
+    try {
+        top = window.frameElement == null && document.documentElement;
+    } catch (e) {
+        console.log(e);
+    } finally {
+        top = 0;
+    }
+};
+
+// nested try-catch
+function nestedTryCatch() {
+    try{
+        normalPath();
+    }catch(e) {
+        try {
+            alternatePath();
+        } catch(e){
+            console.log(e);
+        }finally{}
+    }finally{ shouldBreak = true; } next();
+}
