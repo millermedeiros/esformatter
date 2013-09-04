@@ -1,0 +1,4 @@
+(function() {
+    // comment
+    x;
+}());
