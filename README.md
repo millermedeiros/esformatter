@@ -141,6 +141,14 @@ See [CONTRIBUTING.md](https://github.com/millermedeiros/esformatter/blob/master/
 
 
 
+## Projects built on top of esformatter
+
+ - [esformatter-diff](https://github.com/piuccio/esformatter-diff) - provides a CLI tool to check and validate a codebase
+ - [sublime-esformatter](https://github.com/piuccio/sublime-esformatter) - integrates esformatter into Sublime Text
+ - [grunt-esformatter](https://github.com/jzaefferer/grunt-esformatter) - provides a grunt plugin for validating and formatting your projects code formatting
+
+
+
 ## License
 
 Released under the MIT license
