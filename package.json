@@ -7,7 +7,7 @@
     "esformatter": "./bin/esformatter"
   },
   "scripts": {
-    "test": "node ./node_modules/.bin/istanbul test test/runner.js"
+    "test": "istanbul test test/runner.js"
   },
   "repository": {
     "type": "git",

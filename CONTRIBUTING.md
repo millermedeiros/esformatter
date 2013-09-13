@@ -21,7 +21,7 @@ the syntax tree and implement each step separately.
 
 A good example of a commit that fixes a bug:
 https://github.com/millermedeiros/esformatter/commit/ebafa00f76 and a good
-example of a commit that introduces a new feature: 
+example of a commit that introduces a new feature:
 https://github.com/millermedeiros/esformatter/commit/e7d82cc81e
 
 
@@ -97,5 +97,16 @@ To run the tests install the devDependencies by running `npm install --dev`
 messages. See [mocha/issues/710](https://github.com/visionmedia/mocha/pull/710)
 for more info.
 
-To check code coverage run `npm test --coverage`.
+```sh
+# bail stops at first failed test
+npm test --bail
+# grep is used to filter the specs to run (only specs that contain "indent" in the name)
+npm test --grep 'indent'
+# can also use "--invert" to only execute specs that doesn't contain "indent" in the name
+npm test --grep 'indent' --invert
+# to check code coverage run
+npm test --coverage
+# to set the mocha reporter
+npm test --reporter dot
+```
 
