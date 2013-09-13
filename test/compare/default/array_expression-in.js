@@ -18,5 +18,5 @@ var tuples = [
     [
 ["lorem", "ipsum"]
     ],
-    ["notify", "progress", "ipsum"]
+["notify", "progress", "ipsum"]
 ];
