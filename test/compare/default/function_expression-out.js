@@ -38,3 +38,9 @@ call(function(a) {
 });
 
 
+// issue #36
+var obj = {
+    then: function( /* fnDone, fnFail, fnProgress */ ) {
+        var fns = arguments;
+    }
+};

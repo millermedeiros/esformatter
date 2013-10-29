@@ -201,6 +201,7 @@
             "ArgumentListObjectExpression" : 1,
             "AssignmentOperator" : 1,
             "BinaryExpressionOperator" : 1,
+            "BlockComment" : 1,
             "CallExpression" : 0,
             "CatchParameterList" : 1,
             "CatchOpeningBrace" : 1,
