@@ -12,6 +12,7 @@ var _path = require('path');
 // ---
 
 
+exports.CACHE = {};
 exports.COMPARE_FOLDER = _path.join(__dirname, 'compare');
 
 
@@ -35,7 +36,11 @@ exports.readConfig = function(id){
 
 
 exports.readFile = function(path){
-    return exports.lineFeed(_fs.readFileSync(path).toString());
+    // we cache the results to avoid redundant I/O
+    if (! (path in exports.CACHE)) {
+        exports.CACHE[path] = exports.lineFeed(_fs.readFileSync(path).toString());
+    }
+    return exports.CACHE[path];
 };
 
 

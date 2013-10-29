@@ -1,5 +1,5 @@
 /*jshint node:true*/
-/*global describe:false, it:false*/
+/*global describe:false, it:false, beforeEach:false*/
 "use strict";
 
 var esprima = require('esprima');
@@ -21,7 +21,7 @@ var readConfig = _helpers.readConfig;
 describe('esformatter.format()', function () {
 
     // we generate the specs dynamically based on files inside the compare
-    // folder since it will be easier to write the tests and do the comparisson
+    // folder since it will be easier to write the tests and do the comparison
 
     describe('default options', function () {
 
@@ -31,11 +31,15 @@ describe('esformatter.format()', function () {
             // we read files before the test to avoid affecting the test
             // benchmark, I/O operations are expensive.
             var id = fileName.replace(/.+(default\/.+)-in\.js/, '$1');
-            var input = readIn(id);
-            var compare = readOut(id);
+            var input, compare, result;
+
+            beforeEach(function(){
+                input = readIn(id);
+                compare = readOut(id);
+                result = result? result : esformatter.format(input);
+            });
 
             it(id, function () {
-                var result = esformatter.format(input);
                 expect( result ).to.equal( compare );
                 // result should be valid JS
                 expect(function(){
@@ -45,6 +49,9 @@ describe('esformatter.format()', function () {
                         throw new Error('esformatter.format() result produced a non-valid output.\n'+ e);
                     }
                 }).to.not.Throw();
+            });
+
+            it(id +'(idempotent)', function () {
                 // make sure formatting can be applied multiple times
                 // (idempotent)
                 expect( esformatter.format(result) ).to.equal( compare );
@@ -63,12 +70,16 @@ describe('esformatter.format()', function () {
             // we read files before the test to avoid affecting the test
             // benchmark, I/O operations are expensive.
             var id = fileName.replace(/.+(custom\/.+)-in\.js/, '$1');
-            var input = readIn(id);
-            var options = readConfig(id);
-            var compare = readOut(id);
+            var input, options, compare, result;
+
+            beforeEach(function(){
+                input = readIn(id);
+                options = readConfig(id);
+                compare = readOut(id);
+                result = result? result : esformatter.format(input, options);
+            });
 
             it(id, function () {
-                var result = esformatter.format(input, options);
                 expect( result ).to.equal( compare );
                 // result should be valid JS
                 expect(function(){
@@ -78,6 +89,9 @@ describe('esformatter.format()', function () {
                         throw new Error('esformatter.format() result produced a non-valid output.\n'+ e);
                     }
                 }).to.not.Throw();
+            });
+
+            it(id +' (idempotent)', function(){
                 // make sure formatting can be applied multiple times
                 // (idempotent)
                 expect( esformatter.format(result, options) ).to.equal( compare );
