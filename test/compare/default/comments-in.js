@@ -15,6 +15,12 @@ if (true) {
                          */
     if (true) {
     /* block single line, 3 indents */
+                            /*
+                              BLOCK ASCII
+                                |___________
+                                            |___
+                                                `----> YEAH
+                            */
     }
 }
 }
