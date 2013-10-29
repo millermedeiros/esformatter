@@ -31,3 +31,9 @@ returned.promise().done(foo)
     // comment
     .progress(newDefer.notify);
 
+
+// issue #68
+define(function() {
+    // line comment
+    x;
+});
