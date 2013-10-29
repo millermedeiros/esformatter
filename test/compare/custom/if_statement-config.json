@@ -5,7 +5,8 @@
             "ElseIfStatement" : 1,
             "IfStatementOpeningBrace" : 1,
             "ElseIfStatementOpeningBrace" : 1,
-            "ElseStatementOpeningBrace" : 1
+            "ElseStatementOpeningBrace" : 1,
+            "LineComment": 1
         }
     },
 

@@ -25,3 +25,14 @@ dolor()
 else
     amet();
 
+
+
+// issue #34 (break line comment into individual line)
+if ( window.DOMParser ) { // Standard
+    tmp = new DOMParser();
+    xml = tmp.parseFromString( data , "text/xml" );
+} else { // IE
+    xml = new ActiveXObject( "Microsoft.XMLDOM" );
+    xml.async = "false";
+    xml.loadXML( data );
+}
