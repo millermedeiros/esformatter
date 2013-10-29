@@ -26,3 +26,12 @@ if (true) {
 }
 
 /* block single line, no indent */
+
+
+
+// test PR #57
+var obj = { /* test trailing space after multi line comment */
+    then: function( /* fnDone, fnFail, fnProgress */ ) {
+        var fns = arguments; // test space before comment
+    }
+};
