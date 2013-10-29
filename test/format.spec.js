@@ -45,6 +45,9 @@ describe('esformatter.format()', function () {
                         throw new Error('esformatter.format() result produced a non-valid output.\n'+ e);
                     }
                 }).to.not.Throw();
+                // make sure formatting can be applied multiple times
+                // (idempotent)
+                expect( esformatter.format(result) ).to.equal( compare );
             });
 
         });
@@ -75,6 +78,9 @@ describe('esformatter.format()', function () {
                         throw new Error('esformatter.format() result produced a non-valid output.\n'+ e);
                     }
                 }).to.not.Throw();
+                // make sure formatting can be applied multiple times
+                // (idempotent)
+                expect( esformatter.format(result, options) ).to.equal( compare );
             });
 
         });
