@@ -56,9 +56,11 @@ on Esprima) to recursively parse the tokens and transform it *in place*.
 
 ### esformatter.format(str[, opts]):String
 
-So far `esformatter` exposes a single `format()` method which receives a string
-containing the code that you would like to format and the configuration options
-that you would like to use and returns a string with the result.
+So far `esformatter` exposes 2 methods.
+
+`format()` method which receives a string containing the code that you would
+like to format and the configuration options that you would like to use and
+returns a string with the result.
 
 ```js
 var esformatter = require('esformatter');
@@ -83,11 +85,27 @@ var options = {
 };
 
 var fs = require('fs');
-var codeStr = fs.readFileSync('path/to/js/file.js', 'utf-8');
+var codeStr = fs.readFileSync('path/to/js/file.js').toString();
 
 // return a string with the formatted code
 var formattedCode = esformatter.format(codeStr, options);
 ```
+
+or you can use the `transform()` method to manipulate an AST in place (allows
+pipping other tools that manipulates the AST). - so far only supports
+[rocambole](https://github.com/millermedeiros/rocambole) generated ASTs, but we
+will work to fix this limitation in the future (see [issue
+#86](https://github.com/millermedeiros/esformatter/issues/86)).
+
+```js
+var inputAST = rocambole.parse('var foo=123;');
+// you can also pass the formatting options as second argument like the
+// `format` method
+var outputAST = esformatter.transform(inputAST);
+assert(outputAST === inputAST, 'edits AST in place');
+assert(outputAST.toString() === 'var foo = 123;', 'formats input');
+```
+
 
 ### CLI
 
