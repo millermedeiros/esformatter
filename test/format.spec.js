@@ -1,5 +1,5 @@
 /*jshint node:true*/
-/*global describe:false, it:false, beforeEach:false*/
+/*global describe:false, it:false*/
 "use strict";
 
 var esprima = require('esprima');
@@ -31,16 +31,15 @@ describe('esformatter.format()', function () {
             // we read files before the test to avoid affecting the test
             // benchmark, I/O operations are expensive.
             var id = fileName.replace(/.+(default\/.+)-in\.js/, '$1');
-            var input, compare, result;
 
-            beforeEach(function(){
+            it(id, function () {
+                var input, compare, result;
                 input = readIn(id);
                 compare = readOut(id);
                 result = result? result : esformatter.format(input);
-            });
 
-            it(id, function () {
                 expect( result ).to.equal( compare );
+
                 // result should be valid JS
                 expect(function(){
                     try {
@@ -49,9 +48,7 @@ describe('esformatter.format()', function () {
                         throw new Error('esformatter.format() result produced a non-valid output.\n'+ e);
                     }
                 }).to.not.Throw();
-            });
 
-            it(id +'(idempotent)', function () {
                 // make sure formatting can be applied multiple times
                 // (idempotent)
                 expect( esformatter.format(result) ).to.equal( compare );
@@ -70,17 +67,16 @@ describe('esformatter.format()', function () {
             // we read files before the test to avoid affecting the test
             // benchmark, I/O operations are expensive.
             var id = fileName.replace(/.+(custom\/.+)-in\.js/, '$1');
-            var input, options, compare, result;
 
-            beforeEach(function(){
+            it(id, function () {
+                var input, options, compare, result;
                 input = readIn(id);
                 options = readConfig(id);
                 compare = readOut(id);
                 result = result? result : esformatter.format(input, options);
-            });
 
-            it(id, function () {
                 expect( result ).to.equal( compare );
+
                 // result should be valid JS
                 expect(function(){
                     try {
@@ -89,9 +85,7 @@ describe('esformatter.format()', function () {
                         throw new Error('esformatter.format() result produced a non-valid output.\n'+ e);
                     }
                 }).to.not.Throw();
-            });
 
-            it(id +' (idempotent)', function(){
                 // make sure formatting can be applied multiple times
                 // (idempotent)
                 expect( esformatter.format(result, options) ).to.equal( compare );
