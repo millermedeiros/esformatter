@@ -4,8 +4,10 @@ switch (fruit) {
         // consequent comment
         apple();
         break;
-    case Fruit.BANANA:
+    case   
+    Fruit.BANANA:
         banana();
+        // comment in between content
         break;
     // case comment
     case Fruit.MANGO:
@@ -29,3 +31,13 @@ call(function(){
             unknown();
     }
 });
+
+
+switch (fruit)
+{
+    // case comment
+    case Fruit.APPLE:
+        // consequent comment
+        apple();
+        break; }
+

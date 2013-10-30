@@ -9,5 +9,15 @@
         "after" : {
             "SwitchDiscriminantOpening" : 1
         }
+    },
+    "lineBreak": {
+        "before": {
+            "SwitchOpeningBrace": 1,
+            "SwitchClosingBrace": 1
+        },
+        "after": {
+            "SwitchOpeningBrace": 1,
+            "SwitchClosingBrace": 0
+        }
     }
 }

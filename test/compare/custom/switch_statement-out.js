@@ -1,4 +1,5 @@
-switch ( event.keyCode ) {
+switch ( event.keyCode )
+{
 case $.ui.keyCode.ENTER:
 case $.ui.keyCode.SPACE:
     // line comment
@@ -11,8 +12,9 @@ default:
     x();
 }
 
-call(function(){
-    switch (fruit) {
+call(function() {
+    switch ( fruit )
+    {
     case Fruit.APPLE:
         // line comment
         exotic();
