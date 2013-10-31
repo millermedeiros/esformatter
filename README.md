@@ -94,8 +94,7 @@ var formattedCode = esformatter.format(codeStr, options);
 or you can use the `transform()` method to manipulate an AST in place (allows
 pipping other tools that manipulates the AST). - so far only supports
 [rocambole](https://github.com/millermedeiros/rocambole) generated ASTs, but we
-will work to fix this limitation in the future (see [issue
-#86](https://github.com/millermedeiros/esformatter/issues/86)).
+will work to fix this limitation in the future (see [issue #86](https://github.com/millermedeiros/esformatter/issues/86)).
 
 ```js
 var inputAST = rocambole.parse('var foo=123;');
