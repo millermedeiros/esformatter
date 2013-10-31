@@ -164,6 +164,7 @@ See [CONTRIBUTING.md](https://github.com/millermedeiros/esformatter/blob/master/
  - [esformatter-diff](https://github.com/piuccio/esformatter-diff) - provides a CLI tool to check and validate a codebase
  - [sublime-esformatter](https://github.com/piuccio/sublime-esformatter) - integrates esformatter into Sublime Text
  - [grunt-esformatter](https://github.com/jzaefferer/grunt-esformatter) - provides a grunt plugin for validating and formatting your projects code formatting
+ - [vim-esformatter](https://gist.github.com/nisaacson/6939960) - integrates esformatter into vim
 
 
 
