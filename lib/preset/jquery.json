@@ -1,0 +1,37 @@
+{
+    "indent" : {
+        "value" : "\t",
+        "TopLevelFunctionBlock" : 0
+    },
+    "lineBreak" : {
+        "before" : {
+            "VariableDeclarationWithoutInit" : 0
+        }
+    },
+    "whiteSpace" : {
+        "before" : {
+            "ArgumentList" : 1,
+            "ArgumentListArrayExpression" : 0,
+            "ArgumentListFunctionExpression" : 0,
+            "ArgumentListObjectExpression" : 0,
+            "ArrayExpressionClosing" : 1,
+            "ExpressionClosingParentheses" : 1,
+            "ForInStatementExpressionClosing" : 1,
+            "IfStatementConditionalClosing" : 1,
+            "MemberExpressionClosing" : 1,
+            "ParameterList" : 1
+        },
+        "after" : {
+            "ArgumentList" : 1,
+            "ArgumentListArrayExpression" : 0,
+            "ArgumentListFunctionExpression" : 0,
+            "ArgumentListObjectExpression" : 0,
+            "ArrayExpressionOpening" : 1,
+            "ExpressionOpeningParentheses" : 1,
+            "ForInStatementExpressionOpening" : 1,
+            "IfStatementConditionalOpening" : 1,
+            "MemberExpressionOpening" : 1,
+            "ParameterList" : 1
+        }
+    }
+}
