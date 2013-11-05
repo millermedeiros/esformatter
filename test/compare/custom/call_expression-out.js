@@ -2,7 +2,7 @@ foo();
 
 bar( 1 ,'dolor' );
 ipsum( 3 ,{
-    amet: true
+  amet: true
 } ,'foo' );
 
 dolor = foo( 2 )
@@ -17,9 +17,9 @@ foo.bar()
 .dolor();
 
 function foo() {
-    dolor
-    .amet()
-    .maecennas();
+  dolor
+  .amet()
+  .maecennas();
 }
 
 returned.promise().done( foo )

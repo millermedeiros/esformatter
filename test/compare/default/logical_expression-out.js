@@ -12,8 +12,8 @@ foo && bar
 
 // test line break and indent
 if (true) {
-    var b;
-    this.foo && this.bar();
+  var b;
+  this.foo && this.bar();
 }
 
 (foo || bar);

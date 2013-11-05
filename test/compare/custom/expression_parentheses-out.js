@@ -3,9 +3,9 @@
 ( c === d );
 x = ( value / 10 );
 if (r * ( x + 1 ) + ( y + 2 )) {
-    y = ( "123" + "3456" );
-    // parseInt() is the "catch" on this case
-    z = ( ( q + w ) / ( parseInt('abc', 16) * ( 7 ) ) )
+  y = ( "123" + "3456" );
+  // parseInt() is the "catch" on this case
+  z = ( ( q + w ) / ( parseInt('abc', 16) * ( 7 ) ) )
 }
 
 

@@ -4,12 +4,12 @@
 var x = 123;
 
 setTimeout(function() {
-    x();
+  x();
 });
 
 }());
 
 // don't mess up other code outside a function scope
 var x = {
-    abc: 123
+  abc: 123
 };

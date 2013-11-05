@@ -3,9 +3,9 @@ a ? foo() : bar();
 b = (dolor !== amet) ? 'ipsum' : 'dolor';
 
 if (true) {
-    c = !a ? (!foo ? d : function() {
-        return a;
-    }) : b;
+  c = !a ? (!foo ? d : function() {
+    return a;
+  }) : b;
 }
 
 // should break lines
@@ -15,25 +15,25 @@ a ? foo() : bar()
 
 // from jquery
 x = function(num) {
-    return num == null ?
-
-        // Return a 'clean' array
-        this.toArray() :
-
-        // Return just the object
-        (object);
-}
-
-function x() {
-    x.test(y) ?
-        a :
-        b;
-}
-
-num == null ?
+  return num == null ?
 
     // Return a 'clean' array
     this.toArray() :
 
     // Return just the object
-    (num < 0 ? this[this.length + num] : this[num]);
+    (object);
+}
+
+function x() {
+  x.test(y) ?
+    a :
+    b;
+}
+
+num == null ?
+
+  // Return a 'clean' array
+  this.toArray() :
+
+  // Return just the object
+  (num < 0 ? this[this.length + num] : this[num]);

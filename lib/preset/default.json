@@ -1,6 +1,6 @@
 {
     "indent" : {
-        "value" : "    ",
+        "value" : "  ",
         "DoWhileStatement" : 1,
         "ForStatement" : 1,
         "ForInStatement" : 1,

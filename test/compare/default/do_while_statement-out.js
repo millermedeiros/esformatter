@@ -1,8 +1,8 @@
 do {
-    console.log(i++)
+  console.log(i++)
 } while (i < 100);
 do {
-    i--
+  i--
 } while (i);
 
 do n--; while (n && foo());

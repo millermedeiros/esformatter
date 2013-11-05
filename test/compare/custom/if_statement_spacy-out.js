@@ -1,21 +1,21 @@
 if ( true ) {
-    doStuff()
+  doStuff()
 }
 
 if ( foo || bar ) {
-    if ( bar === 'bar' ) {
-        // nested
-        log('nested if');
-    } else {
-        log('nested else')
-    }
+  if ( bar === 'bar' ) {
+    // nested
+    log('nested if');
+  } else {
+    log('nested else')
+  }
 } else if ( baz == null ) {
-    // else if
-    log('elseif');
+  // else if
+  log('elseif');
 } else {
-    // else
-    log('else');
-    // should keep the 2 empty lines
+  // else
+  log('else');
+  // should keep the 2 empty lines
 
 
 }

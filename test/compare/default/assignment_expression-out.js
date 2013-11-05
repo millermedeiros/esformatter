@@ -32,11 +32,11 @@ this.e = f;
 this.g = h || 0;
 
 function h(a, b, c, d, e) {
-    this._listener = b;
-    this._isOnce = c;
-    this.context = d;
-    this._signal = a;
-    this._priority = e || 0
+  this._listener = b;
+  this._isOnce = c;
+  this.context = d;
+  this._signal = a;
+  this._priority = e || 0
 }
 
 
@@ -46,7 +46,7 @@ doc = (context && context.nodeType ? context.ownerDocument || context : document
 
 // issue #8 (multiple assignment + OR + indent)
 function iss8() {
-    if (proxy) {
-        proxy.guid = fn.guid = fn.guid || jQuery.guid++;
-    }
+  if (proxy) {
+    proxy.guid = fn.guid = fn.guid || jQuery.guid++;
+  }
 }

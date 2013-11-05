@@ -2,24 +2,24 @@ switch ( event.keyCode )
 {
 case $.ui.keyCode.ENTER:
 case $.ui.keyCode.SPACE:
-    // line comment
-    z();
-    break;
+  // line comment
+  z();
+  break;
 case $.ui.keyCode.ESCAPE:
-    y();
-    break;
+  y();
+  break;
 default:
-    x();
+  x();
 }
 
 call(function() {
-    switch ( fruit )
-    {
-    case Fruit.APPLE:
-        // line comment
-        exotic();
-        break;
-    default:
-        unknown();
-    }
+  switch ( fruit )
+  {
+  case Fruit.APPLE:
+    // line comment
+    exotic();
+    break;
+  default:
+    unknown();
+  }
 });

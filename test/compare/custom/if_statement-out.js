@@ -1,30 +1,30 @@
 if(true)
 {
-    doStuff()
+  doStuff()
 }
 
 if(foo || bar)
 {
-    if(bar === 'bar')
-    {
-        // nested
-        log('nested if');
-    }
-    else
-    {
-        log('nested else')
-    }
+  if(bar === 'bar')
+  {
+    // nested
+    log('nested if');
+  }
+  else
+  {
+    log('nested else')
+  }
 }
 else if(baz == null)
 {
-    // else if
-    log('elseif');
+  // else if
+  log('elseif');
 }
 else
 {
-    // else
-    log('else');
-    // should keep the 2 empty lines
+  // else
+  log('else');
+  // should keep the 2 empty lines
 
 
 }
@@ -41,14 +41,14 @@ else amet();
 // issue #34 (break line comment into individual line)
 if(window.DOMParser)
 {
-    // Standard
-    tmp = new DOMParser();
-    xml = tmp.parseFromString(data, "text/xml");
+  // Standard
+  tmp = new DOMParser();
+  xml = tmp.parseFromString(data, "text/xml");
 }
 else
 {
-    // IE
-    xml = new ActiveXObject("Microsoft.XMLDOM");
-    xml.async = "false";
-    xml.loadXML(data);
+  // IE
+  xml = new ActiveXObject("Microsoft.XMLDOM");
+  xml.async = "false";
+  xml.loadXML(data);
 }
