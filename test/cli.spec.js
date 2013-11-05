@@ -47,7 +47,7 @@ describe('Command line interface', function () {
                 } else {
                     try {
                         // There is an extra line feed from piping stdout
-                        testCallback(helpers.lineFeed(output.replace(/\n$/, '')));
+                        testCallback(helpers.lineFeed(output));
                         mochaCallback();
                     } catch (ex) {
                         mochaCallback(ex);

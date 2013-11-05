@@ -61,5 +61,6 @@ function loadConfigFile (file) {
 
 function formatToConsole (source) {
     var result = esformatter.format(source, config);
-    console.log(result);
+    // do not use console.log since it adds a line break at the end
+    process.stdout.write(result);
 }
