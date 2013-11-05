@@ -35,3 +35,23 @@ declare({
   // comment
   create : {}
 });
+
+this.element
+    .add()
+    .set({
+        // line comment
+        // one more
+        prop : "value"
+    });
+
+define(name, {
+    _create : function() {
+        this.element
+            .add()
+            .set({
+                // line comment
+                // one more
+                prop : "value"
+            });
+    }
+});
