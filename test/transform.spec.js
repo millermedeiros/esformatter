@@ -11,29 +11,29 @@ var rocambole = require('rocambole');
 // ---
 
 
-describe('esformatter.transform()', function () {
+describe('esformatter.transform()', function() {
 
-    it('should transform rocambole AST in place', function () {
-        var inputAST = rocambole.parse('var foo = 123;');
-        var outputAST = esformatter.transform(inputAST);
-        expect( outputAST ).to.be.equal( inputAST );
+  it('should transform rocambole AST in place', function() {
+    var inputAST = rocambole.parse('var foo = 123;');
+    var outputAST = esformatter.transform(inputAST);
+    expect(outputAST).to.be.equal(inputAST);
+  });
+
+
+  it('should allow options as second arg', function() {
+    var inputAST = rocambole.parse('var foo = 123;');
+    var outputAST = esformatter.transform(inputAST, {
+      whiteSpace: {
+        after: {
+          VariableName: 0
+        },
+        before: {
+          VariableValue: 0
+        }
+      }
     });
-
-
-    it('should allow options as second arg', function () {
-        var inputAST = rocambole.parse('var foo = 123;');
-        var outputAST = esformatter.transform(inputAST, {
-            whiteSpace: {
-                after: {
-                    VariableName: 0
-                },
-                before: {
-                    VariableValue: 0
-                }
-            }
-        });
-        expect( outputAST.toString() ).to.be.equal( 'var foo=123;' );
-    });
+    expect(outputAST.toString()).to.be.equal('var foo=123;');
+  });
 
 
 });
