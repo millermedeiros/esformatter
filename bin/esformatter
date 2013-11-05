@@ -9,7 +9,8 @@ var fs = require('fs');
 
 var ARGV = {
     // it would be nice to say that this is a file instead of a string, but it doesn't like some paths in windows
-    'config': ['c', 'Custom configuration object', 'string', null]
+    'config': ['c', 'Custom configuration object', 'string', null],
+    'preset': ['p', 'Preset', 'string', null]
 };
 
 
@@ -19,6 +20,10 @@ cli.setUsage(cli.app + ' [OPTIONS] <fileName>');
 
 var options = cli.parse(ARGV);
 var config = loadConfigFile(options.config);
+
+if (options.preset) {
+    config.preset = options.preset;
+}
 
 
 if (cli.args.length === 0) {
@@ -44,7 +49,7 @@ function loadFile (file) {
 
 function loadConfigFile (file) {
     if (!file) {
-        return;
+        return {};
     }
     if (!fs.existsSync(file)) {
         cli.error("Can't find configuration file: " + file + "\nFile doesn't exist");
