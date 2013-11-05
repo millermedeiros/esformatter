@@ -93,4 +93,5 @@ describe('Command line interface', function() {
   spawnEsformatterWith("--config " + configPath, filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/custom/call_expression'));
   });
+
 });

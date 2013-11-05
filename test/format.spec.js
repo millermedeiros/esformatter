@@ -35,7 +35,7 @@ describe('esformatter.format()', function() {
       it(id, function() {
         var input = readIn(id);
         var compare = readOut(id);
-        var result = result ? result : esformatter.format(input);
+        var result = esformatter.format(input);
 
         expect(result).to.equal(compare);
 
@@ -71,7 +71,7 @@ describe('esformatter.format()', function() {
         var input = readIn(id);
         var options = readConfig(id);
         var compare = readOut(id);
-        var result = result ? result : esformatter.format(input, options);
+        var result = esformatter.format(input, options);
 
         expect(result).to.equal(compare);
 
@@ -93,6 +93,40 @@ describe('esformatter.format()', function() {
 
   });
 
+
+  describe('jquery preset', function() {
+
+    var pattern = _path.join(_helpers.COMPARE_FOLDER, 'jquery/*-in.js');
+    _glob.sync(pattern).forEach(function(fileName) {
+
+      // we read files before the test to avoid affecting the test
+      // benchmark, I/O operations are expensive.
+      var id = fileName.replace(/.+(jquery\/.+)-in\.js/, '$1');
+
+      it(id, function() {
+        var input = readIn(id);
+        var compare = readOut(id);
+        var result = esformatter.format(input, {preset:'jquery'});
+
+        expect(result).to.equal(compare);
+
+        // result should be valid JS
+        expect(function() {
+          try {
+            esprima.parse(result);
+          } catch (e) {
+            throw new Error('esformatter.format() result produced a non-valid output.\n' + e);
+          }
+        }).to.not.Throw();
+
+        // make sure formatting can be applied multiple times
+        // (idempotent)
+        expect(esformatter.format(result, {preset:'jquery'})).to.equal(compare);
+      });
+
+    });
+
+  });
 
 });
 
