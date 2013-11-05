@@ -19,51 +19,51 @@ exports.COMPARE_FOLDER = _path.join(__dirname, 'compare');
 // ---
 
 
-exports.readIn = function(id){
-    return exports.readFile( _path.join(exports.COMPARE_FOLDER, id +'-in.js') );
+exports.readIn = function(id) {
+  return exports.readFile(_path.join(exports.COMPARE_FOLDER, id + '-in.js'));
 };
 
 
-exports.readOut = function(id){
-    return exports.readFile( _path.join(exports.COMPARE_FOLDER, id +'-out.js') );
+exports.readOut = function(id) {
+  return exports.readFile(_path.join(exports.COMPARE_FOLDER, id + '-out.js'));
 };
 
 
-exports.readConfig = function(id){
-    var filePath = _path.join(exports.COMPARE_FOLDER, id +'-config.json');
-    return JSON.parse( exports.readFile(filePath) +'\n' );
+exports.readConfig = function(id) {
+  var filePath = _path.join(exports.COMPARE_FOLDER, id + '-config.json');
+  return JSON.parse(exports.readFile(filePath) + '\n');
 };
 
 
-exports.readFile = function(path){
-    // we cache the results to avoid redundant I/O
-    if (! (path in exports.CACHE)) {
-        exports.CACHE[path] = exports.lineFeed(_fs.readFileSync(path).toString());
+exports.readFile = function(path) {
+  // we cache the results to avoid redundant I/O
+  if (!(path in exports.CACHE)) {
+    exports.CACHE[path] = exports.lineFeed(_fs.readFileSync(path).toString());
+  }
+  return exports.CACHE[path];
+};
+
+
+exports.purge = function(dir) {
+  if (!exports.SHOULD_PURGE) return;
+  _fs.readdirSync(dir).forEach(function(relPath) {
+    var path = _path.join(dir, relPath);
+    if (_fs.statSync(path).isDirectory()) {
+      exports.purge(path);
+    } else {
+      _fs.unlinkSync(path);
     }
-    return exports.CACHE[path];
+  });
+  _fs.rmdirSync(dir);
 };
 
 
-exports.purge = function(dir){
-    if (! exports.SHOULD_PURGE) return;
-    _fs.readdirSync(dir).forEach(function(relPath){
-        var path = _path.join(dir, relPath);
-        if ( _fs.statSync(path).isDirectory() ){
-            exports.purge(path);
-        } else {
-            _fs.unlinkSync(path);
-        }
-    });
-    _fs.rmdirSync( dir );
+exports.mkdir = function(dir) {
+  if (!_fs.existsSync(dir)) {
+    _fs.mkdirSync(dir);
+  }
 };
 
-
-exports.mkdir = function(dir){
-    if (! _fs.existsSync(dir) ) {
-        _fs.mkdirSync(dir);
-    }
-};
-
-exports.lineFeed = function(text){
-    return text.replace(/\r\n?|[\n\u2028\u2029]/g, "\n");
+exports.lineFeed = function(text) {
+  return text.replace(/\r\n?|[\n\u2028\u2029]/g, "\n");
 };
