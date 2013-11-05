@@ -94,4 +94,10 @@ describe('Command line interface', function() {
     expect(formattedFile).to.equal(helpers.readOut('/custom/call_expression'));
   });
 
+  // Format file with jquery preset
+  filePath = path.join(__dirname + '/compare/jquery/spacing-in.js');
+  spawnEsformatterWith("--preset jquery", filePath, function(formattedFile) {
+    expect(formattedFile).to.equal(helpers.readOut('/jquery/spacing'));
+  });
+
 });
