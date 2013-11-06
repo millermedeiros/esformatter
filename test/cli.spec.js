@@ -18,7 +18,7 @@ describe('Command line interface', function() {
    * @param {String} input Standard input
    * @param {Function} testCallback It receives the formatted file
    */
-  var spawnEsformatterWith = function(options, input, testCallback) {
+  var spawnEsformatter = function(id, options, input, testCallback) {
     var args = [path.join(__dirname + '/../bin/esformatter')];
     if (typeof options === 'function') {
       testCallback = options;
@@ -30,7 +30,7 @@ describe('Command line interface', function() {
     if (options) {
       args = args.concat(options.split(" "));
     }
-    it('spawn esformatter with ' + options, function(mochaCallback) {
+    it('[cli '+ id +'] ' + options, function(mochaCallback) {
       var childprocess = spawn('node', args, {
         stdio: ['pipe', 'pipe', 'pipe']
       });
@@ -70,34 +70,53 @@ describe('Command line interface', function() {
 
   // Format a file with default options
   filePath = path.join(__dirname + '/compare/default/array_expression-in.js');
-  spawnEsformatterWith(filePath, function(formattedFile) {
+  spawnEsformatter('default', filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/default/array_expression'));
   });
 
   // Format a file specifying some options
   filePath = path.join(__dirname + '/compare/custom/basic_function_indent-in.js');
   configPath = path.join(__dirname + '/compare/custom/basic_function_indent-config.json');
-  spawnEsformatterWith("--config " + configPath + " " + filePath, function(formattedFile) {
+  spawnEsformatter('config', "--config " + configPath + " " + filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/custom/basic_function_indent'));
   });
 
   // Format a file from standard input
   filePath = path.join(__dirname + '/compare/default/assignment_expression-in.js');
-  spawnEsformatterWith(null, filePath, function(formattedFile) {
+  spawnEsformatter('stdin', null, filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/default/assignment_expression'));
   });
 
   // Format a file from standard input with options
   filePath = path.join(__dirname + '/compare/custom/call_expression-in.js');
   configPath = path.join(__dirname + '/compare/custom/call_expression-config.json');
-  spawnEsformatterWith("--config " + configPath, filePath, function(formattedFile) {
+  spawnEsformatter('stdin+config', "--config " + configPath, filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/custom/call_expression'));
   });
 
   // Format file with jquery preset
   filePath = path.join(__dirname + '/compare/jquery/spacing-in.js');
-  spawnEsformatterWith("--preset jquery", filePath, function(formattedFile) {
+  spawnEsformatter('preset', "--preset jquery " + filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/jquery/spacing'));
   });
+
+  // use settings from package.json file
+  filePath = path.join(__dirname + '/compare/rc/package/package-in.js');
+  spawnEsformatter('package.json', filePath, function(formattedFile) {
+    expect(formattedFile).to.equal(helpers.readOut('/rc/package/package'));
+  });
+
+  // use settings from .esformatter file
+  filePath = path.join(__dirname + '/compare/rc/top-in.js');
+  spawnEsformatter('rc', filePath, function(formattedFile) {
+    expect(formattedFile).to.equal(helpers.readOut('/rc/top'));
+  });
+
+  // use settings from .esformatter file
+  filePath = path.join(__dirname + '/compare/rc/nested/nested-in.js');
+  spawnEsformatter('rc nested', filePath, function(formattedFile) {
+    expect(formattedFile).to.equal(helpers.readOut('/rc/nested/nested'));
+  });
+
 
 });
