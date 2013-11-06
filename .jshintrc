@@ -10,7 +10,7 @@
 
 
     // Custom globals.
-    "predef"        : [],
+    "predef"        : ["_ast", "_tk", "_ws", "_br", "_indent", "_brws"],
 
 
     // Development.
