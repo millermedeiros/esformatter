@@ -91,6 +91,8 @@ var codeStr = fs.readFileSync('path/to/js/file.js').toString();
 var formattedCode = esformatter.format(codeStr, options);
 ```
 
+### esformatter.transform(ast[, opts]):AST
+
 or you can use the `transform()` method to manipulate an AST in place (allows
 pipping other tools that manipulates the AST). - so far only supports
 [rocambole](https://github.com/millermedeiros/rocambole) generated ASTs, but we
@@ -106,43 +108,71 @@ assert(outputAST.toString() === 'var foo = 123;', 'formats input');
 ```
 
 
-### CLI
+## CLI
 
-You can also use the simple CLI to process `stdin` and `stdout` or reading from file:
+You can also use the simple command line interface to process `stdin` and
+`stdout` or read from a file.
 
-`stdin`
 ```sh
-# format "test.js" and output result to stdout
-cat test.js | esformatter
-# format "test.js" using options in "options.json" and output result to stdout
-cat test.js | esformatter --config options.json
-# process "test.js" and writes to "test.out.js"
-esformatter < test.js > test.out.js
+npm install -g esformatter
 ```
 
-`file`
+### Usage:
+
 ````sh
+esformatter [OPTIONS] [FILES]
+
+Options:
+  -c, --config   Path to custom configuration file.
+  -p, --preset   Set style guide preset ("jquery", "default").
+  -h, --help     Display help and usage details.
+  -v, --version  Display the current version.
+````
+
+### Examples:
+
+```sh
 # format "test.js" and output result to stdout
 esformatter test.js
+# you can also pipe other shell commands (read file from stdin)
+cat test.js | esformatter
 # format "test.js" using options in "options.json" and output result to stdout
 esformatter --config options.json test.js
 # process "test.js" and writes to "test.out.js"
 esformatter test.js > test.out.js
-````
+# you can override the default settings, see lib/preset/default.json for
+# a list of available options
+esformatter test.js --indent.value="\t" --lineBreak.before.IfStatementOpeningBrace=0
+```
 
-````sh
-# Usage information
-esformatter --help
-esformatter -h
+### Configuration
 
-# Version number
-esformatter --version
-esformatter -v
-````
+`esformatter` will look for the closest `.esformatter` file and use that as
+a setting unless you specify `--preset` or `--config`.
 
-CLI will be highly improved after we complete the basic features of the
-library. We plan to add support for local/global settings and some flags to
-toggle the behavior.
+You also have the option to put your `esformatter` settings inside the
+`package.json` file under the `esformatter` property.
+
+Settings from multiple files will be merged until it finds a config file that
+contains the property `"preset"` or `"root": true`; that makes it easy to
+define exceptions to the project rules without needing to copy all the shared
+properties. - for an example see test files inside the `"test/compare/rc"`
+folder.
+
+The `"preset"` property is used to set the `prototype` of the config file,
+enabling inheritance. For instance, you can say your config inherits from the
+`jquery` preset and only override the settings you need:
+
+```json
+{
+  "preset": "jquery",
+  "indent": {
+    "value": "  "
+  }
+}
+```
+
+PS: the [jQuery preset](https://github.com/millermedeiros/esformatter/issues/19) is still under development.
 
 
 
