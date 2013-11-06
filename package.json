@@ -40,7 +40,9 @@
   "dependencies": {
     "mout": "~0.5",
     "rocambole": "~0.2",
-    "cli": "~0.4"
+    "rc": "~0.3.1",
+    "optimist": "~0.6.0",
+    "stdin": "*"
   },
   "license": "MIT"
 }
