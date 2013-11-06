@@ -1,6 +1,6 @@
 {
   "name": "esformatter",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "ECMAScript code beautifier/formatter",
   "main": "lib/esformatter.js",
   "bin": {
