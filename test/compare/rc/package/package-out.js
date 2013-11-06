@@ -1,3 +1,4 @@
-function foo() {
+function foo()
+{
     bar();
 }

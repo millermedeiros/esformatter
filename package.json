@@ -41,9 +41,7 @@
     "mout": "~0.5",
     "rocambole": "~0.2",
     "optimist": "~0.6.0",
-    "stdin": "*",
-    "confortable": "~0.2.1",
-    "find-parent-dir": "~0.1.0"
+    "stdin": "*"
   },
   "license": "MIT"
 }

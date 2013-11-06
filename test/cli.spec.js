@@ -118,5 +118,18 @@ describe('Command line interface', function() {
     expect(formattedFile).to.equal(helpers.readOut('/rc/nested/nested'));
   });
 
+  // make sure .esformatter file have higher priority than package.json
+  filePath = path.join(__dirname + '/compare/rc/package/rc/nested-in.js');
+  spawnEsformatter('rc nested package', filePath, function(formattedFile) {
+    expect(formattedFile).to.equal(helpers.readOut('/rc/package/rc/nested'));
+  });
+
+  // make sure .esformatter file have higher priority than package.json and
+  // that configs are merged even if inside same folder
+  filePath = path.join(__dirname + '/compare/rc/package/nested/pkg_nested-in.js');
+  spawnEsformatter('nested package+rc', filePath, function(formattedFile) {
+    expect(formattedFile).to.equal(helpers.readOut('/rc/package/nested/pkg_nested'));
+  });
+
 
 });
