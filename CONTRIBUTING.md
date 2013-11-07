@@ -90,7 +90,7 @@ name ending on `-in.js` with the files `-out.js`. The folder
 folder should try to test the *opposite* of the default settings whenever
 possible.
 
-To run the tests install the devDependencies by running `npm install --dev`
+To run the tests install the devDependencies by running `npm install .`
 (only required once) and then run `npm test`.
 
 `mocha` source code was edited to provide better error
@@ -99,14 +99,14 @@ for more info.
 
 ```sh
 # bail stops at first failed test
-npm test --bail
-# grep is used to filter the specs to run (only specs that contain "indent" in the name)
-npm test --grep 'indent'
-# can also use "--invert" to only execute specs that doesn't contain "indent" in the name
-npm test --grep 'indent' --invert
+BAIL=true npm test
+# GREP is used to filter the specs to run (only specs that contain "indent" in the name)
+GREP='indent' npm test
+# can also use "INVERT=true" to only execute specs that doesn't contain "cli" in the name
+GREP=cli INVERT=true npm test
 # to check code coverage run
 npm test --coverage
 # to set the mocha reporter
-npm test --reporter dot
+REPORTER=dot npm test
 ```
 
