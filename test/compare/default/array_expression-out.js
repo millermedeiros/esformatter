@@ -18,3 +18,10 @@ var tuples = [
   ],
   ["notify", "progress", "ipsum"]
 ];
+
+var x,
+  y = [
+    "a",
+    "b",
+    "c"
+  ];
