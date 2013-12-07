@@ -3,6 +3,7 @@
 
   "indent" : {
     "value" : "\t",
+    "SwitchStatement" : 0,
     "TopLevelFunctionBlock" : 0
   },
   "lineBreak" : {
@@ -21,7 +22,8 @@
       "ForInStatementExpressionClosing" : 1,
       "IfStatementConditionalClosing" : 1,
       "MemberExpressionClosing" : 1,
-      "ParameterList" : 1
+      "ParameterList" : 1,
+      "SwitchDiscriminantClosing" : 1
     },
     "after" : {
       "ArgumentList" : 1,
@@ -33,7 +35,8 @@
       "ForInStatementExpressionOpening" : 1,
       "IfStatementConditionalOpening" : 1,
       "MemberExpressionOpening" : 1,
-      "ParameterList" : 1
+      "ParameterList" : 1,
+      "SwitchDiscriminantOpening" : 1
     }
   }
 }
