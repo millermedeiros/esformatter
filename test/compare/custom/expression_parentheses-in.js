@@ -24,3 +24,6 @@ madness = (weird,stuff),(45,56)
 (function(){})();
 (function(){}());
 
+function returnTest() {
+  return (x > 1);
+}
