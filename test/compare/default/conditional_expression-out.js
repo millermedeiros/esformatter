@@ -3,9 +3,10 @@ a ? foo() : bar();
 b = (dolor !== amet) ? 'ipsum' : 'dolor';
 
 if (true) {
+  // this looks weird but indent logic follows the conditionals nesting
   c = !a ? (!foo ? d : function() {
-    return a;
-  }) : b;
+        return a;
+      }) : b;
 }
 
 // should break lines

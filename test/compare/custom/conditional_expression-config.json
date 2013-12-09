@@ -1,4 +1,7 @@
 {
+    "indent": {
+      "ConditionalExpression": 0
+    },
     "whiteSpace" : {
         "before" : {
             "ConditionalExpressionConsequent" : 0,

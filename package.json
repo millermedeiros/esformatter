@@ -41,9 +41,11 @@
   },
   "dependencies": {
     "mout": "~0.5",
-    "rocambole": "~0.2",
+    "rocambole": ">=0.3.1 <2.0",
+    "rocambole-token": "~1.0",
     "optimist": "~0.6.0",
-    "stdin": "*"
+    "stdin": "*",
+    "esindent": ">=0.4.2 <2.0"
   },
   "license": "MIT"
 }
