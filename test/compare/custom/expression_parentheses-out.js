@@ -27,3 +27,9 @@ madness = ( weird, stuff ), ( 45, 56 )
 function returnTest() {
   return ( x > 1 );
 }
+
+function returnTest2() {
+  return ( y + 1 );
+}
+
+fn(( 1 + 3 ) + 4);
