@@ -176,6 +176,14 @@ PS: the [jQuery preset](https://github.com/millermedeiros/esformatter/issues/19)
 
 
 
+## IRC
+
+We have an IRC channel [#esformatter on
+irc.freenode.net](http://webchat.freenode.net/?channels=esformatter) for quick
+discussions about the project development/structure.
+
+
+
 ## Project structure / Contributing
 
 See [CONTRIBUTING.md](https://github.com/millermedeiros/esformatter/blob/master/CONTRIBUTING.md)

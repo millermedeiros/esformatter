@@ -90,7 +90,7 @@ name ending on `-in.js` with the files `-out.js`. The folder
 folder should try to test the *opposite* of the default settings whenever
 possible.
 
-To run the tests install the devDependencies by running `npm install .`
+To run the tests install the devDependencies by running `npm install`
 (only required once) and then run `npm test`.
 
 `mocha` source code was edited to provide better error
@@ -98,6 +98,8 @@ messages. See [mocha/issues/710](https://github.com/visionmedia/mocha/pull/710)
 for more info.
 
 ```sh
+# runs all tests
+npm test
 # bail stops at first failed test
 BAIL=true npm test
 # GREP is used to filter the specs to run (only specs that contain "indent" in the name)
@@ -109,4 +111,14 @@ npm test --coverage
 # to set the mocha reporter
 REPORTER=dot npm test
 ```
+
+
+
+## IRC
+
+We have an IRC channel [#esformatter on
+irc.freenode.net](http://webchat.freenode.net/?channels=esformatter) for quick
+discussions about the project development/structure.
+
+
 
