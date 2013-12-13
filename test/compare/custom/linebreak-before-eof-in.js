@@ -1,1 +1,1 @@
-// This file does not have a linebreak before eof, but should after running esformatter
+// This file does have a linebreak before eof, but should not after running esformatter
