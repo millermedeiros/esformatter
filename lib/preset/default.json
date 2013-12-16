@@ -2,6 +2,7 @@
   "indent" : {
     "value": "  ",
     "ArrayExpression": 1,
+    "BinaryExpression": 1,
     "ChainedMemberExpression": 1,
     "ConditionalExpression": 1,
     "MultipleVariableDeclaration": 1,

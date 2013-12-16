@@ -2,7 +2,10 @@
 while (cur = items[i++]) log(cur.name);
 
 // wrong indent and line breaks
-while (++n < 10) {
+while (
+  ++n <
+  10
+) {
   log(n)
 }
 
