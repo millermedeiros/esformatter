@@ -62,3 +62,26 @@ x = {
     x: 1
   }
 };
+
+
+
+// issues #47
+Ext.define('VMS.model.User', {
+  extend: 'Ext.data.Model',
+  idProperty: 'UserID',
+  fields: [
+    {
+      name: 'UserID',
+      type: 'int'
+    },
+    {
+      name: 'FirstName',
+      type: 'string'
+    },
+    {
+      name: 'LastName',
+      type: 'string'
+    }
+  ]
+});
+
