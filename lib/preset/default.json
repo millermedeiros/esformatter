@@ -25,7 +25,6 @@
 
   "lineBreak" : {
     "value" : "\n",
-    "keepEmptyLines" : 1,
 
     "before" : {
       "AssignmentExpression" : 1,
