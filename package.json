@@ -43,9 +43,9 @@
     "mout": "~0.5",
     "rocambole": ">=0.3.1 <2.0",
     "rocambole-token": "~1.0",
+    "rocambole-node": "~1.0.0",
     "optimist": "~0.6.0",
-    "stdin": "*",
-    "esindent": ">=0.4.3 <2.0"
+    "stdin": "*"
   },
   "license": "MIT"
 }
