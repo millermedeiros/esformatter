@@ -55,3 +55,10 @@ define(name, {
       });
   }
 });
+
+x = {
+  props: {
+    // comment
+    x: 1
+  }
+};
