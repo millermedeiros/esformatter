@@ -24,3 +24,9 @@ function iss13() {
 // keep empty statement on one line
 var key;
 for (key in obj) {}
+
+
+for (key in obj) {
+  // line breaks, weird spaces and multiple empty lines before
+  doFoo(obj[key]);
+}
