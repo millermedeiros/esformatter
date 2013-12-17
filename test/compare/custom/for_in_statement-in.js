@@ -20,3 +20,9 @@ function iss13() {
     }
 }
 
+// line breaks and weird spaces
+for (key in obj)
+
+  {
+  doFoo(obj[key]);
+}
