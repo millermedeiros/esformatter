@@ -8,3 +8,11 @@ if (condition) { doSomething(); } else if (otherCondition) {
 } else {
 otherThing();
 }
+
+this.element
+  .add()
+  .set({
+    // line comment
+    // one more
+    prop: "value"
+  });
