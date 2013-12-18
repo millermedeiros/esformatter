@@ -32,4 +32,9 @@ function returnTest2() {
   return ( y + 1 );
 }
 
+function returnTest3(amount) {
+  return amount + " result" + ( amount > 1 ? "s" : "" );
+}
+
+
 fn(( 1 + 3 ) + 4);
