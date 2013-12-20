@@ -7,7 +7,9 @@ if ( condition ) {
 	doSomething();
 } else if ( otherCondition ) {
 	somethingElse();
+// comment
 } else {
+	// comment
 	otherThing();
 }
 
