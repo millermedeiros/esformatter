@@ -32,6 +32,24 @@ returned.promise().done(foo)
   // comment
   .progress(newDefer.notify);
 
+filter(function() {
+  // comment
+  x;
+}).map(function() {
+  // comment
+  y;
+});
+
+var contents;
+contents = this.headers.next()
+  .removeClass("ui-state-disabled")
+  .css("display", "");
+
+gulp.task('lint', function() {
+  return gulp.src('**.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish));
+});
 
 // issue #68
 define(function() {
