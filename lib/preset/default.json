@@ -38,7 +38,7 @@
       "DoWhileStatement" : ">=1",
       "DoWhileStatementOpeningBrace" : 0,
       "DoWhileStatementClosingBrace" : ">=1",
-      "EmptyStatement" : 0,
+      "EmptyStatement" : -1,
       "FinallyOpeningBrace" : 0,
       "FinallyClosingBrace" : ">=1",
       "ForInStatement" : ">=1",
