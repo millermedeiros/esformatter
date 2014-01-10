@@ -248,7 +248,7 @@
       "FunctionReservedWord": 0,
       "FunctionName" : 0,
       "FunctionExpressionOpeningBrace" : 1,
-      "FunctionExpressionClosingBrace" : 1,
+      "FunctionExpressionClosingBrace" : 0,
       "FunctionDeclarationOpeningBrace" : 1,
       "FunctionDeclarationClosingBrace" : 1,
       "IfStatementConditionalOpening" : 0,
