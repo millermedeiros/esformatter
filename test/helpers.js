@@ -7,6 +7,7 @@
 
 var _fs = require('fs');
 var _path = require('path');
+var stripJsonComments = require('strip-json-comments');
 
 
 // ---
@@ -31,7 +32,7 @@ exports.readOut = function(id) {
 
 exports.readConfig = function(id) {
   var filePath = _path.join(exports.COMPARE_FOLDER, id + '-config.json');
-  return JSON.parse(exports.readFile(filePath) + '\n');
+  return JSON.parse(stripJsonComments(exports.readFile(filePath) + '\n'));
 };
 
 

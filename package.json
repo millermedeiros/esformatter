@@ -45,7 +45,8 @@
     "rocambole-token": "~1.1",
     "rocambole-node": "~1.0",
     "optimist": "~0.6.0",
-    "stdin": "*"
+    "stdin": "*",
+    "strip-json-comments": "~0.1.1"
   },
   "license": "MIT"
 }
