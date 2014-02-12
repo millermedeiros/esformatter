@@ -145,5 +145,12 @@ describe('Command line interface', function() {
     expect(formattedFile.message).to.equal('Can\'t read source file: "fake-esformatter-123.js"\nException: ENOENT, no such file or directory \'fake-esformatter-123.js\'\n');
   });
 
+  // comments should be allowed on config.json files
+  filePath = path.join(__dirname + '/compare/custom/commented_config-in.js');
+  configPath = path.join(__dirname + '/compare/custom/commented_config-config.json');
+  spawnEsformatter('config', "--config " + configPath + " " + filePath, function(formattedFile) {
+    expect(formattedFile).to.equal(helpers.readOut('/custom/commented_config'));
+  });
+
 
 });
