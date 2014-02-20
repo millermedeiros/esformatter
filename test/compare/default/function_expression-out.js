@@ -26,7 +26,7 @@ this.foo = {
   }
 };
 
-var noop = function(){};
+var noop = function() {};
 
 
 var add = function(a, b) {

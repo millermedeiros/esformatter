@@ -21,8 +21,8 @@ var foo = ( 123 );
 madness = ( weird, stuff ), ( 45, 56 )
 
 ;( bar() );
-(function(){})();
-(function(){}());
+(function() {})();
+(function() {}());
 
 function returnTest() {
   return ( x > 1 );
