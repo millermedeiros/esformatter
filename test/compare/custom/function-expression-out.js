@@ -8,7 +8,7 @@ var fooArg = function (a, b, c) {};
 
 // Named function expression without body
 var bar = function bar () {};
-var barArg = function barArg (a,b,c) {};
+var barArg = function barArg (a, b, c) {};
 
 // Anonymous function expression with body
 var baz = function () {
@@ -94,3 +94,33 @@ call(function () {}, x);
 call(function (a, b, c) {});
 call(x, function (a, b, c) {});
 call(function (a, b, c) {}, x);
+
+/**
+ * Function expression as object methods
+ */
+
+var object = {
+  // Anonymous function expression without body
+  foo: function () {},
+  fooArg: function (a, b, c) {},
+
+  // Named function expression without body
+  bar: function bar () {},
+  barArg: function barArg (a, b, c) {},
+
+  // Anonymous function expression with body
+  baz: function () {
+    something();
+  },
+  bazArg: function (a, b, c) {
+    something();
+  },
+
+  // Named function expression with body
+  booz: function booz (a, b, c) {
+    something();
+  },
+  boozArg: function boozArg () {
+    something();
+  },
+};
