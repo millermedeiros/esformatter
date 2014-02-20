@@ -124,3 +124,56 @@ var object = {
     something();
   },
 };
+
+/**
+ * Function expression immediate execution
+ */
+
+// Anonymous function expression without body
+(function () {})();
+(function (a, b, c) {})();
+
+// Named function expression without body
+(function bar () {})();
+(function barArg (a, b, c) {})();
+
+// Anonymous function expression with body
+(function () {
+  something();
+})();
+(function (a, b, c) {
+  something();
+})();
+
+// Named function expression with body
+(function booz (a, b, c) {
+  something();
+})();
+(function boozArg () {
+  something();
+})();
+
+
+// Anonymous function expression without body
+(function () {}());
+(function (a, b, c) {}());
+
+// Named function expression without body
+(function bar () {}());
+(function barArg (a, b, c) {}());
+
+// Anonymous function expression with body
+(function () {
+  something();
+}());
+(function (a, b, c) {
+  something();
+}());
+
+// Named function expression with body
+(function booz (a, b, c) {
+  something();
+}());
+(function boozArg () {
+  something();
+}());
