@@ -17,7 +17,7 @@
         },
         "after": {
             "SwitchOpeningBrace": 1,
-            "SwitchClosingBrace": 0
+            "SwitchClosingBrace": ">= 0"
         }
     }
 }
