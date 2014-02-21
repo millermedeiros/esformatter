@@ -70,7 +70,7 @@
       "ReturnStatement" : ">=1",
       "SwitchOpeningBrace" : 0,
       "SwitchClosingBrace" : ">=1",
-      "ThisExpression" : 0,
+      "ThisExpression" : ">=0",
       "ThrowStatement" : ">=1",
       "TryOpeningBrace" : 0,
       "TryClosingBrace" : ">=1",
