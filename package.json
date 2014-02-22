@@ -47,7 +47,8 @@
     "optimist": "~0.6.0",
     "stdin": "*",
     "strip-json-comments": "~0.1.1",
-    "semver": "~2.2.1"
+    "semver": "~2.2.1",
+    "debug": "^0.7.4"
   },
   "license": "MIT"
 }
