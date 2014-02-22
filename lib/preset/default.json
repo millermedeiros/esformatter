@@ -206,7 +206,8 @@
       "UnaryExpressionOperator": 0,
       "VariableName" : 1,
       "VariableValue" : 1,
-      "WhileStatementConditional" : 1,
+      "WhileStatementConditionalOpening" : 1,
+      "WhileStatementConditionalClosing" : 0,
       "WhileStatementOpeningBrace" : 1,
       "WhileStatementClosingBrace" : 1
     },
@@ -276,7 +277,8 @@
       "TryClosingBrace" : 1,
       "UnaryExpressionOperator": 0,
       "VariableName" : 1,
-      "WhileStatementConditional" : 1,
+      "WhileStatementConditionalOpening" : 0,
+      "WhileStatementConditionalClosing" : 1,
       "WhileStatementOpeningBrace" : 1,
       "WhileStatementClosingBrace" : 1
     }
