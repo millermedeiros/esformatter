@@ -40,3 +40,7 @@ var obj = {
         var fns = arguments;
     }
 };
+
+
+// issue #134
+var foo = new MyConstructor(function otherFunction () { });
