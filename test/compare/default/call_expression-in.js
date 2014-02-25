@@ -35,3 +35,10 @@ define(function() {
     // line comment
     x;
 });
+
+
+noArgs(
+      );
+
+noArgs2(    );
+noArgs3();
