@@ -7,7 +7,7 @@ var c =         function(n) {
 }
     return c}
 
-this.foo = {
+  this.foo = {
     bar : function(){
         var r = function(){
             re(); draw();
