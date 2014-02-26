@@ -128,5 +128,39 @@ describe('esformatter.format()', function() {
 
   });
 
+  describe('jslint preset', function() {
+
+    var pattern = _path.join(_helpers.COMPARE_FOLDER, 'jslint/*-in.js');
+    _glob.sync(pattern).forEach(function(fileName) {
+
+      // we read files before the test to avoid affecting the test
+      // benchmark, I/O operations are expensive.
+      var id = fileName.replace(/.+(jslint\/.+)-in\.js/, '$1');
+
+      it(id, function() {
+        var input = readIn(id);
+        var compare = readOut(id);
+        var result = esformatter.format(input, {preset:'jslint'});
+
+        expect(result).to.equal(compare);
+
+        // result should be valid JS
+        expect(function() {
+          try {
+            esprima.parse(result);
+          } catch (e) {
+            throw new Error('esformatter.format() result produced a non-valid output.\n' + e);
+          }
+        }).to.not.Throw();
+
+        // make sure formatting can be applied multiple times
+        // (idempotent)
+        expect(esformatter.format(result, {preset:'jslint'})).to.equal(compare);
+      });
+
+    });
+
+  });
+
 });
 

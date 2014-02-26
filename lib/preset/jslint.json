@@ -1,0 +1,15 @@
+{
+  "preset": "default",
+  "indent": {
+    "value": "    "
+  },
+  "lineBreak": {
+    "keepEmptyLines": 0
+  },
+  "whiteSpace": {
+    "after": {
+      "FunctionName": 0,
+      "FunctionReservedWord": 1
+    }
+  }
+}
