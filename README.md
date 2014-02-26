@@ -203,6 +203,7 @@ See [CONTRIBUTING.md](https://github.com/millermedeiros/esformatter/blob/master/
  - [grunt-esformatter](https://github.com/jzaefferer/grunt-esformatter) - provides a grunt plugin for validating and formatting your projects code formatting
  - [vim-esformatter](https://gist.github.com/nisaacson/6939960) - integrates esformatter into vim
  - [gulp-esformatter](https://github.com/sindresorhus/gulp-esformatter) - gulp plugin
+ - [broccoli-esformatter](https://github.com/shinnn/broccoli-esformatter) - Broccoli plugin
 
 
 
