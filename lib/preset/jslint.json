@@ -1,0 +1,12 @@
+{
+  "preset": "default",
+  "indent": {
+    "value": "    "
+  },
+  "whiteSpace": {
+    "after": {
+      "FunctionName": 0,
+      "FunctionReservedWord": 1
+    }
+  }
+}
