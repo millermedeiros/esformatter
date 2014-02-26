@@ -33,14 +33,14 @@
   },
   "devDependencies": {
     "esprima": "1.0",
-    "mocha": "https://github.com/millermedeiros/mocha/tarball/latest",
-    "chai": "1.4",
-    "glob": "3.1",
-    "istanbul": "~0.1.23",
-    "jshint": "~2.3.0"
+    "mocha": "~1.17.1",
+    "chai": "~1.9.0",
+    "glob": "~3.2.9",
+    "istanbul": "~0.2.4",
+    "jshint": "~2.4.4"
   },
   "dependencies": {
-    "mout": "~0.5",
+    "mout": "~0.9.0",
     "rocambole": ">=0.3.1 <2.0",
     "rocambole-token": "~1.1",
     "rocambole-node": "~1.0",
