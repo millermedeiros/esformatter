@@ -29,6 +29,7 @@
 
     "before" : {
       "AssignmentExpression" : ">=1",
+      "AssignmentOperator": 0,
       "BlockStatement" : 0,
       "CallExpression" : -1,
       "ConditionalExpression" : ">=1",
@@ -85,6 +86,7 @@
 
     "after" : {
       "AssignmentExpression" : ">=1",
+      "AssignmentOperator" : 0,
       "BlockStatement" : 0,
       "CallExpression" : -1,
       "CatchOpeningBrace" : ">=1",
