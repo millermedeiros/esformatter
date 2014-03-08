@@ -1,7 +1,9 @@
-for(var i=0,
+for(
+  var i=0,
                     n=things.length;
 i<    n;
-i   +=  1  ){
+i   +=  1 
+){
 // 1
     things[i];
 }
