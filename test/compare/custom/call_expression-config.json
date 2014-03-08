@@ -2,6 +2,14 @@
     "indent" : {
         "ChainedMemberExpression" : 0
     },
+    "lineBreak": {
+      "before": {
+        "CallExpression": ">=1"
+      },
+      "after": {
+        "CallExpression": ">=1"
+      }
+    },
     "whiteSpace" : {
         "before" : {
             "ArgumentList" : 1,

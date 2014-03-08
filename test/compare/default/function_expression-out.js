@@ -15,8 +15,7 @@ b = function doB(q, wer, ty) {
 this.foo = {
   bar: function() {
     var r = function() {
-      re();
-      draw();
+      re(); draw();
       return log('foo') + 'bar';
     };
   },

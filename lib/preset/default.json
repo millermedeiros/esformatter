@@ -30,7 +30,7 @@
     "before" : {
       "AssignmentExpression" : ">=1",
       "BlockStatement" : 0,
-      "CallExpression" : ">=1",
+      "CallExpression" : -1,
       "ConditionalExpression" : ">=1",
       "CatchOpeningBrace" : 0,
       "CatchClosingBrace" : ">=1",
@@ -86,7 +86,7 @@
     "after" : {
       "AssignmentExpression" : ">=1",
       "BlockStatement" : 0,
-      "CallExpression" : ">=1",
+      "CallExpression" : -1,
       "CatchOpeningBrace" : ">=1",
       "CatchClosingBrace" : ">=0",
       "ConditionalExpression" : ">=1",
@@ -155,7 +155,7 @@
       "BinaryExpression": 0,
       "BinaryExpressionOperator" : 1,
       "BlockComment" : 1,
-      "CallExpression" : 0,
+      "CallExpression" : -1,
       "CatchParameterList" : 1,
       "CatchOpeningBrace" : 1,
       "CatchClosingBrace" : 1,
