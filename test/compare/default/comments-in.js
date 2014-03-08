@@ -35,3 +35,9 @@ var obj = { /* test trailing space after multi line comment */
         var fns = arguments; // test space before comment
     }
 };
+
+function foo() { // single line after token that requires line break
+  if (false) { /* multi line after token that requires line break */
+    bar();
+  }
+}
