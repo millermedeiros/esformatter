@@ -127,7 +127,7 @@
       "SwitchOpeningBrace" : ">=1",
       "SwitchClosingBrace" : ">=1",
       "ThisExpression" : 0,
-      "ThrowStatement" : 0,
+      "ThrowStatement" : ">=1",
       "TryOpeningBrace" : ">=1",
       "TryClosingBrace" : 0,
       "VariableDeclaration" : ">=1",
