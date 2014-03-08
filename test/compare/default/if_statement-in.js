@@ -25,6 +25,9 @@ dolor()
 else
     amet();
 
+// another trap!
+if     (   asi    &&   noBraces2   )     dolor()
+else        amet();
 
 // issue #7
 function iss7(){
