@@ -35,3 +35,9 @@ for (key in obj)
   // line breaks, weird spaces and multiple empty lines before
   doFoo(obj[key]);
 }
+
+// no {}
+for ( key in obj ) doFoo(obj[key]);
+for (  k    in   o  )
+fn(o[k]);
+
