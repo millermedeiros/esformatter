@@ -70,7 +70,7 @@
       "LogicalExpression" : -1,
       "ObjectExpressionClosingBrace" : ">=1",
       "Property" : ">=1",
-      "ReturnStatement" : ">=1",
+      "ReturnStatement" : -1,
       "SwitchOpeningBrace" : 0,
       "SwitchClosingBrace" : ">=1",
       "ThisExpression" : -1,
