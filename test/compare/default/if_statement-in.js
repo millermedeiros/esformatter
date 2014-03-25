@@ -72,3 +72,13 @@ if ( window.DOMParser ) { // Standard
     xml.async = "false";
     xml.loadXML( data );
 }
+
+
+// test with multiple lines!
+if (
+  lorem === ipsum &&
+  dolor !== 'amet'
+) {
+  yeah();
+}
+
