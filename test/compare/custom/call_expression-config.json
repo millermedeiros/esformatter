@@ -1,23 +1,25 @@
 {
-    "indent" : {
-        "ChainedMemberExpression" : 0
+  "indent" : {
+    "ChainedMemberExpression" : 0
+  },
+  "lineBreak": {
+    "before": {
+      "ArgumentComma" : 0,
+      "CallExpression": ">=1"
     },
-    "lineBreak": {
-      "before": {
-        "CallExpression": ">=1"
-      },
-      "after": {
-        "CallExpression": ">=1"
-      }
-    },
-    "whiteSpace" : {
-        "before" : {
-            "ArgumentList" : 1,
-            "ArgumentComma" : 1
-        },
-        "after" : {
-            "ArgumentList" : 1,
-            "ArgumentComma" : 0
-        }
+    "after": {
+      "ArgumentComma" : 0,
+      "CallExpression": ">=1"
     }
+  },
+  "whiteSpace" : {
+    "before" : {
+      "ArgumentList" : 1,
+      "ArgumentComma" : 1
+    },
+    "after" : {
+      "ArgumentList" : 1,
+      "ArgumentComma" : 0
+    }
+  }
 }
