@@ -1,7 +1,9 @@
 for (key in obj) {
   doFoo(obj[key]);
 }
-for (key in obj) doFoo(obj[key]);
+// we do not remove line breaks! (we assume user knows what he is doing)
+for (key
+  in obj) doFoo(obj[key]);
 
 for (var k in o) {
   console.log(k, o[k]);
