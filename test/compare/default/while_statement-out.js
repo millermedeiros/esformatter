@@ -33,3 +33,7 @@ while (n--) {
   }
 }
 
+
+// no body #2
+while (true);
+

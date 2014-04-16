@@ -34,3 +34,8 @@ while(z++<0) {
 }
 }
 
+
+// no body #2
+while (true )
+  ;
+
