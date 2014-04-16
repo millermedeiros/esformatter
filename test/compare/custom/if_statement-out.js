@@ -33,8 +33,10 @@ if(singleLine) singleLine();
 
 
 // it's a trap!
-if(asi && noBraces) dolor()
-else amet();
+if(asi && noBraces)
+  dolor()
+else
+  amet();
 
 
 

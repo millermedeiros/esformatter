@@ -24,9 +24,14 @@ if (singleLine) singleLine();
 
 
 // it's a trap!
-if (asi && noBraces) dolor()
-else amet();
+if (asi && noBraces)
+  dolor()
+else
+  amet();
 
+// another trap!
+if (asi && noBraces2) dolor()
+else amet();
 
 // issue #7
 function iss7() {
@@ -71,3 +76,13 @@ if (window.DOMParser) { // Standard
   xml.async = "false";
   xml.loadXML(data);
 }
+
+
+// test with multiple lines!
+if (
+  lorem === ipsum &&
+  dolor !== 'amet'
+) {
+  yeah();
+}
+

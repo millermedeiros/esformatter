@@ -1,4 +1,5 @@
 for(key in obj){doFoo(obj[key]);}
+// we do not remove line breaks! (we assume user knows what he is doing)
 for(    key
     in   obj    )doFoo(obj[key]);
 
@@ -23,3 +24,21 @@ function iss13() {
 // keep empty statement on one line
 var key;
 for ( key in obj ) {}
+
+
+
+
+
+
+for (key in obj)
+
+  {
+  // line breaks, weird spaces and multiple empty lines before
+  doFoo(obj[key]);
+}
+
+// no {}
+for ( key in obj ) doFoo(obj[key]);
+for (  k    in   o  )
+fn(o[k]);
+

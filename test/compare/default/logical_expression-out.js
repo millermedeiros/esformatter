@@ -16,6 +16,5 @@ if (true) {
   this.foo && this.bar();
 }
 
-(foo || bar);
-(dolor || amet);
+(foo || bar); (dolor || amet);
 

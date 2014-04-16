@@ -1,19 +1,19 @@
 {
     "lineBreak" : {
         "before" : {
-            "AssignmentExpression" : false
+            "AssignmentExpression" : -1
         },
         "after" : {
-            "AssignmentExpression" : false
+            "AssignmentExpression" : -1
         }
     },
     "whiteSpace" : {
         "before" : {
-            "AssignmentExpression" : true,
-            "AssignmentOperator" : false
+            "AssignmentExpression" : 1,
+            "AssignmentOperator" : 0
         },
         "after" : {
-            "AssignmentOperator" : false
+            "AssignmentOperator" : 0
         }
     }
 }

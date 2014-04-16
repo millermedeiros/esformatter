@@ -1,4 +1,9 @@
-for (var i = 0, n = things.length; i < n; i += 1) {
+for (
+  var i = 0,
+    n = things.length;
+  i < n;
+  i += 1
+) {
   // 1
   things[i];
 }
@@ -32,4 +37,10 @@ function foo() {
     if (d = this._bindings[c], d._listener === a && d.context === b) return c;
   return -1
 }
+
+
+// 8: no {}
+for (i = 0; i < 10; i++) foo(i);
+for (i = 10; i < 10; i++)
+  bar(i);
 

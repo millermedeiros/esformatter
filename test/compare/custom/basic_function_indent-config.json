@@ -1,31 +1,31 @@
 {
     "indent" : {
-        "FunctionDeclaration" : false
+        "FunctionDeclaration" : 0
     },
     "lineBreak" : {
         "before" : {
-            "FunctionDeclarationOpeningBrace" : false,
-            "FunctionDeclarationClosingBrace" : false,
-            "ReturnStatement" : false
+            "FunctionDeclarationOpeningBrace" : 0,
+            "FunctionDeclarationClosingBrace" : 0,
+            "ReturnStatement" : 0
         },
         "after" : {
-            "FunctionDeclarationOpeningBrace" : false,
-            "FunctionDeclarationClosingBrace" : false
+            "FunctionDeclarationOpeningBrace" : 0,
+            "FunctionDeclarationClosingBrace" : ">= 0"
         }
     },
     "whiteSpace" : {
         "before" : {
-            "ParameterList" : true,
-            "ParameterComma" : false,
-            "ParameterList" : true,
-            "FunctionDeclarationOpeningBrace" : false,
-            "FunctionDeclarationClosingBrace" : true
+            "ParameterList" : 1,
+            "ParameterComma" : 0,
+            "ParameterList" : 1,
+            "FunctionDeclarationOpeningBrace" : 0,
+            "FunctionDeclarationClosingBrace" : 1
         },
         "after" : {
-            "FunctionName" : true,
-            "ParameterComma" : false,
-            "ParameterList" : true,
-            "FunctionDeclarationOpeningBrace" : true
+            "FunctionName" : 1,
+            "ParameterComma" : 0,
+            "ParameterList" : 1,
+            "FunctionDeclarationOpeningBrace" : 1
         }
     }
 }

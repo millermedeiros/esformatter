@@ -7,8 +7,9 @@ ipsum(3, {
 
 dolor = foo(2)
 
-// should remove line breaks
-foo(a, b, c, d)
+// should not remove line breaks
+foo(a, b,
+c, d)
 
 
 // it should indent chained calls if there is a line break between each call
@@ -37,3 +38,9 @@ define(function() {
   // line comment
   x;
 });
+
+
+noArgs();
+
+noArgs2();
+noArgs3();

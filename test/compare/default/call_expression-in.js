@@ -1,10 +1,11 @@
 foo();
 
-bar(1,'dolor');ipsum(3,{amet:true},'foo');
+bar(1,'dolor');
+ipsum(3,{amet:true},'foo');
 
 dolor=foo(2)
 
-// should remove line breaks
+// should not remove line breaks
 foo(a,b,
 c,d)
 
@@ -35,3 +36,10 @@ define(function() {
     // line comment
     x;
 });
+
+
+noArgs(
+      );
+
+noArgs2(    );
+noArgs3();

@@ -3,8 +3,8 @@ while(cur=items[i++]) log(cur.name);
 
     // wrong indent and line breaks
    while(
-       ++n
-           <10
+       ++n <
+       10
    ) {
             log(n)                
    }
@@ -33,4 +33,9 @@ while(z++<0) {
 }
 }
 }
+
+
+// no body #2
+while (true )
+  ;
 
