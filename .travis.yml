@@ -4,11 +4,13 @@
  script:
    - "npm test --coverage"
    - "npm run-script lint"
+ branches:
+  only:
+  - master
  notifications:
   irc:
     channels:
       - "irc.freenode.org#esformatter"
-    on_success: always
-    on_failure: always
+    on_success: change
     use_notice: true
     skip_join: true
