@@ -11,7 +11,7 @@ ECMAScript code beautifier/formatter.
 This tool is still on early development and is missing support for many
 important features.
 
-**We are looking for contributors!!**
+**We are looking for [contributors](https://github.com/millermedeiros/esformatter/blob/master/CONTRIBUTING.md)!!**
 
 
 
@@ -74,7 +74,9 @@ var options = {
     },
     lineBreak : {
         before : {
-            BlockStatement : 1,
+            // at least one line break before BlockStatement
+            BlockStatement : '>=1',
+            // only one line break before BlockStatement
             DoWhileStatementOpeningBrace : 1,
             // ...
         }
