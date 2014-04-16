@@ -1,5 +1,6 @@
 for (
-  var i = 0, n = things.length;
+  var i = 0,
+    n = things.length;
   i < n;
   i += 1
 ) {
