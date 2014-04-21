@@ -49,3 +49,9 @@ this.isMultiLine =
 	isInput ? false :
 	// All other element types are determined by whether or not they're contentEditable
 	this.element.prop( "isContentEditable" );
+
+if ( event.target !== that.element[ 0 ] &&
+		event.target !== menuElement &&
+		!$.contains( menuElement, event.target ) ) {
+	close();
+}
