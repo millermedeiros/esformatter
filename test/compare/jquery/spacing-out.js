@@ -62,3 +62,10 @@ contents = this.headers.next()
 	.css( "display", "" )
 	.removeAttr( "role" );
 
+this.buttonElement
+	.addClass( baseClasses )
+	.bind( "click" + this.eventNamespace, function( event ) {
+		if ( options.disabled ) {
+			event.preventDefault();
+		}
+	});
