@@ -55,3 +55,10 @@ if ( event.target !== that.element[ 0 ] &&
 		!$.contains( menuElement, event.target ) ) {
 	close();
 }
+
+contents = this.headers.next()
+	.removeClass( "ui-helper-reset ui-widget-content ui-corner-bottom " +
+		"ui-accordion-content ui-accordion-content-active ui-state-disabled" )
+	.css( "display", "" )
+	.removeAttr( "role" );
+
