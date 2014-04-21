@@ -18,3 +18,7 @@ this.element
 		// one more
 		prop: "value"
 	});
+
+while ( x ) {
+	y();
+}
