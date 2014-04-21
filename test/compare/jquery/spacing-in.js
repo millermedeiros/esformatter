@@ -24,3 +24,9 @@ while (x) {
 for (i = 0; i < length; i++) {
   y();
 }
+
+if ( event.target !== that.element[ 0 ] &&
+    event.target !== menuElement &&
+    !$.contains( menuElement, event.target ) ) {
+  close();
+}
