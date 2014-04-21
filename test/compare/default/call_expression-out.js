@@ -25,6 +25,12 @@ function foo() {
     .maecennas();
 }
 
+contents = this.headers.next()
+  .removeClass("ui-helper-reset ui-widget-content ui-corner-bottom " +
+    "ui-accordion-content ui-accordion-content-active ui-state-disabled")
+  .css("display", "")
+  .removeAttr("role");
+
 returned.promise().done(foo)
   // comment
   .done(newDefer.resolve)
