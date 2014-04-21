@@ -16,3 +16,14 @@ this.element
     // one more
     prop: "value"
   });
+
+// true?
+if ( true ) {
+  yay();
+// false?
+} else if ( false ) {
+  meh();
+// was active, but active panel is gone
+} else {
+  gone();
+}
