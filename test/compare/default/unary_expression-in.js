@@ -25,3 +25,5 @@ function fn() {
 delete this.bar
 delete      this.amet;delete this.ipsum;
 }
+
+typeof a === "number" ? x : y;
