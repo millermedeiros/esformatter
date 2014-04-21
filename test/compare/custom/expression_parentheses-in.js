@@ -36,5 +36,9 @@ function returnTest3(amount) {
   return amount + " result" + (amount > 1 ? "s" : "");
 }
 
+function returnTest4() {
+  return (a || b < 0) && y();
+}
+
 
 fn((1 + 3) + 4);
