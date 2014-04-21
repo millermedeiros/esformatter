@@ -63,7 +63,12 @@ x = {
   }
 };
 
-
+var x = {
+  data: x ?
+    x() :
+    // comment
+    function() {}
+};
 
 // issues #47
 Ext.define('VMS.model.User', {
