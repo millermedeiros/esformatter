@@ -27,3 +27,5 @@ function fn() {
   delete this.amet;
   delete this.ipsum;
 }
+
+typeof a === "number" ? x : y;
