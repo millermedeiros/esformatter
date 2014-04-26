@@ -18,3 +18,11 @@ this.element
 		// one more
 		prop: "value"
 	});
+
+while ( x ) {
+	y();
+}
+
+for ( i = 0; i < length; i++ ) {
+	y();
+}

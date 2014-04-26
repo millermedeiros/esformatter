@@ -20,10 +20,12 @@
       "ArrayExpressionClosing" : 1,
       "ExpressionClosingParentheses" : 1,
       "ForInStatementExpressionClosing" : 1,
+      "ForStatementExpressionClosing" : 1,
       "IfStatementConditionalClosing" : 1,
       "MemberExpressionClosing" : 1,
       "ParameterList" : 1,
-      "SwitchDiscriminantClosing" : 1
+      "SwitchDiscriminantClosing" : 1,
+      "WhileStatementConditionalClosing" : 1
     },
     "after" : {
       "ArgumentList" : 1,
@@ -33,10 +35,12 @@
       "ArrayExpressionOpening" : 1,
       "ExpressionOpeningParentheses" : 1,
       "ForInStatementExpressionOpening" : 1,
+      "ForStatementExpressionOpening" : 1,
       "IfStatementConditionalOpening" : 1,
       "MemberExpressionOpening" : 1,
       "ParameterList" : 1,
-      "SwitchDiscriminantOpening" : 1
+      "SwitchDiscriminantOpening" : 1,
+      "WhileStatementConditionalOpening" : 1
     }
   }
 }
