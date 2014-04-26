@@ -7,14 +7,14 @@ root = true
 [*]
 end_of_line = lf
 insert_final_newline = true
-indent_style = space
-indent_size = 2
 charset = utf-8
 trim_trailing_whitespace = true
 
-; The default indent on package.json is 2 spaces, better to keep it so we can
-; use `npm install --save` and other features that rewrites the package.json
-; file automatically
+; Can't reset indent, so only set it where wanted
+[lib/**]
+indent_style = space
+indent_size = 2
+
 [package.json]
 indent_style = space
 indent_size = 2
