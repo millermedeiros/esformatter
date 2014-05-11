@@ -25,3 +25,8 @@ function fn() {
 delete this.bar
 delete      this.amet;delete this.ipsum;
 }
+
+typeof a === "number" ? x : y;
+
+var s = 'a string';
+console.log(typeof s);
