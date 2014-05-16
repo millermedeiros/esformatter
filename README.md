@@ -177,6 +177,22 @@ enabling inheritance. For instance, you can say your config inherits from the
 PS: the [jQuery preset](https://github.com/millermedeiros/esformatter/issues/19) is still under development.
 
 
+Configuration in esformatter consists of three main building blocks:
+
+#### indent
+
+Indent is responsible for whitespace at the front of each line. `indent.value` is used for each indentation. The default indents with two spaces. Setting `indent.value` to `"\t"` will switch to indentation using tabs.
+
+The other properties for indent toggle indentation for specific elements. These all refer to regular JavaScript statements except for TopLevelFunctionBlock. This is enabled by default, with no special behaviour. When disabled (set to `0`), esformattter will not indent top level function blocks (used by the jQuery preset).
+
+#### lineBreak and whiteSpace
+
+Both of these have `value`, `before` and `after` properties. `lineBreak`'s value is `"\n"` by default, while whiteSpace uses a single space (`" "`). Its unlikely that you ever need to change these.
+
+More interesting are all the properties nested under `before` and `after`. These refer to various elements of JavaScript syntax, where the terms mostly match the names used by the Abstract Syntax Tree (AST) for JavaScript. A lot of them have "...Opening", "...Closing", "...OpeningBrace" and "...ClosingBrace" as variants, allowing very fine grained control over each settings.
+
+Documenting each property here wouldn't be practical. For now we recommend you look at the existing presets (default and jquery) to find the properties you need to adjust for your specific needs. Better yet, adopt one of the presets to avoid having to configure anything beyond the most basic settings (like `indent.value`).
+
 
 ## IRC
 
