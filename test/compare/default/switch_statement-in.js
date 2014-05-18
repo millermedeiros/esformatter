@@ -13,8 +13,8 @@ switch (fruit) {
     case Fruit.MANGO:
     // case comment
     case Fruit.PUPAYA:
-        exotic();
-        break;
+    exotic();
+    break;
     default:
         // consequent comment
         unknown();
