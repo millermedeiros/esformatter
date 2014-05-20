@@ -8,7 +8,7 @@
     "ObjectExpression": 1,
     "SwitchCase": 1,
     "SwitchStatement": 1,
-
+    "ReturnStatement": 1,
     "CatchClause": 1,
     "DoWhileStatement": 1,
     "ForInStatement": 1,
