@@ -1,6 +1,7 @@
 {
     "indent" : {
-        "SwitchStatement" : 0
+        "SwitchStatement" : 0,
+        "SwitchCase": 1
     },
     "whiteSpace" : {
         "before" : {
