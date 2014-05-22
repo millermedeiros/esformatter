@@ -61,3 +61,17 @@ function iss29(a) {
   return
   a < 5 ? 23 : 12;
 }
+
+function multiLineReturn() {
+  return a &&
+    b ||
+    c;
+}
+
+function expressionReturn() {
+  return (
+    a &&
+    b +
+    c
+  );
+}
