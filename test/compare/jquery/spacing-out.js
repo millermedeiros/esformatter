@@ -26,3 +26,11 @@ while ( x ) {
 for ( i = 0; i < length; i++ ) {
 	y();
 }
+
+this.buttonElement
+	.addClass( baseClasses )
+	.bind( "click" + this.eventNamespace, function( event ) {
+		if ( options.disabled ) {
+			event.preventDefault();
+		}
+	});
