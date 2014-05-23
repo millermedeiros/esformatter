@@ -26,3 +26,21 @@ while ( x ) {
 for ( i = 0; i < length; i++ ) {
 	y();
 }
+
+contents = this.headers.next()
+	.removeClass( "ui-helper-reset ui-widget-content ui-corner-bottom " +
+		"ui-accordion-content ui-accordion-content-active ui-state-disabled" )
+	.css( "display", "" )
+	.removeAttr( "role" );
+
+this.headers
+	.attr({
+		"aria-selected": "false",
+		"aria-expanded": "false",
+		tabIndex: -1
+	})
+	.next()
+		.attr({
+			"aria-hidden": "true"
+		})
+		.hide();
