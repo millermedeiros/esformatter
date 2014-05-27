@@ -2,23 +2,23 @@
   "indent" : {
     "value": "  ",
     "ArrayExpression": 1,
+    "CatchClause": 1,
     "ChainedMemberExpression": 1,
     "ConditionalExpression": 1,
-    "MultipleVariableDeclaration": 1,
-    "ObjectExpression": 1,
-    "SwitchCase": 1,
-    "SwitchStatement": 1,
-    "ReturnStatement": 1,
-    "CatchClause": 1,
     "DoWhileStatement": 1,
     "ForInStatement": 1,
     "ForStatement": 1,
     "FunctionDeclaration": 1,
     "FunctionExpression": 1,
     "IfStatement": 1,
+    "MultipleVariableDeclaration": 1,
+    "ObjectExpression": 1,
+    "ReturnStatement": 1,
+    "SwitchCase": 1,
+    "SwitchStatement": 1,
+    "TopLevelFunctionBlock": 1,
     "TryStatement": 1,
-    "WhileStatement": 1,
-    "TopLevelFunctionBlock": 1
+    "WhileStatement": 1
   },
 
 
