@@ -30,3 +30,5 @@ typeof a === "number" ? x : y;
 
 var s = 'a string';
 console.log(typeof s);
+
+void 0;
