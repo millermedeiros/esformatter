@@ -44,3 +44,13 @@ noArgs();
 
 noArgs2();
 noArgs3();
+
+
+indent(
+  'foo'
+);
+
+// only indent if argument starts on next line
+indent2({
+  dolor: 123
+});
