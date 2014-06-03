@@ -17,6 +17,12 @@ try{foo()}   catch (e){  log(e)
                         bar()
          }
 
+try {
+   bar( "foo" );
+} catch ( e ) {
+    // Empty Catch comment
+}
+
 
 // issue #35: "catch" block indent + empty catch body
 jQuery.ready.promise = function( obj ) {
