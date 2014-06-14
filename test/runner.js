@@ -34,6 +34,7 @@ if (process.env.INVERT) {
 m.addFile('test/format.spec.js');
 m.addFile('test/transform.spec.js');
 m.addFile('test/cli.spec.js');
+m.addFile('test/plugins.spec.js');
 
 m.run(function(err) {
   var exitCode = err ? 1 : 0;

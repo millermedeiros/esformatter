@@ -48,7 +48,8 @@
     "stdin": "*",
     "strip-json-comments": "~0.1.1",
     "semver": "~2.2.1",
-    "debug": "^0.7.4"
+    "debug": "^0.7.4",
+    "mockery": "^1.4.0"
   },
   "license": "MIT"
 }
