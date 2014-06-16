@@ -56,9 +56,9 @@ on Esprima) to recursively parse the tokens and transform it *in place*.
 
 ### esformatter.format(str[, opts]):String
 
-`format()` method which receives a string containing the code that you would
-like to format and the configuration options that you would like to use and
-returns a string with the result.
+`format()` method receives a string containing the code that you would like to
+format and the configuration options that you would like to use and returns
+a string with the result.
 
 ```js
 var esformatter = require('esformatter');
@@ -129,6 +129,28 @@ var override = esformatter.rc({
   indent: { value: '\t' }
 });
 ```
+
+### esformatter.register(plugin)
+
+Register a [plugin](#plugins) module.
+
+```js
+var plugin = {
+  nodeAfter: function(node) {
+    // called once for each node, after the esformatter manipulation
+  }
+};
+esformatter.register(plugin);
+```
+
+### esformatter.unregister(plugin)
+
+Remove [plugin](#plugins) from the execution queue.
+
+```js
+esformatter.unregister(pluginObject);
+```
+
 
 
 ## CLI
@@ -213,6 +235,163 @@ Both of these have `value`, `before` and `after` properties. `lineBreak`'s value
 More interesting are all the properties nested under `before` and `after`. These refer to various elements of JavaScript syntax, where the terms mostly match the names used by the Abstract Syntax Tree (AST) for JavaScript. A lot of them have "...Opening", "...Closing", "...OpeningBrace" and "...ClosingBrace" as variants, allowing very fine grained control over each settings.
 
 Documenting each property here wouldn't be practical. For now we recommend you look at the existing presets (default and jquery) to find the properties you need to adjust for your specific needs. Better yet, adopt one of the presets to avoid having to configure anything beyond the most basic settings (like `indent.value`).
+
+
+## Plugins
+
+Esformatter also have support for plugins (v0.2.0+).
+
+JavaScript is a very flexible language, which means people write it in many
+different ways, since adding support for every single kind of style would be
+*impossible*, we decided to introduce plugins; that should give enough
+flexibility to tailor the formatting to match the craziest needs.
+
+Plugins are automatically loaded from `node_modules` if you pass the module id
+in the config file:
+
+```json
+{
+  "indent": {
+    "value": "\t"
+  },
+  "plugins": ["esformatter-sample-plugin", "foobar"]
+}
+```
+
+You also have the option to `register` a plugin programmatically:
+
+```js
+var plugin = {
+  nodeAfter: function(node) {
+    // transform node here
+  }
+};
+esformatter.register(plugin);
+```
+
+Plugins are executed in the same order as they are registered (first in, first
+out).
+
+The plugin methods are executed on the following order: `stringBefore` > `tokenBefore` > `nodeBefore` > `nodeAfter` > `tokenAfter` > `transform` > `stringAfter`.
+
+**All plugin methods are optional.**
+
+**protip:** You can use
+[rocambole-token](https://github.com/millermedeiros/rocambole-token) and
+[rocambole-node](https://github.com/millermedeiros/rocambole-node) to simplify
+the AST manipulation process.
+
+
+### setOptions(options)
+
+Called once before any manipulation, the object is shared with the esformatter
+which means you can use this method to override default options if needed.
+
+```js
+var options;
+
+plugin.setOptions = function(opts) {
+  // override the default settings (objects are passed by reference, changing
+  // the value here will also change the value used by esformatter)
+  opts.indent.value = '  ';
+  // store the options to be used later
+  options = opts;
+};
+```
+
+### stringBefore(inputString):String
+
+A way to replace the input string, it should **ALWAYS** return a string.
+
+```js
+plugin.stringBefore = function(str) {
+  // prepend a variable declaration to the file
+  return 'var foo = "bar";\n' + str;
+};
+```
+
+### stringAfter(outputString):String
+
+Replaces the output string.
+
+PS: using regular expressions or string manipulation methods to process code
+is very error-prone! BEWARE!
+
+```js
+plugin.stringAfter = function(str) {
+  // replaces all the occurances of "foo" with "bar" (very naive)
+  return str.replace(/foo/g, 'bar');
+};
+```
+
+### tokenBefore(token)
+
+Called once for each token (eg. Keyword, Punctuator, WhiteSpace, Indent...)
+before processing the nodes. Can be used to manipulate the token value or
+add/remove/replace the token or tokens around it.
+
+```js
+var tk = require('rocambole-token');
+
+plugin.tokenBefore = function(token) {
+  if (tk.isSemiColon(token) && tk.isSemiColon(token.next)) {
+    // remove semicolon if next token is also a semicolon
+    tk.remove(token);
+  }
+};
+```
+
+### tokenAfter(token)
+
+Called once for each token (eg. Keyword, Punctuator, WhiteSpace, Indent...)
+after processing all the nodes. Can be used to manipulate the token value or
+add/remove/replace the token or tokens around it.
+
+### nodeBefore(node)
+
+Called once for each `node` of the program (eg. VariableDeclaration,
+IfStatement, FunctionExpression...) before the esformatter default
+manipulations.
+
+### nodeAfter(node)
+
+Called once for each `node` of the program (eg. VariableDeclaration,
+IfStatement, FunctionExpression...) after the esformatter default
+manipulations.
+
+```js
+var tk = require('rocambole-token');
+
+plugin.nodeAfter = function(node) {
+  if (node.type === 'FunctionExpression' || node.type === 'FunctionDeclaration') {
+    if (node.body) {
+      // insert a line break before the function body
+      tk.before(node.body.startToken, {
+        type: 'LineBreak',
+        value: options.lineBreak.value
+      });
+    }
+  }
+};
+```
+
+### transform(ast)
+
+Called after all nodes and tokens are processed, allows overriding all the
+changes (including indentation).
+
+```js
+var rocambole = require('rocambole');
+
+plugin.transform = function(ast) {
+  // if you need to manipulate multiple nodes you can use the
+  // rocambole.moonwalk or rocambole.recusive methods. we don't do it
+  // automatically since you might have very specific needs
+  rocambole.moonwalk(ast, function(node) {
+    doStuff(node);
+  });
+};
+```
 
 
 ## IRC
