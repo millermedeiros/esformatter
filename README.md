@@ -56,8 +56,6 @@ on Esprima) to recursively parse the tokens and transform it *in place*.
 
 ### esformatter.format(str[, opts]):String
 
-So far `esformatter` exposes 2 methods.
-
 `format()` method which receives a string containing the code that you would
 like to format and the configuration options that you would like to use and
 returns a string with the result.
@@ -107,6 +105,29 @@ var inputAST = rocambole.parse('var foo=123;');
 var outputAST = esformatter.transform(inputAST);
 assert(outputAST === inputAST, 'edits AST in place');
 assert(outputAST.toString() === 'var foo = 123;', 'formats input');
+```
+
+### esformatter.rc([filePath], [customOptions]):Object
+
+Used by task runners and/or plugin authors to retrieve the configuration stored
+on `.esformatter` and `package.json` files relative to the `filePath`, `cwd` or
+global config file (`~/.esformatter`) if it can't find any config file until
+the root path.
+
+You can also pass an object with `customOptions` to override the default
+options.
+
+`rc` will merge the options from multiple [config files](#configuration).
+
+```js
+// will start search from the "foo/bar" directory
+var baseConfig = esformatter.rc('foo/bar/baz.js');
+// will start the search from cwd
+var otherConfig = esformatter.rc();
+// merge some custom options to the user settings
+var override = esformatter.rc({
+  indent: { value: '\t' }
+});
 ```
 
 
