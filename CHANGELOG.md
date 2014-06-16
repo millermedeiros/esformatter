@@ -1,5 +1,28 @@
 # esformatter changelog
 
+## v0.2.0 (2014-06-16)
+
+ - add plugin support.
+ - refactored the way indentation is handled (and changed default settings
+   related to indentation).
+ - expose the `rc` method.
+ - fix rc merge/search logic to avoid problems on windows.
+ - fix `void 0`
+ - proper indent edges for `AssignmentExpression`
+ - indent `CallExpression` by default
+ - make sure `_br.limit` doesn't remove LineBreak if previous token is
+   a comment (fixes a few bugs).
+ - fix comments inside empty catch block (avoid removing line breaks).
+
+
+## v0.1.1 (2014-05-12)
+
+ - fix error when input is an empty file.
+ - fix `typeof`
+ - add spaces inside ForStatement and WhileStatement parenthesis on jQuery
+   preset.
+
+
 ## v0.1.0 (2014-04-15)
 
  - major refactor on the code structure and major changes to the default tool
