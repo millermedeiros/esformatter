@@ -1,5 +1,12 @@
 # esformatter changelog
 
+## v0.3.0 (2014-06-20)
+
+ - expose ALL the things!! exposed a few methods related to line break, white
+   space and indentation; also flattened the directory structure to make it
+   easier for plugin authors to reuse esformatter internal methods when needed.
+
+
 ## v0.2.0 (2014-06-16)
 
  - add plugin support.
