@@ -1,5 +1,15 @@
 # esformatter changelog
 
+## v0.3.2 (2014-06-23)
+
+ - fix issue with sparse arrays. see millermedeiros/rocambole#15
+ - fix Params comma handling and update rocambole to 0.3.4 to fix BlockComment. closes #139
+ - fix indent for objects inside arrays. closes #142
+ - fix white space inside expression statement with parens. closes #155
+ - change IfStatement indent edges to avoid indenting comments that are just before `} else`. closes #123
+ - fix comments inside ObjectExpression. closes #166
+
+
 ## v0.3.1 (2014-06-23)
 
  - avoid merging undefined config on `esformatter.rc`.
