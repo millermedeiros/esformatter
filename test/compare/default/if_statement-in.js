@@ -82,3 +82,9 @@ if (
   yeah();
 }
 
+
+// issue #163
+if (someInt > 0 && someBool) // some comment
+{
+  someCode();
+}
