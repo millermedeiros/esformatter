@@ -48,3 +48,12 @@ var obj = {
 
 // issue #134
 var foo = new MyConstructor(function otherFunction() {});
+
+
+
+// issue #143
+if (!this._pollReceive) {
+  this._pollReceive = nn.PollReceiveSocket(this.binding, function(events) {
+    if (events) this._receive();
+  }.bind(this));
+}
