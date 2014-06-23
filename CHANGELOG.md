@@ -1,5 +1,12 @@
 # esformatter changelog
 
+## v0.3.1 (2014-06-23)
+
+ - avoid merging undefined config on `esformatter.rc`.
+ - make sure `esformatter.rc` doesn't load config file if user provides
+   a 'preset' or if 'root == true' to match CLI behavior.
+
+
 ## v0.3.0 (2014-06-20)
 
  - expose ALL the things!! exposed a few methods related to line break, white
