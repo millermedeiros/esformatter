@@ -27,3 +27,6 @@ var x,
     "b",
     "c"
   ];
+
+// rocambole issue with sparse arrays
+;[,3,[,4]];
