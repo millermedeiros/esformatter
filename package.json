@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "mout": ">=0.9 <2.0",
-    "rocambole": ">=0.3.4 <2.0",
+    "rocambole": ">=0.3.5 <2.0",
     "rocambole-token": "~1.1",
     "rocambole-node": "~1.0",
     "optimist": "~0.6.0",
