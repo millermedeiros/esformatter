@@ -41,3 +41,8 @@ function foo() { // single line after token that requires line break
     bar();
   }
 }
+
+
+// issue #139
+var pfun = new PFunction(function (hello /*, foo )
+        ,bar { */,world) {});
