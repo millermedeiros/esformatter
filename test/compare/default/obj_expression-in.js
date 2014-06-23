@@ -54,15 +54,18 @@ var x = {
     function() {}
 };
 
-// issues #47
+// issues #47 and #166
 Ext.define('VMS.model.User', {
   extend: 'Ext.data.Model',
   idProperty: 'UserID',
   fields: [
     {
+      // foo
       name: 'UserID',
-      type: 'int'
+      type: 'int' // bar
     },
+    // dolor
+    // amet
     {
       name: 'FirstName',
       type: 'string'
@@ -70,7 +73,10 @@ Ext.define('VMS.model.User', {
     {
       name: 'LastName',
       type: 'string'
+
+      // lorem ipsum
+      // dolor sit amet
+      // maecennas ullamcor
     }
   ]
 });
-
