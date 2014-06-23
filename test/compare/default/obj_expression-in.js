@@ -3,6 +3,10 @@ foo.bar.Baz(  {
     , prop2 : 123
 });
 
+// issue #142
+var foo = [{
+bar: 42
+}];
 
 function foo(a){ amet(123, a, {flag:true}); }
 ipsum({flag:true});
