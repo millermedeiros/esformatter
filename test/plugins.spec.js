@@ -131,6 +131,7 @@ describe('plugin API', function() {
       expect(options.get).to.be.a('function');
       expect(options.getRc).to.be.a('function');
       expect(options.loadAndParseConfig).to.be.a('function');
+      expect(esformatter.rc).to.be.a('function');
     });
   });
 

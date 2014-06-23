@@ -73,7 +73,7 @@ describe('Command line interface', function() {
 
   // Format a file with default options
   filePath = path.join(__dirname + '/compare/default/array_expression-in.js');
-  spawnEsformatter('default', filePath, function(formattedFile) {
+  spawnEsformatter('default', '--preset=default', filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/default/array_expression'));
   });
 
@@ -86,7 +86,7 @@ describe('Command line interface', function() {
 
   // Format a file from standard input
   filePath = path.join(__dirname + '/compare/default/assignment_expression-in.js');
-  spawnEsformatter('stdin', null, filePath, function(formattedFile) {
+  spawnEsformatter('stdin', '--preset=default', filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/default/assignment_expression'));
   });
 
