@@ -92,3 +92,15 @@ if (someInt > 0 && someBool) // some comment
 {
   someCode();
 }
+
+
+// issue #161
+function test(a) {
+  if (a.one) {
+    a.one()
+  }
+  //test
+  else if (a.two) {
+    a.two();
+  }
+}
