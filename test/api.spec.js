@@ -71,5 +71,18 @@ describe('API', function() {
       expect(result.whiteSpace.before.ArrayExpressionClosing).to.be.eql(1);
       expect(result.whiteSpace.after.ArrayExpressionOpening).to.be.eql(1);
     });
+
+    it('should merge rcs from parent folder', function() {
+      var result = esformatter.rc('test/compare/rc/nested/nested-in.js');
+      expect(result.indent.value).to.be.eql('\t');
+      expect(result.whiteSpace.before.FunctionDeclarationOpeningBrace).to.be.eql(0);
+    });
+
+    it('should merge .esformatter and package.json files', function() {
+      var result = esformatter.rc('test/compare/rc/package/nested/pkg_nested-in.js');
+      expect(result.indent.value).to.be.eql('\t');
+      expect(result.lineBreak.before.FunctionDeclarationOpeningBrace).to.be.eql(1);
+      expect(result.lineBreak.before.FunctionDeclarationClosingBrace).to.be.eql(0);
+    });
   });
 });
