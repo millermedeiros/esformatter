@@ -85,3 +85,13 @@ function nestedTryCatch() {
         }finally{}
     }finally{ shouldBreak = true; } next();
 }
+
+// line break handling (#128)
+try {
+  doStuff()
+}
+catch
+  (e)
+{
+  yesThisIsWeird()
+}

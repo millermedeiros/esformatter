@@ -22,7 +22,7 @@ try {
 
 try {
   bar("foo");
-} catch ( e ) {
+} catch (e) {
   // Empty Catch comment
 }
 
@@ -90,4 +90,11 @@ function nestedTryCatch() {
     shouldBreak = true;
   }
   next();
+}
+
+// line break handling (#128)
+try {
+  doStuff()
+} catch (e) {
+  yesThisIsWeird()
 }
