@@ -3,6 +3,7 @@
 
   "indent" : {
     "value" : "\t",
+    "IfStatementConditional": 2,
     "SwitchStatement" : 0,
     "TopLevelFunctionBlock" : 0
   },
