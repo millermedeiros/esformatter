@@ -44,7 +44,6 @@ on Esprima) to recursively parse the tokens and transform it *in place*.
  - *granular* control about white spaces, indent and line breaks.
  - command line interface (cli).
  - be non-destructive.
- - option to control automatic semicolon insertion (asi).
  - support for local/global config file so settings can be shared between team
    members.
  - presets for the most popular style guides (Google, jQuery, Idiomatic.js).
@@ -258,6 +257,8 @@ in the config file:
 }
 ```
 
+List of plugins and plugins wish list: https://github.com/millermedeiros/esformatter/wiki/Plugins
+
 You also have the option to `register` a plugin programmatically:
 
 ```js
@@ -401,6 +402,11 @@ irc.freenode.net](http://webchat.freenode.net/?channels=esformatter) for quick
 discussions about the project development/structure.
 
 
+## Wiki
+
+See project Wiki for more info: https://github.com/millermedeiros/esformatter/wiki
+
+
 
 ## Project structure / Contributing
 
@@ -411,17 +417,6 @@ See [CONTRIBUTING.md](https://github.com/millermedeiros/esformatter/blob/master/
 ## Popular Alternatives
 
  - [jsbeautifier](http://jsbeautifier.org/)
-
-
-
-## Projects built on top of esformatter
-
- - [esformatter-diff](https://github.com/piuccio/esformatter-diff) - provides a CLI tool to check and validate a codebase
- - [sublime-esformatter](https://github.com/piuccio/sublime-esformatter) - integrates esformatter into Sublime Text
- - [grunt-esformatter](https://github.com/jzaefferer/grunt-esformatter) - provides a grunt plugin for validating and formatting your projects code formatting
- - [vim-esformatter](https://gist.github.com/nisaacson/6939960) - integrates esformatter into vim
- - [gulp-esformatter](https://github.com/sindresorhus/gulp-esformatter) - gulp plugin
- - [broccoli-esformatter](https://github.com/shinnn/broccoli-esformatter) - Broccoli plugin
 
 
 
