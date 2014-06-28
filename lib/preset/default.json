@@ -2,6 +2,8 @@
   "indent" : {
     "value": "  ",
     "ArrayExpression": 1,
+    "AssignmentExpression": 1,
+    "ConditionalExpression": 1,
     "CallExpression": 1,
     "CatchClause": 1,
     "ChainedMemberExpression": 1,

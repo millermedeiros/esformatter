@@ -3,7 +3,7 @@ a?foo():bar();
 b = (dolor!==amet)  ?  'ipsum': 'dolor';
 
 if(true){
-  // this looks weird but indent logic follows the conditionals nesting
+  // notice that we don't indent since "consequent" is on same line as "test"
 c = !a ?(!foo?d  :   function(){
     return a;
 }):b;

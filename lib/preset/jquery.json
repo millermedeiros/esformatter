@@ -6,11 +6,17 @@
     "SwitchStatement" : 0,
     "TopLevelFunctionBlock" : 0
   },
+
   "lineBreak" : {
     "before" : {
       "VariableDeclarationWithoutInit" : 0
+    },
+
+    "after": {
+      "AssignmentOperator": -1
     }
   },
+
   "whiteSpace" : {
     "before" : {
       "ArgumentList" : 1,
