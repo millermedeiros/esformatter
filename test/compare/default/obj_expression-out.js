@@ -74,6 +74,11 @@ var x = {
     function() {}
 };
 
+// edge case
+for (key in {foo: 'bar', lorem: 'ipsum'}) {
+  doStuff(key);
+}
+
 // issues #47 and #166
 Ext.define('VMS.model.User', {
   extend: 'Ext.data.Model',
@@ -93,9 +98,17 @@ Ext.define('VMS.model.User', {
     {
       name: 'LastName',
       type: 'string'
+
       // lorem ipsum
       // dolor sit amet
       // maecennas ullamcor
     }
   ]
+});
+
+
+// issue #175
+var ItemsSchema = new Schema({
+  name: String, // comments
+  dds: ""
 });
