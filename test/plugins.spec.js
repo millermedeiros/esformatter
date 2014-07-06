@@ -64,9 +64,14 @@ describe('plugin API', function() {
       expect(plugin.nodeAfter.args[3].toString()).to.eql('foo');
     });
 
-    it('should call transform once at the end of process', function() {
-      expect(plugin.transform.count).to.eql(1);
-      expect(plugin.transform.args[0].type).to.eql('Program');
+    it('should call transformBefore once', function() {
+      expect(plugin.transformBefore.count).to.eql(1);
+      expect(plugin.transformBefore.args[0].type).to.eql('Program');
+    });
+
+    it('should call transformAfter once', function() {
+      expect(plugin.transformAfter.count).to.eql(1);
+      expect(plugin.transformAfter.args[0].type).to.eql('Program');
     });
 
   });
@@ -80,6 +85,8 @@ describe('plugin API', function() {
       // this shuold be enough to ensure plugin methods are optional and that
       // multiple plugins are executed in a row.
       plugin2 = {
+        // "transform" was deprecated on v0.4 but we still have a test for it
+        // to make sure we are backwards compatible.
         transform: stub()
       };
       mockery.registerMock('esformatter-foo', plugin1);
@@ -96,7 +103,8 @@ describe('plugin API', function() {
     });
 
     it('should load plugins from node_modules and register it', function() {
-      expect(plugin1.transform.count).to.eql(1);
+      expect(plugin1.transformBefore.count).to.eql(1);
+      expect(plugin1.transformAfter.count).to.eql(1);
       expect(plugin1.nodeAfter.count).to.eql(8);
       expect(plugin2.transform.count).to.eql(1);
     });
@@ -132,6 +140,7 @@ function makePlugin() {
     tokenAfter: stub(),
     nodeBefore: stub(),
     nodeAfter: stub(),
-    transform: stub()
+    transformAfter: stub(),
+    transformBefore: stub()
   };
 }

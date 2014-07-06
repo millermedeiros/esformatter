@@ -376,7 +376,13 @@ plugin.nodeAfter = function(node) {
 };
 ```
 
-### transform(ast)
+### transformBefore(ast)
+
+Called before esformatter loops through all the nodes, allows plugin authors to
+modify the AST before esformatter. This is the ideal place to add/replace
+nodes.
+
+### transformAfter(ast)
 
 Called after all nodes and tokens are processed, allows overriding all the
 changes (including indentation).
@@ -384,7 +390,7 @@ changes (including indentation).
 ```js
 var rocambole = require('rocambole');
 
-plugin.transform = function(ast) {
+plugin.transformAfter = function(ast) {
   // if you need to manipulate multiple nodes you can use the
   // rocambole.moonwalk or rocambole.recusive methods. we don't do it
   // automatically since you might have very specific needs
