@@ -31,7 +31,7 @@ var x,
 // rocambole issue with sparse arrays
 ;[,3,[,4]];
 
-// issue #165 (ChainedMemberExpression)
+// issue #165 (MemberExpression)
 [
     "grunt-contrib-concat",
     "grunt-contrib-watch",

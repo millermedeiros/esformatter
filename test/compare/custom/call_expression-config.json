@@ -1,6 +1,6 @@
 {
   "indent" : {
-    "ChainedMemberExpression" : 0
+    "MemberExpression" : 0
   },
   "lineBreak": {
     "before": {
