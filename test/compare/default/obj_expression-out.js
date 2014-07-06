@@ -112,3 +112,9 @@ var ItemsSchema = new Schema({
   name: String, // comments
   dds: ""
 });
+
+
+this
+  .foo({
+    bar: 'baz'
+  });
