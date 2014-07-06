@@ -1,5 +1,22 @@
 # esformatter changelog
 
+## v0.4.0 (2014-07-06)
+
+ - add `transformBefore` hook for plugins and `transformAfter` to keep API consistent. closes #187
+ - add option to add/remove trailing empty lines in the file (EOF). closes #111.
+ - add options to control line breaks inside ArrayExpressions. closes #129
+ - add support for multiple indent levels (closes #179, closes #106).
+ - add double indent for `IfStatementConditional` on the jQuery preset (closes #150)
+ - add support for line breaks before/after `PropertyName` and `PropertyValue` (closes #184)
+ - support plugins option on the CLI. closes #182
+ - fix `MemberExpression` indent behavior. (meta bug #181)
+ - fix indent end edge for `FunctionExpression` inside `MemberExpression`. closes #152
+ - change indent rules for `AssignmentExpression` and `ConditionalExpression` to match jQuery preset needs. closes #149
+ - convert comma-first objects to comma-last (closes #175)
+ - improve `CatchClause` and `TryStatement` line break and white space handling. closes #128
+ - improve `ReturnStatement` and `CallExpression` indent behavior.
+ - rename `ChainedMemberExpression` to `MemberExpression` on the config file.
+
 ## v0.3.2 (2014-06-23)
 
  - fix issue with sparse arrays. see millermedeiros/rocambole#15
