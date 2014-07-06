@@ -9,7 +9,7 @@ dolor = foo(2)
 
 // should not remove line breaks
 foo(a, b,
-c, d)
+  c, d)
 
 
 // it should indent chained calls if there is a line break between each call
@@ -78,3 +78,9 @@ indent(
 indent2({
   dolor: 123
 });
+
+indent3('lorem',
+  {
+    ipsum: 'dolor'
+  });
+

@@ -77,3 +77,9 @@ indent(
 indent2({
 dolor: 123
 });
+
+indent3('lorem',
+{
+ipsum: 'dolor'
+});
+

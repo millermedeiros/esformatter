@@ -75,3 +75,10 @@ function expressionReturn() {
     c
   );
 }
+
+
+// issue #140
+function chainedReturn() {
+  return deferred.promise
+    .then(console.log)
+}

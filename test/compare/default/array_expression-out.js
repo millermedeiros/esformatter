@@ -28,3 +28,13 @@ var x,
 
 // rocambole issue with sparse arrays
 ;[, 3, [, 4]];
+
+// issue #165 (ChainedMemberExpression)
+[
+  "grunt-contrib-concat",
+  "grunt-contrib-watch",
+  "grunt-contrib-jshint",
+  "grunt-contrib-qunit"
+].forEach(function(task) {
+  grunt.loadNpmTasks(task);
+});
