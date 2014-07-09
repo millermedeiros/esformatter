@@ -105,3 +105,12 @@ this
 .foo({
 bar: 'baz'
 });
+
+
+// issue #193
+foo = function() {
+var a,
+b,
+c;
+		var bar = this.baz({});
+};
