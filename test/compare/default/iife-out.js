@@ -8,3 +8,12 @@
   }
   i.h = h;
 }(this));
+
+
+// issue #191
+var data = {
+  items: (function() {
+    return [1, 2, 3, 4];
+  }()),
+  foo: true
+};
