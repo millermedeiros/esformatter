@@ -1,5 +1,10 @@
 # esformatter changelog
 
+## v0.4.1 (2014-07-09)
+
+ - fix comma and white spaces around object property values (#191).
+ - fix ObjectExpression indent edges (#193).
+
 ## v0.4.0 (2014-07-06)
 
  - add `transformBefore` hook for plugins and `transformAfter` to keep API consistent. closes #187
