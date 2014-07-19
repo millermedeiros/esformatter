@@ -50,3 +50,7 @@ var
     };
 }());
 
+var lorem = ipsum ||
+  dolor &&
+  (sit || amet);
+

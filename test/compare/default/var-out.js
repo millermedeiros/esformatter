@@ -50,3 +50,7 @@ var x = 33,
     };
 }());
 
+var lorem = ipsum ||
+  dolor &&
+  (sit || amet);
+
