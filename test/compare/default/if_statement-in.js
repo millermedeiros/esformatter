@@ -99,3 +99,13 @@ else
   a.two();
 }
 }
+
+// issue #196
+if(a)
+  a(); // do a
+else if(b)
+  b(); // do b
+else {
+  c(); // do the rest
+  d();
+}
