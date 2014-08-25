@@ -106,6 +106,14 @@ function test(a) {
 }
 
 
+// issue #196
+if (a) a(); // run a
+else if (b) b(); // run b
+else {
+  c(); // run c
+}
+
+
 // issue #197
 function iss197() {
   for (var key in pattern) {
