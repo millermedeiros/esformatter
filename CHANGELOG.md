@@ -1,5 +1,12 @@
 # esformatter changelog
 
+## v0.4.2 (2014-09-08)
+
+ - fix `else if` consequent with no braces. closes #196
+ - fix indent of nested if braces before comments. closes #197
+ - fix CatchClause indent and add settings for `FinallyKeyword` and `TryKeyword`. closes #203
+ - indent `LogicalExpression` if it's the `VariableDeclaration.init`.
+
 ## v0.4.1 (2014-07-09)
 
  - fix comma and white spaces around object property values (#191).
