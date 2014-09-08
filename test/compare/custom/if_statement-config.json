@@ -7,7 +7,11 @@
             "IfStatementOpeningBrace" : 1,
             "ElseStatementOpeningBrace" : 1,
             "ElseIfStatementOpeningBrace" : 1,
-            "LineComment": ">=1"
+            "LineComment": -1
+        },
+        "after": {
+            "IfStatementOpeningBrace" : 1,
+            "ElseStatementOpeningBrace" : 1
         }
     },
 

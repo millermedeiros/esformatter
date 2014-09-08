@@ -36,3 +36,13 @@ if ( window.DOMParser ) { // Standard
     xml.async = "false";
     xml.loadXML( data );
 }
+
+
+// issue #196
+if (a)
+  a(); // run a
+else if (b)
+  b(); // run b
+else {
+  c(); // run c
+}
