@@ -4,6 +4,7 @@
 
 ECMAScript code beautifier/formatter.
 
+Live preview: [lloiser/esformatter-visualize](http://lloiser.github.io/esformatter-visualize/)
 
 
 ## Important
@@ -191,6 +192,8 @@ esformatter test.js --indent.value="\t" --lineBreak.before.IfStatementOpeningBra
 
 ### Configuration
 
+For a live preview check [esformatter-visualize](http://lloiser.github.io/esformatter-visualize/)
+
 `esformatter` will look for the closest `.esformatter` file and use that as
 a setting unless you specify `--preset` or `--config`.
 
@@ -234,6 +237,17 @@ Both of these have `value`, `before` and `after` properties. `lineBreak`'s value
 More interesting are all the properties nested under `before` and `after`. These refer to various elements of JavaScript syntax, where the terms mostly match the names used by the Abstract Syntax Tree (AST) for JavaScript. A lot of them have "...Opening", "...Closing", "...OpeningBrace" and "...ClosingBrace" as variants, allowing very fine grained control over each settings.
 
 Documenting each property here wouldn't be practical. For now we recommend you look at the existing presets (default and jquery) to find the properties you need to adjust for your specific needs. Better yet, adopt one of the presets to avoid having to configure anything beyond the most basic settings (like `indent.value`).
+
+For `lineBreak` you can use ranges or integers:
+
+ - positive integer (`1` till `99`): "add or keep `[n]` line breaks".
+ - `-1`: keep original line breaks.
+ - `">2"`: add linebreaks until it's over `2`.
+ - `">=1"`: add line breaks until it's equal or greater than `1`.
+ - `"<2"`: remove linebreaks until it's smaller than `2`.
+ - `"<=1"`: remove/add line breaks until it's smaller or equal to `1`.
+
+For `whiteSpace` you can only use positive integers for now (any positive number between `1` and `99`) or `-1` when you want to keep the original value.
 
 
 ## Plugins
