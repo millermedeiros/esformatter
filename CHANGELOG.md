@@ -1,5 +1,9 @@
 # esformatter changelog
 
+## v0.4.3 (2014-10-13)
+
+ - fix error related to multiple `plugin.register` calls. (#218)
+
 ## v0.4.2 (2014-09-08)
 
  - fix `else if` consequent with no braces. closes #196
