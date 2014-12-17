@@ -71,3 +71,10 @@ function chainedReturn() {
   return deferred.promise
   .then(console.log)
 }
+
+// issue #231
+function multiLineParams(
+foo,
+bar
+) {
+}
