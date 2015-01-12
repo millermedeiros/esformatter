@@ -1,6 +1,6 @@
 # esformatter
 
-[![Build Status](https://secure.travis-ci.org/millermedeiros/esformatter.png?branch=master)](https://travis-ci.org/millermedeiros/esformatter)
+[![Build Status](https://secure.travis-ci.org/millermedeiros/esformatter.svg?branch=master)](https://travis-ci.org/millermedeiros/esformatter)
 
 ECMAScript code beautifier/formatter.
 
