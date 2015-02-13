@@ -21,9 +21,6 @@
   "whiteSpace" : {
     "before" : {
       "ArgumentList" : 1,
-      "ArgumentListArrayExpression" : 0,
-      "ArgumentListFunctionExpression" : 0,
-      "ArgumentListObjectExpression" : 0,
       "ArrayExpressionClosing" : 1,
       "CatchParameterList": 1,
       "ExpressionClosingParentheses" : 1,
@@ -37,9 +34,6 @@
     },
     "after" : {
       "ArgumentList" : 1,
-      "ArgumentListArrayExpression" : 0,
-      "ArgumentListFunctionExpression" : 0,
-      "ArgumentListObjectExpression" : 0,
       "ArrayExpressionOpening" : 1,
       "CatchParameterList": 1,
       "ExpressionOpeningParentheses" : 1,

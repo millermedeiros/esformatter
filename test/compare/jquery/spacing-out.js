@@ -15,11 +15,11 @@ if ( condition ) {
 
 this.element
 	.add()
-	.set({
+	.set( {
 		// line comment
 		// one more
 		prop: "value"
-	});
+	} );
 
 while ( x ) {
 	y();
@@ -68,7 +68,7 @@ this.buttonElement
 		if ( options.disabled ) {
 			event.preventDefault();
 		}
-	});
+	} );
 
 try {
 	x();
