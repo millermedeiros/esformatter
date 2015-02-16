@@ -67,3 +67,9 @@ this.buttonElement
       event.preventDefault();
     }
   });
+
+try {
+  x();
+} catch(error) {
+  console.log(error);
+}
