@@ -127,3 +127,17 @@ foo = function() {
     c;
   var bar = this.baz({});
 };
+
+// issue #226
+var o = {
+  a: 0,
+  get b() {},
+  set c(x) {}
+};
+
+o = {
+  get b() {
+    return 'test';
+  },
+  set c(x) {}
+};
