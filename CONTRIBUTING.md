@@ -110,6 +110,8 @@ GREP=cli INVERT=true npm test
 npm test --coverage
 # to set the mocha reporter
 REPORTER=dot npm test
+# enable logging for the specified module
+DEBUG=esformatter:indent npm test
 ```
 
 
