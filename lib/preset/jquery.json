@@ -10,11 +10,17 @@
 
   "lineBreak" : {
     "before" : {
+      "ObjectExpressionOpeningBrace": -1,
+      "ObjectExpressionClosingBrace": -1,
+      "Property": -1,
       "VariableDeclarationWithoutInit" : 0
     },
 
     "after": {
-      "AssignmentOperator": -1
+      "AssignmentOperator": -1,
+      "ObjectExpressionOpeningBrace": -1,
+      "ObjectExpressionClosingBrace": -1,
+      "Property": -1
     }
   },
 
@@ -42,6 +48,7 @@
       "IfStatementConditionalOpening" : 1,
       "MemberExpressionOpening" : 1,
       "ParameterList" : 1,
+      "PropertyValue": -1,
       "SwitchDiscriminantOpening" : 1,
       "WhileStatementConditionalOpening" : 1
     }

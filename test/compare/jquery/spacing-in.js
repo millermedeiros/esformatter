@@ -73,3 +73,8 @@ try {
 } catch(error) {
   console.log(error);
 }
+
+x({ a: 1 });
+y({
+  a: 1
+});
