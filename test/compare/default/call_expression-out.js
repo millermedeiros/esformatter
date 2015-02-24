@@ -70,17 +70,41 @@ noArgs2();
 noArgs3();
 
 
+// only indent if there is a line break before/between arguments
 indent(
   'foo'
 );
 
-// only indent if argument starts on next line
 indent2({
   dolor: 123
-});
+}, [
+  1, 2, 3
+]);
 
+// this is a weird style but makes sense to indent args if you think about it
 indent3('lorem',
   {
     ipsum: 'dolor'
-  });
+  },
+  [
+    1,
+    2,
+    3
+  ]);
 
+indent4({
+  a: b
+});
+indent5(
+  {
+    a: b
+  },
+  [1, 2, 3]
+);
+indent6(
+  {
+    a: b
+  }, [
+    1, 2, 3
+  ]
+);
