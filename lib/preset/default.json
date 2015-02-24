@@ -17,6 +17,7 @@
     "MemberExpression": 1,
     "MultipleVariableDeclaration": 1,
     "ObjectExpression": 1,
+    "ParameterList": 1,
     "ReturnStatement": 1,
     "SwitchCase": 1,
     "SwitchStatement": 1,
