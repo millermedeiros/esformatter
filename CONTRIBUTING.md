@@ -34,18 +34,76 @@ We augment the AST with
 properties](https://github.com/millermedeiros/rocambole#extra-properties) that
 can be used to traverse the AST (similar to the DOM).
 
-We are adding helper methods to the `lib/util` package (very similar to
-jQuery) to make the process easier.
-
-The recursion starts from the *leaf nodes* and moves till it reaches the
-`Program` root. Each method exposed on `lib/hooks.js` is called once for each
-matching `node`.
-
 The whole process is very similar to working with the DOM. Don't feel
 intimidated by *complex names* like `ConditionalExpressionConsequent`, use the
 [esprima parser demo](http://esprima.org/demo/parse.html) and/or
 [rocambole-visualize](http://piuccio.github.io/rocambole-visualize/) as reference
 and you should be good to go.
+
+We have some helper methods on the `lib/lineBreak`, `lib/indent` and
+`lib/whiteSpace` modules to make the process easier. There are also a lot of
+helpers inside
+[rocambole-token](https://github.com/millermedeiros/rocambole-token) that we
+rely upon (used to add/remove/find tokens).
+
+### Recursion
+
+The recursion starts from the *leaf nodes* and moves till it reaches the
+`Program` root. It works this way because child nodes usually affects the
+parent nodes structure (specially line breaks), that gives the option for the
+parent node to override the child node behavior if needed.
+
+### Adding/Removing line breaks and white spaces
+
+The `format` method of each object exposed on `lib/hooks.js` is called once for
+each matching `node`. The `format` method is responsible for adding/removing
+line breaks and white spaces based on the node structure and config options.
+
+### Indentation
+
+We do the indentation after the whole process; that is necessary since the
+parent nodes affects the indentation of the child nodes (line breaks might be
+added or removed during the process).
+
+The core logic is handled by `lib/indent.js`, but most nodes actually require
+specific rules to detect the *indent edges*, so most `lib/hooks` also implement
+a method `getIndentEdges` that can return:
+
+ - *falsy* value: means the node should **not** be indented;
+ - single `IndentEdge` object: indent in between `startToken` and `endToken`;
+ - array containing multiple `IndentEdge` objects and/or *falsy* values: indent
+   inside any `IndentEdge` object and ignore *falsy* values.
+
+The `IndentEdge` is just a Plain JavaScript Object with the properties:
+
+ - `startToken:Token`: points to token that delimits the indent start (eg. a token
+   with value "{")
+ - `endToken:Token`: pointer to a token that sets the last token that should be
+   indented (eg. a line break just before `]`)
+ - `level:Int` (optional): sets how many indents should be added for that
+   `IndentEdge`, that is very useful for cases where you might have different
+   options for the same parent node (eg. the `FunctionExpression` hook also
+   handles the `ParameterList` indentation); if `level <= 0` that *edge* is not
+   indented (we don't support negative indent so far)
+
+If the hook doesn't implement `getIndentEdges` we consider `node.startToken`
+and `node.endToken` as the default edge. We only indent nodes that have a value
+greater than zero on the configuration options.
+
+Also important to notice that we only add `Indent` tokens to the beginning of
+lines and if `edge.startToken` is `{` or `[` or `(` we use the
+`edge.startToken.next` as the first token since that is usually the expected
+behavior (you want to indent what is inside the braces/parenthesis).
+
+The reason why we decided to handle indentation as multiple `IndentEdge`s is
+because there are many cases where the lines between `node.startToken` and
+`node.endToken` are not really the *range* that you want to indent (eg. on
+`IfStatement` you what to indent the `test`, `consequent` and `alt` but not the
+lines that open/close the curly braces). Trying to handle all the cases
+automatically is a path doomed to failure. This is the most flexible
+abstraction, and cleanest implementation, that we could think of so far but it
+is indeed complex; it would be way easier if we had a real CST (concrete syntax
+tree) but that ship already sailed.
 
 
 
@@ -90,7 +148,7 @@ name ending on `-in.js` with the files `-out.js`. The folder
 folder should try to test the *opposite* of the default settings whenever
 possible.
 
-To run the tests install the devDependencies by running `npm install`
+To run the tests install the `devDependencies` by running `npm install`
 (only required once) and then run `npm test`.
 
 `mocha` source code was edited to provide better error
@@ -114,6 +172,11 @@ REPORTER=dot npm test
 DEBUG=esformatter:indent npm test
 ```
 
+**protip:** files starting with double underscore (`__`) are on our
+`.gitignore` file and won't be commited, so I usually have a `__tmp-in.js` and
+`__tmp-out.js` test files that contains the bare minimum code that reproduces
+the bug that I'm trying to fix and execute that with `DEBUG=esformatter:*:*
+GREP=tmp npm test` to get all the logs.
 
 
 ## IRC
