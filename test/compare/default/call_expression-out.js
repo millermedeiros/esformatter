@@ -108,3 +108,12 @@ indent6(
     1, 2, 3
   ]
 );
+
+
+// issue #200
+require([
+  "foo",
+  "bar"
+], function(foo, bar) {
+  foo(bar);
+});
