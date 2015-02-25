@@ -117,3 +117,12 @@ require([
 ], function(foo, bar) {
   foo(bar);
 });
+
+
+// issue #202
+app
+  .directive('testDirective', ['param',
+    function(param) {
+      alert();
+    }
+  ])

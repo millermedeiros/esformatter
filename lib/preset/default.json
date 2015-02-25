@@ -59,7 +59,7 @@
       "ForStatementExpressionClosing" : "<2",
       "ForStatementOpeningBrace" : 0,
       "ForStatementClosingBrace" : ">=1",
-      "FunctionExpression" : 0,
+      "FunctionExpression" : -1,
       "FunctionExpressionOpeningBrace" : 0,
       "FunctionExpressionClosingBrace" : ">=1",
       "FunctionDeclaration" : ">=1",
