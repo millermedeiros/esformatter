@@ -40,3 +40,10 @@ switch (fruit) {
     break;
 }
 
+// issue #225
+switch (item) {
+  case 'one':
+    dothis()
+    break
+  default:
+}

@@ -41,3 +41,10 @@ switch (fruit)
         apple();
         break; }
 
+// issue #225
+switch (item) {
+case 'one':
+dothis()
+break
+default:
+}
