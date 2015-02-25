@@ -1,10 +1,11 @@
 //jshint node:true
-/*global describe, it, before, after*/
+/*global describe, it, beforeEach, afterEach*/
 "use strict";
 
 var expect = require('chai').expect;
 var mockery = require('mockery');
 var esformatter = require('../lib/esformatter');
+var rocambole = require('rocambole');
 
 var input = 'var foo=lorem?"bar":"baz";';
 var output = 'var foo = lorem ? "bar" : "baz";';
@@ -15,13 +16,13 @@ describe('plugin API', function() {
   describe('> register plugin', function() {
     var plugin;
 
-    before(function() {
+    beforeEach(function() {
       plugin = makePlugin();
       esformatter.register(plugin);
       esformatter.format(input);
     });
 
-    after(function() {
+    afterEach(function() {
       esformatter.unregister(plugin);
     });
 
@@ -74,15 +75,31 @@ describe('plugin API', function() {
       expect(plugin.transformAfter.args[0].type).to.eql('Program');
     });
 
+    describe('> multiple calls', function() {
+      it('should call plugin once per transform call', function() {
+        esformatter.format(input);
+        expect(plugin.transformAfter.count).to.eql(2);
+        expect(plugin.transformAfter.args[1].type).to.eql('Program');
+
+      });
+
+      it('should not execute plugin if unregistered', function() {
+        esformatter.unregisterAll();
+        esformatter.format(input);
+        expect(plugin.transformAfter.count).to.eql(1);
+        expect(plugin.transformAfter.args[0].type).to.eql('Program');
+      });
+    });
+
   });
 
   describe('> load from node_modules', function() {
     var plugin1;
     var plugin2;
 
-    before(function() {
+    beforeEach(function() {
       plugin1 = makePlugin();
-      // this shuold be enough to ensure plugin methods are optional and that
+      // this should be enough to ensure plugin methods are optional and that
       // multiple plugins are executed in a row.
       plugin2 = {
         // "transform" was deprecated on v0.4 but we still have a test for it
@@ -92,21 +109,37 @@ describe('plugin API', function() {
       mockery.registerMock('esformatter-foo', plugin1);
       mockery.registerMock('bar', plugin2);
       mockery.enable();
-
-      esformatter.format(input, {
-        plugins: ['esformatter-foo', 'bar']
-      });
     });
 
-    after(function() {
+    afterEach(function() {
+      mockery.deregisterAll();
       mockery.disable();
     });
 
-    it('should load plugins from node_modules and register it', function() {
+    it('format: should load plugins from node_modules and register it', function() {
+      esformatter.format(input, {
+        plugins: ['esformatter-foo', 'bar']
+      });
+
+      expect(plugin1.stringBefore.count).to.eql(1);
       expect(plugin1.transformBefore.count).to.eql(1);
       expect(plugin1.transformAfter.count).to.eql(1);
       expect(plugin1.nodeAfter.count).to.eql(8);
       expect(plugin2.transform.count).to.eql(1);
+      expect(plugin1.stringAfter.count).to.eql(1);
+    });
+
+    it('transform: should load plugins from node_modules and register it', function() {
+      esformatter.transform(rocambole.parse(input), {
+        plugins: ['esformatter-foo', 'bar']
+      });
+
+      expect(plugin1.stringBefore.count).to.eql(0);
+      expect(plugin1.transformBefore.count).to.eql(1);
+      expect(plugin1.transformAfter.count).to.eql(1);
+      expect(plugin1.nodeAfter.count).to.eql(8);
+      expect(plugin2.transform.count).to.eql(1);
+      expect(plugin1.stringAfter.count).to.eql(0);
     });
 
   });

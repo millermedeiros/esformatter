@@ -151,6 +151,11 @@ Remove [plugin](#plugins) from the execution queue.
 esformatter.unregister(pluginObject);
 ```
 
+### esformatter.unregisterAll()
+
+Remove all the registered plugins from the execution queue; useful in case you
+want to edit multiple files using different plugins each time.
+
 
 
 ## CLI
