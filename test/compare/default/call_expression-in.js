@@ -125,3 +125,11 @@ app
                alert();
            }
     ])
+
+// issue #240
+equal(
+  y
+    .find()
+    .length,
+  expected
+);
