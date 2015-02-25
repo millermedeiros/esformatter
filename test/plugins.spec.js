@@ -103,10 +103,12 @@ describe('plugin API', function() {
     });
 
     it('should load plugins from node_modules and register it', function() {
+      expect(plugin1.stringBefore.count).to.eql(1);
       expect(plugin1.transformBefore.count).to.eql(1);
       expect(plugin1.transformAfter.count).to.eql(1);
       expect(plugin1.nodeAfter.count).to.eql(8);
       expect(plugin2.transform.count).to.eql(1);
+      expect(plugin1.stringAfter.count).to.eql(1);
     });
 
   });
