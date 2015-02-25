@@ -28,6 +28,21 @@ var x,
 
 // rocambole issue with sparse arrays
 ;[, 3, [, 4]];
+// sparse arrays indentation is tricky!
+;[
+  ,
+  3,
+  [,,
+    ,
+    4
+  ]];
+;[
+  ,
+  3,
+  [,
+    4
+  ]
+];
 
 // issue #165 (MemberExpression)
 [
@@ -38,3 +53,16 @@ var x,
 ].forEach(function(task) {
   grunt.loadNpmTasks(task);
 });
+
+// issue #224
+var fa = [{
+  foo: 'bar',
+  baz: 'yak'
+}, {
+  foo: '1',
+  baz: '2'
+}];
+
+// issue #239
+var data = [1,
+  2];
