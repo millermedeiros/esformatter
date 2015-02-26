@@ -141,3 +141,11 @@ return false;
 }
 return true;
 }
+
+// issue #222
+var obj;
+if (
+delete obj.hello
+, 'world') {
+// more code
+}
