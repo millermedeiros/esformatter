@@ -17,3 +17,10 @@ if (true) {
 
 (foo || bar); (dolor || amet);
 
+foo = dolor ||
+  amet &&
+  bar
+
+var foo = dolor &&
+  amet ||
+  maecennas
