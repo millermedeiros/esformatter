@@ -134,3 +134,10 @@ equal(
     .length,
   expected
 );
+
+// issue #252
+promise().then(function(foo) {
+  return x;
+}, function(bar) {
+  return y;
+});
