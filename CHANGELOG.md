@@ -1,5 +1,24 @@
 # esformatter changelog
 
+## v0.5.0 (2015-02-26)
+
+ - add support for br/ws around IIFEOpeningParentheses and IIFEClosingParentheses and keep spaces around CallExpression to avoid conflicts. closes #223. closes #250.
+ - don't remove line breaks before FunctionExpression by default and handle an edge case for array indentation if it is a chained member expression argument. fixes #202
+ - drop ArgumentList exceptions (used previously by jQuery preset)
+ - fix FunctionExpression: Handle two special cases for TopLevelFunctionBlock
+ - fix SwitchCase indent if missing semicolon after break. fixes #225
+ - fix array indentation for cases where closing bracket is on the same line. simplify ObjectExpression indentation logic while also fixing how it works inside arrays. fixes #224. fixes #239.
+ - fix indent edges for chained MemberExpression. fixes #240
+ - improve IfStatement.test indentation. closes #222
+ - indent BinaryExpression & LogicalExpression if inside VariableDeclaration, CallExpression or AssignmentExpression. fixes #212
+ - indent support for ParameterList and enable it by default. closes #231
+ - make sure plugins are loaded/registered before `plugins.stringBefore` is called and expose `unregisterAll`. fixes #245. closes #246.
+ - only indent if there is a line break before/between arguments. fixes #238
+ - support getters/setters in ObjectExpression
+ - update jQuery preset to use CatchParameterList whiteSpace setting
+ - update jQuery preset to tolerate single line objects
+ - update rocambole to v0.5 and change the BinaryExpression test to match esprima@2.0 behavior (no EmptyStatement between ExpressionStatements). see #192
+
 ## v0.4.3 (2014-10-13)
 
  - fix error related to multiple `plugin.register` calls. (#218)
