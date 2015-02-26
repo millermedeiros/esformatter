@@ -1,4 +1,5 @@
 foo();
+baz();
 
 bar(1, 'dolor');
 ipsum(3, {
