@@ -14,7 +14,7 @@ foo   >> 3  ;
 // asi and ExpressionStatement
 foo>bar
 a  <  b
-;   (a==b);
+;(a==b);
 (  a  ===  b  );
 a<= b
 3.25 >=b
