@@ -26,6 +26,9 @@ while (x) {
 for (i = 0; i < length; i++) {
   y();
 }
+for ( ; i < length; i++ ) {
+  y();
+}
 
 function x() {
   return something &&
