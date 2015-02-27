@@ -35,6 +35,7 @@
       "IfStatementConditionalClosing" : 1,
       "IIFEClosingParentheses": 1,
       "MemberExpressionClosing" : 1,
+      "ObjectExpressionClosingBrace": 1,
       "ParameterList" : 1,
       "SwitchDiscriminantClosing" : 1,
       "WhileStatementConditionalClosing" : 1

@@ -1,0 +1,24 @@
+{
+  "lineBreak" : {
+    "before" : {
+      "ObjectExpressionOpeningBrace": -1,
+      "ObjectExpressionClosingBrace": -1,
+      "Property": -1
+    },
+
+    "after": {
+      "ObjectExpressionOpeningBrace": -1,
+      "ObjectExpressionClosingBrace": -1,
+      "Property": -1
+    }
+  },
+
+  "whiteSpace" : {
+    "before": {
+      "ObjectExpressionClosingBrace": 1
+    },
+    "after" : {
+      "PropertyValue": -1
+    }
+  }
+}
