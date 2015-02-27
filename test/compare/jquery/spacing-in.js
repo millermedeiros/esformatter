@@ -78,3 +78,7 @@ x({ a: 1 });
 y({
   a: 1
 });
+
+(function($) {
+  x;
+}(jQuery));
