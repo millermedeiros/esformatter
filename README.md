@@ -330,19 +330,29 @@ plugin.stringBefore = function(str) {
 };
 ```
 
+PS: we have a plan to implement an option to [pipe other shell tools in the
+future](https://github.com/millermedeiros/esformatter/issues/168), so you
+should only really use this method after the pipe option is implemented if you
+need to store some state during `stringBefore` to be used by your other
+methods.
+
 ### stringAfter(outputString):String
 
 Replaces the output string.
 
-PS: using regular expressions or string manipulation methods to process code
-is very error-prone! BEWARE!
-
 ```js
 plugin.stringAfter = function(str) {
   // replaces all the occurances of "foo" with "bar" (very naive)
+  // using regular expressions or string manipulation methods to process code
+  // is very error-prone! BEWARE!
   return str.replace(/foo/g, 'bar');
 };
 ```
+
+PS: we have a plan to implement an option to [pipe other shell tools in the
+future](https://github.com/millermedeiros/esformatter/issues/168), so you
+should only really use this method after the pipe option is implemented if you
+need to recover from some of the changes you introduced by the other methods.
 
 ### tokenBefore(token)
 
@@ -397,14 +407,28 @@ plugin.nodeAfter = function(node) {
 
 ### transformBefore(ast)
 
-Called before esformatter loops through all the nodes, allows plugin authors to
-modify the AST before esformatter. This is the ideal place to add/replace
-nodes.
+Called before esformatter loops through all the nodes, it receives the whole
+AST in case you need a different loop strategy than `rocambole.moonwalk`. In
+most cases the `nodeBefore` method is enough.
+
+This method **should only** be used to add/remove `WhiteSpace`, `LineBreak` and
+`Indent` tokens.
+
+It's very important to note that adding/removing/reordering `nodes` might cause
+some serious problems on the code formatting. esformatter will skip nodes
+unless you instrument them properly (adding all the properties that
+`rocambole.moonwalk`, `rocambole.recursive` and future plugins expects) so it
+is not recommended to do it here.
+
+If you need to edit the tree structure please use the `stringBefore` method.
 
 ### transformAfter(ast)
 
 Called after all nodes and tokens are processed, allows overriding all the
 changes (including indentation).
+
+This method **should only** be used to add/remove `WhiteSpace`, `LineBreak` and
+`Indent` tokens.
 
 ```js
 var rocambole = require('rocambole');
@@ -418,6 +442,12 @@ plugin.transformAfter = function(ast) {
   });
 };
 ```
+
+It's very important to note that adding/removing/reordering `nodes` might cause
+undesired side effects on other plugins (`rocambole.moonwalk` and
+`rocambole.recursive` might not work as expected and/or you might forget some
+`node.[start|end]Token` and/or `token.[next|prev]` and break other plugins). So
+if you need to edit the tree structure please use the `stringAfter` method.
 
 
 ## IRC
