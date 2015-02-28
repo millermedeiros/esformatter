@@ -36,6 +36,7 @@ m.addFile('test/transform.spec.js');
 m.addFile('test/cli.spec.js');
 m.addFile('test/api.spec.js');
 m.addFile('test/plugins.spec.js');
+m.addFile('test/pipe.spec.js');
 
 m.run(function(err) {
   var exitCode = err ? 1 : 0;

@@ -33,8 +33,9 @@
   },
   "devDependencies": {
     "chai": "1.4",
+    "esformatter-pipe-test": "file:test/pipe",
     "esformatter-test-plugin": "file:test/plugin",
-    "esprima": "^2.0",
+    "esprima": "^2.0.0",
     "glob": "3.1",
     "istanbul": "~0.1.23",
     "jshint": "~2.3.0",
@@ -44,8 +45,10 @@
   "dependencies": {
     "debug": "^0.7.4",
     "mout": ">=0.9 <2.0",
+    "npm-run": "^1.1.1",
     "optimist": "~0.6.0",
     "resolve": "^1.1.5",
+    "optimist": "~0.6.0",
     "rocambole": ">=0.5 <2.0",
     "rocambole-node": "~1.0",
     "rocambole-token": "^1.1.2",

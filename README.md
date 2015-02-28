@@ -10,7 +10,8 @@ Live preview: [lloiser/esformatter-visualize](http://lloiser.github.io/esformatt
 ## Important
 
 This tool is still on early development and is missing support for many
-important features.
+important features. Please report any bugs you find, the code is only as good
+as the current test cases.
 
 **We are looking for [contributors](https://github.com/millermedeiros/esformatter/blob/master/CONTRIBUTING.md)!!**
 
@@ -47,7 +48,7 @@ on Esprima) to recursively parse the tokens and transform it *in place*.
  - be non-destructive.
  - support for local/global config file so settings can be shared between team
    members.
- - presets for the most popular style guides (Google, jQuery, Idiomatic.js).
+ - support most popular style guides (Google, jQuery, Idiomatic.js).
  - be the best JavaScript code formatter.
 
 
@@ -265,6 +266,36 @@ For `lineBreak` you can use ranges or integers:
 For `whiteSpace` you can only use positive integers for now (any positive number between `1` and `99`) or `-1` when you want to keep the original value.
 
 
+## Pipe other CLI tools
+
+Since we don't expect everyone to write plugins that only works with
+esformatter we decided to encourage the usage of standalone CLI tools.
+
+```json
+{
+  "pipe": {
+    "before": [
+      "strip-debug",
+      "some-custom-command --foo true -zx"
+    ],
+    "after": [
+      "some-other-command --keepLineBreaks"
+    ]
+  }
+}
+```
+
+The pipe option works by passing the string input to `stdin` of the first
+executable and piping the `stdout->stdin` of each tool. The executables will be
+executed in the same order as they are listed, `before` or `after` the default
+`esformatter` transformations.
+
+The `pipe` option works similar to `npm run-script`, where it locates the
+locally installed executables inside the `node_modules` folder. If it can't
+find a local executable it will fallback to global commands. (this allows you
+to install `devDependencies` that are only used by a single project)
+
+
 ## Plugins
 
 Esformatter also have support for plugins (v0.2.0+).
@@ -302,9 +333,17 @@ esformatter.register(plugin);
 Plugins are executed in the same order as they are registered (first in, first
 out).
 
-The plugin methods are executed on the following order: `stringBefore` > `tokenBefore` > `nodeBefore` > `nodeAfter` > `tokenAfter` > `transform` > `stringAfter`.
+The plugin methods are executed on the following order: `stringBefore` > `transformBefore`  > `tokenBefore` > `nodeBefore` > `nodeAfter` > `tokenAfter` > `transformAfter` > `stringAfter`.
 
 **All plugin methods are optional.**
+
+**IMPORTANT:** If you need to edit the structure of the AST (add/remove nodes,
+change the order of elements) we recommend you to write it as a standalone CLI
+tool whenever possible and use the `pipe` option instead of writting a plugin
+(eg. [strip-debug](https://www.npmjs.com/package/strip-debug)). Plugins should
+ideally only add/remove/edit the `WhiteSpace`, `Indent`, `LineBreak` and
+`Comment` tokens, otherwise you might have conclicts with other plugins and
+esformatter itself.
 
 **protip:** You can use
 [rocambole-token](https://github.com/millermedeiros/rocambole-token) and
@@ -340,11 +379,9 @@ plugin.stringBefore = function(str) {
 };
 ```
 
-PS: we have a plan to implement an option to [pipe other shell tools in the
-future](https://github.com/millermedeiros/esformatter/issues/168), so you
-should only really use this method after the pipe option is implemented if you
-need to store some state during `stringBefore` to be used by your other
-methods.
+PS: you should only really use this method if you need to store some state
+during `stringBefore` to be used by your other methods; otherwise favor the
+`pipe` option.
 
 ### stringAfter(outputString):String
 
@@ -359,10 +396,9 @@ plugin.stringAfter = function(str) {
 };
 ```
 
-PS: we have a plan to implement an option to [pipe other shell tools in the
-future](https://github.com/millermedeiros/esformatter/issues/168), so you
-should only really use this method after the pipe option is implemented if you
-need to recover from some of the changes you introduced by the other methods.
+PS: you should only really use this method if you need to recover from some of
+the changes you introduced by the other plugin methods; otherwise favor the
+`pipe` option.
 
 ### tokenBefore(token)
 
@@ -430,7 +466,8 @@ unless you instrument them properly (adding all the properties that
 `rocambole.moonwalk`, `rocambole.recursive` and future plugins expects) so it
 is not recommended to do it here.
 
-If you need to edit the tree structure please use the `stringBefore` method.
+If you need to edit the tree structure please use the `stringBefore` method or
+write a standalone CLI tool that can be used on the `pipe` setting.
 
 ### transformAfter(ast)
 
@@ -445,7 +482,7 @@ var rocambole = require('rocambole');
 
 plugin.transformAfter = function(ast) {
   // if you need to manipulate multiple nodes you can use the
-  // rocambole.moonwalk or rocambole.recusive methods. we don't do it
+  // rocambole.moonwalk or rocambole.walk methods. we don't do it
   // automatically since you might have very specific needs
   rocambole.moonwalk(ast, function(node) {
     doStuff(node);
@@ -455,9 +492,10 @@ plugin.transformAfter = function(ast) {
 
 It's very important to note that adding/removing/reordering `nodes` might cause
 undesired side effects on other plugins (`rocambole.moonwalk` and
-`rocambole.recursive` might not work as expected and/or you might forget some
+`rocambole.walk` might not work as expected and/or you might forget some
 `node.[start|end]Token` and/or `token.[next|prev]` and break other plugins). So
-if you need to edit the tree structure please use the `stringAfter` method.
+if you need to edit the tree structure please use the `stringAfter` method or
+write a standalone CLI tool that can be used on the `pipe` setting.
 
 
 ## IRC
