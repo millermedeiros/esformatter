@@ -152,5 +152,11 @@ describe('Command line interface', function() {
     expect(formattedFile).to.equal(helpers.readOut('/custom/commented_config'));
   });
 
+  // plugins should be loaded from node_modules
+  filePath = path.join(__dirname + '/compare/custom/commented_config-in.js');
+  configPath = path.join(__dirname + '/compare/custom/commented_config-config.json');
+  spawnEsformatter('local plugin', '--config ' + configPath + ' --plugins esformatter-test-plugin ' + filePath, function(formattedFile) {
+    expect(formattedFile).to.equal(helpers.readOut('/custom/commented_config').replace(/true/, 'false'));
+  });
 
 });

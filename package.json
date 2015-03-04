@@ -32,9 +32,10 @@
     "url": "http://blog.millermedeiros.com/"
   },
   "devDependencies": {
-    "esprima": "1.0",
+    "esprima": "^2.0",
     "mocha": "https://github.com/millermedeiros/mocha/tarball/latest",
     "chai": "1.4",
+    "esformatter-test-plugin": "./test/plugin",
     "glob": "3.1",
     "istanbul": "~0.1.23",
     "jshint": "~2.3.0",
