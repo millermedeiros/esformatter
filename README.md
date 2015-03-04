@@ -199,6 +199,12 @@ esformatter test.js --indent.value="\t" --lineBreak.before.IfStatementOpeningBra
 esformatter -i test.js
 ```
 
+### Local version
+
+If a locally installed `esformatter` is found, the CLI uses that instead of the
+global executable (this means you can have multiple projects depending on
+different versions of esformatter).
+
 ### Configuration
 
 For a live preview check [esformatter-visualize](http://lloiser.github.io/esformatter-visualize/)

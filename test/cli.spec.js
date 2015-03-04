@@ -159,6 +159,13 @@ describe('Command line interface', function() {
     expect(formattedFile).to.equal(helpers.readOut('/custom/commented_config').replace(/true/, 'false'));
   });
 
+  // it should use locally installed esformatter version if available
+  filePath = path.join(__dirname + '/compare/custom/commented_config-in.js');
+  configPath = path.join(__dirname + '/bin/config.json');
+  spawnEsformatter('local install', '--config ' + configPath + ' ' + filePath, function(formattedFile) {
+    expect(formattedFile.trim()).to.equal('fake-esformatter v0.0.0-alpha');
+  });
+
   // in place option should modify the input file
   var originalInPlace = path.join(__dirname + '/compare/default/inplace-in.js');
   var cpInPlace = path.join(__dirname + '/compare/default/inplace-in.js.copy');
