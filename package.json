@@ -32,13 +32,13 @@
     "url": "http://blog.millermedeiros.com/"
   },
   "devDependencies": {
-    "esprima": "^2.0",
-    "mocha": "https://github.com/millermedeiros/mocha/tarball/latest",
     "chai": "1.4",
-    "esformatter-test-plugin": "./test/plugin",
+    "esformatter-test-plugin": "file:test/plugin",
+    "esprima": "^2.0",
     "glob": "3.1",
     "istanbul": "~0.1.23",
     "jshint": "~2.3.0",
+    "mocha": "https://github.com/millermedeiros/mocha/tarball/latest",
     "mockery": "^1.4.0"
   },
   "dependencies": {
