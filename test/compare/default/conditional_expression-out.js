@@ -38,3 +38,7 @@ num == null ?
 
   // Return just the object
   (num < 0 ? this[this.length + num] : this[num]);
+
+// issue #253
+var format = isSameDate(startDate, endDate) ? this._oneDayLabelFormat :
+  'event-multiple-day-duration';

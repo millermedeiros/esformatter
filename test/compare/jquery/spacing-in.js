@@ -42,14 +42,10 @@ ul.outerWidth( Math.max(
   this.element.outerWidth()
 ) );
 
-this.isMultiLine =
-  // Textareas are always multi-line
-  isTextarea ? true :
-  // Inputs are always single-line, even if inside a contentEditable element
-  // IE also treats inputs as contentEditable
-  isInput ? false :
-  // All other element types are determined by whether or not they're contentEditable
-  this.element.prop( "isContentEditable" );
+function x() {
+  return this.indeterminate ? false :
+    Math.min( this.options.max, Math.max( this.min, newValue ) );
+}
 
 if ( event.target !== that.element[ 0 ] &&
     event.target !== menuElement &&
