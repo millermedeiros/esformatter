@@ -12,6 +12,8 @@ dolor = foo(2)
 foo(a, b,
   c, d)
 
+tricky((123));
+tricky2((123), ((456)));
 
 // it should indent chained calls if there is a line break between each call
 foo.bar()
@@ -69,6 +71,9 @@ noArgs();
 
 noArgs2();
 noArgs3();
+noArgs4(
+  // not passing any args for some reason
+);
 
 
 // only indent if there is a line break before/between arguments
@@ -141,4 +146,10 @@ promise().then(function(foo) {
   return x;
 }, function(bar) {
   return y;
+});
+
+// issue #267
+require('something');
+var Sidebar = Backbone.Model.extend({
+  //...
 });
