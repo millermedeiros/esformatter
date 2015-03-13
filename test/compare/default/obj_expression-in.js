@@ -126,3 +126,12 @@ o = {
 get b(){return 'test'; },
 set c(x){}
 };
+
+x = {
+  at: "left" +
+    "top"
+};
+x = {
+  at: a &&
+    b
+};

@@ -22,6 +22,8 @@
     "MultipleVariableDeclaration": 1,
     "NewExpression": 1,
     "ObjectExpression": 1,
+    "ObjectExpression.BinaryExpression": 1,
+    "ObjectExpression.LogicalExpression": 1,
     "ParameterList": 1,
     "ReturnStatement": 1,
     "SwitchCase": 1,
