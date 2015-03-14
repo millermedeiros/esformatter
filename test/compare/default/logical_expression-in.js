@@ -24,3 +24,7 @@ foo = dolor ||
 var foo = dolor &&
   amet ||
   maecennas
+
+var foo,
+  bar = x &&
+    ( a || b );
