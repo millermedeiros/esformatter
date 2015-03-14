@@ -28,3 +28,10 @@ var foo = dolor &&
 var foo,
   bar = x &&
     ( a || b );
+
+function x() {
+  return (x || y) &&
+
+    // comment
+    call();
+}
