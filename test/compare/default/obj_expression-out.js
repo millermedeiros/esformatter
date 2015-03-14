@@ -132,7 +132,9 @@ foo = function() {
 var o = {
   a: 0,
   get b() {},
-  set c(x) {}
+  set c(x) {},
+  method1(foo) {},
+  method2(bar) {}
 };
 
 o = {
