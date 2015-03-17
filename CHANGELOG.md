@@ -1,5 +1,22 @@
 # esformatter changelog
 
+## v0.5.1 (2015-03-17)
+
+ - make it work with esprima@2.1 AST!
+ - ConditionalExpression: indent even if consequent is on the same line as the test
+ - Fix indent for logical expression as argument of return statement
+ - Fix indent for multi-var declaration with logical expression
+ - ForStatement improvements
+ - IfStatement: Fix multi-line test with comments
+ - ObjectExpression: Indent multi-line binary and logical expression values
+ - Update jQuery preset to fix single-line object expression spacing
+ - Update jQuery preset to make use of new IIFE settings
+ - fix DoWhileStatement indent. closes #256
+ - improve CallExpression hook to handle a few edge cases and add option to limit br/ws around opening/closing parentheses. closes #267
+ - improve getter/setter behavior on ObjectExpression. fixes #265
+ - indent NewExpression arguments. fixes #254
+ - make sure we don't loop over same CatchClause twice. fixes #264
+
 ## v0.5.0 (2015-02-26)
 
  - add support for br/ws around IIFEOpeningParentheses and IIFEClosingParentheses and keep spaces around CallExpression to avoid conflicts. closes #223. closes #250.
