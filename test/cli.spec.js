@@ -159,4 +159,14 @@ describe('Command line interface', function() {
     expect(formattedFile).to.equal(helpers.readOut('/custom/commented_config').replace(/true/, 'false'));
   });
 
+  // in place option should modify the input file
+  var originalInPlace = path.join(__dirname + '/compare/default/inplace-in.js');
+  var cpInPlace = path.join(__dirname + '/compare/default/inplace-in.js.copy');
+  var expectedInPlace = path.join(__dirname + '/compare/default/inplace-out.js');
+  fs.writeFileSync(cpInPlace, fs.readFileSync(originalInPlace));
+  spawnEsformatter('default', '-i', cpInPlace, function(formattedFile) {
+    fs.unlinkSync(cpInPlace);
+    expect(formattedFile).to.equal(fs.readFileSync(expectedInPlace, { encoding: 'utf8' }));
+  });
+
 });
