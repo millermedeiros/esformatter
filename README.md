@@ -273,13 +273,17 @@ esformatter we decided to encourage the usage of standalone CLI tools.
 
 ```json
 {
+  // pipe is a simple way to "pipe" multiple binaries input/output
   "pipe": {
+    // scripts listed as "before" will be executed before esformatter
+    // and will forward output to next command in the queue
     "before": [
       "strip-debug",
-      "some-custom-command --foo true -zx"
+      "./bin/my-custom-script.sh --foo true -zx"
     ],
+    // scripts listed as "after" will be executed after esformatter
     "after": [
-      "some-other-command --keepLineBreaks"
+      "baz --keepLineBreaks"
     ]
   }
 }
