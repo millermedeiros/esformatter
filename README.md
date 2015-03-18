@@ -11,7 +11,7 @@ Live preview: [lloiser/esformatter-visualize](http://lloiser.github.io/esformatt
 
 This tool is still on early development and is missing support for many
 important features. Please report any bugs you find, the code is only as good
-as the current test cases.
+as the test cases.
 
 **We are looking for [contributors](https://github.com/millermedeiros/esformatter/blob/master/CONTRIBUTING.md)!!**
 
@@ -333,7 +333,7 @@ esformatter.register(plugin);
 Plugins are executed in the same order as they are registered (first in, first
 out).
 
-The plugin methods are executed on the following order: `stringBefore` > `transformBefore`  > `tokenBefore` > `nodeBefore` > `nodeAfter` > `tokenAfter` > `transformAfter` > `stringAfter`.
+The plugin methods are executed in the following order: `setOptions` > `stringBefore` > `transformBefore`  > `tokenBefore` > `nodeBefore` > `nodeAfter` > `tokenAfter` > `transformAfter` > `stringAfter`.
 
 **All plugin methods are optional.**
 
@@ -342,7 +342,7 @@ change the order of elements) we recommend you to write it as a standalone CLI
 tool whenever possible and use the `pipe` option instead of writting a plugin
 (eg. [strip-debug](https://www.npmjs.com/package/strip-debug)). Plugins should
 ideally only add/remove/edit the `WhiteSpace`, `Indent`, `LineBreak` and
-`Comment` tokens, otherwise you might have conclicts with other plugins and
+`Comment` tokens, otherwise you might have conflicts with other plugins and
 esformatter itself.
 
 **protip:** You can use
