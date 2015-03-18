@@ -271,7 +271,7 @@ For `whiteSpace` you can only use positive integers for now (any positive number
 Since we don't expect everyone to write plugins that only works with
 esformatter we decided to encourage the usage of standalone CLI tools.
 
-```json
+```js
 {
   // pipe is a simple way to "pipe" multiple binaries input/output
   "pipe": {
