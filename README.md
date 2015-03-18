@@ -177,6 +177,8 @@ Options:
   -p, --preset   Set style guide preset ("jquery", "default").
   -h, --help     Display help and usage details.
   -v, --version  Display the current version.
+  --plugins      Comma separated list of plugins.
+  -i             Edit input files in place.
 ````
 
 ### Examples:
@@ -193,6 +195,8 @@ esformatter test.js > test.out.js
 # you can override the default settings, see lib/preset/default.json for
 # a list of available options
 esformatter test.js --indent.value="\t" --lineBreak.before.IfStatementOpeningBrace=0
+# format "test.js" and output result to "test.js"
+esformatter -i test.js
 ```
 
 ### Configuration
