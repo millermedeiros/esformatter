@@ -48,10 +48,10 @@
     "npm-run": "^1.1.1",
     "optimist": "~0.6.0",
     "resolve": "^1.1.5",
-    "optimist": "~0.6.0",
     "rocambole": ">=0.5 <2.0",
     "rocambole-node": "~1.0",
     "rocambole-token": "^1.1.2",
+    "rocambole-whitespace": "^1.0.0",
     "semver": "~2.2.1",
     "stdin": "*",
     "strip-json-comments": "~0.1.1"

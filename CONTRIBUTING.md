@@ -40,11 +40,13 @@ intimidated by *complex names* like `ConditionalExpressionConsequent`, use the
 [rocambole-visualize](http://piuccio.github.io/rocambole-visualize/) as reference
 and you should be good to go.
 
-We have some helper methods on the `lib/lineBreak`, `lib/indent` and
-`lib/whiteSpace` modules to make the process easier. There are also a lot of
-helpers inside
-[rocambole-token](https://github.com/millermedeiros/rocambole-token) that we
-rely upon (used to add/remove/find tokens).
+We have some helper methods on the `lib/lineBreak` and `lib/indent` modules to
+make the process easier.
+
+We also rely on some external libraries to add/remove/find tokens:
+
+ - [rocambole-token](https://github.com/millermedeiros/rocambole-token)
+ - [rocambole-whitespace](https://github.com/millermedeiros/rocambole-whitespace)
 
 ### Recursion
 

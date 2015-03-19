@@ -15,7 +15,6 @@ describe('API', function() {
     var limit = require('../lib/limit');
     var options = require('../lib/options');
     var br = require('../lib/lineBreak');
-    var ws = require('../lib/whiteSpace');
 
     it('shoud expose useful methods to plugin authors', function() {
       // we don't need to check implementation here since these methods are
@@ -28,9 +27,6 @@ describe('API', function() {
       expect(br.limit).to.be.a('function');
       expect(br.limitBefore).to.be.a('function');
       expect(br.limitAfter).to.be.a('function');
-      expect(ws.limit).to.be.a('function');
-      expect(ws.limitBefore).to.be.a('function');
-      expect(ws.limitAfter).to.be.a('function');
       expect(options.set).to.be.a('function');
       expect(options.get).to.be.a('function');
       expect(options.getRc).to.be.a('function');
