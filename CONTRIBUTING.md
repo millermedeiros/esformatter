@@ -40,13 +40,11 @@ intimidated by *complex names* like `ConditionalExpressionConsequent`, use the
 [rocambole-visualize](http://piuccio.github.io/rocambole-visualize/) as reference
 and you should be good to go.
 
-We have some helper methods on the `lib/lineBreak` and `lib/indent` modules to
-make the process easier.
-
-We also rely on some external libraries to add/remove/find tokens:
+We rely on some external libraries to add/remove/find tokens:
 
  - [rocambole-token](https://github.com/millermedeiros/rocambole-token)
  - [rocambole-whitespace](https://github.com/millermedeiros/rocambole-whitespace)
+ - [rocambole-linebreak](https://github.com/millermedeiros/rocambole-linebreak)
 
 ### Recursion
 
@@ -171,14 +169,14 @@ npm test --coverage
 # to set the mocha reporter
 REPORTER=dot npm test
 # enable logging for the specified module
-DEBUG=esformatter:indent npm test
+DEBUG=rocambole:br:* npm test
 ```
 
 **protip:** files starting with double underscore (`__`) are on our
 `.gitignore` file and won't be commited, so I usually have a `__tmp-in.js` and
 `__tmp-out.js` test files that contains the bare minimum code that reproduces
-the bug that I'm trying to fix and execute that with `DEBUG=esformatter:*:*
-GREP=tmp npm test` to get all the logs.
+the bug that I'm trying to fix and execute that with
+`DEBUG=esformatter:*:*,rocambole:*:* GREP=tmp npm test` to get all the logs.
 
 
 ## IRC
