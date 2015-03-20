@@ -24,9 +24,9 @@ var x = 123;
   if (typeof define === "function" && define.amd) {
     // AMD. Register as an anonymous module.
     define([
-  "jquery",
-  "./core",
-  "./widget"
+      "jquery",
+      "./core",
+      "./widget"
     ], factory);
   } else {
     // Browser globals

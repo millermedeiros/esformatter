@@ -1,6 +1,5 @@
 {
     "indent" : {
-        "TopLevelFunctionBlock" : 0,
-        "ArrayExpression": -1
+        "TopLevelFunctionBlock" : 0
     }
 }
