@@ -5,7 +5,6 @@
     "AssignmentExpression": 1,
     "AssignmentExpression.BinaryExpression": 1,
     "AssignmentExpression.LogicalExpression": 1,
-    "BinaryExpression": -1,
     "CallExpression": 1,
     "CallExpression.BinaryExpression": 1,
     "CallExpression.LogicalExpression": 1,
