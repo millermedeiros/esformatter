@@ -98,3 +98,12 @@ try {
 } catch (e) {
   yesThisIsWeird()
 }
+
+// comment alignment (#270)
+try {
+  bla();
+// comment
+// too
+} catch (e) {
+  throw e;
+}
