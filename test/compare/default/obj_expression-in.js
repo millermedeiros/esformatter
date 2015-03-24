@@ -138,3 +138,6 @@ x = {
   at: a &&
     b
 };
+
+// ES6 Object Literal Property Value Shorthand
+x = { w, y, z }
