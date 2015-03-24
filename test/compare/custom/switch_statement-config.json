@@ -17,6 +17,7 @@
             "SwitchClosingBrace": 1
         },
         "after": {
+            "BreakKeyword": 2,
             "SwitchOpeningBrace": 1,
             "SwitchClosingBrace": ">= 0"
         }

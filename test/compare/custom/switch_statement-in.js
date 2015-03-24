@@ -3,7 +3,7 @@ switch ( event.keyCode ) {
         case $.ui.keyCode.SPACE:
         // line comment
         z();
-        break;
+        break
     case $.ui.keyCode.ESCAPE:
                 y();
             break;

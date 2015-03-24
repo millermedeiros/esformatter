@@ -4,10 +4,12 @@ case $.ui.keyCode.ENTER:
 case $.ui.keyCode.SPACE:
   // line comment
   z();
-  break;
+  break
+
 case $.ui.keyCode.ESCAPE:
   y();
   break;
+
 default:
   x();
 }
@@ -19,6 +21,7 @@ call(function() {
     // line comment
     exotic();
     break;
+
   default:
     unknown();
   }
