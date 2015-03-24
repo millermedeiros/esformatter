@@ -76,6 +76,10 @@ function expressionReturn() {
   );
 }
 
+// issue #283
+function foo() {
+  bar()
+}
 
 // issue #140
 function chainedReturn() {

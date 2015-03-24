@@ -214,6 +214,7 @@
       "FunctionDeclarationClosingBrace" : 1,
       "FunctionExpressionOpeningBrace" : 1,
       "FunctionExpressionClosingBrace" : 1,
+      "FunctionName" : 1,
       "IIFEClosingParentheses" : 0,
       "IfStatementConditionalOpening" : 1,
       "IfStatementConditionalClosing" : 0,

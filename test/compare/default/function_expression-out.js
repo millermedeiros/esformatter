@@ -57,3 +57,12 @@ if (!this._pollReceive) {
     if (events) this._receive();
   }.bind(this));
 }
+
+// issue #283
+var foo = function foo() {
+  bar()
+}
+
+var foo = function() {
+  bar()
+}
