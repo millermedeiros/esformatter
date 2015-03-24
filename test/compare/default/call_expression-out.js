@@ -72,7 +72,7 @@ noArgs();
 noArgs2();
 noArgs3();
 noArgs4(
-  // not passing any args for some reason
+// not passing any args for some reason
 );
 
 
@@ -152,4 +152,5 @@ promise().then(function(foo) {
 require('something');
 var Sidebar = Backbone.Model.extend({
   //...
+  lorem: 'ipsum'
 });

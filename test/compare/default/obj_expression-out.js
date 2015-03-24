@@ -98,10 +98,11 @@ Ext.define('VMS.model.User', {
     {
       name: 'LastName',
       type: 'string'
+      // align with previous line because of line break
 
-      // lorem ipsum
-      // dolor sit amet
-      // maecennas ullamcor
+    // align with "}"
+    // dolor sit amet
+    // maecennas ullamcor
     }
   ]
 });

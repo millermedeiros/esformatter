@@ -159,5 +159,5 @@ var obj;
 if (
   delete obj.hello
   , 'world') {
-  // more code
+// more code
 }
