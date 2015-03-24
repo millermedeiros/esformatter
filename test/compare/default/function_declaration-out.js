@@ -93,3 +93,8 @@ function multiLineParams(
   bar
 ) {
 }
+
+// issue #285
+function defaultParams(z, x = 1, y = 2) {
+  return x + y + z;
+}

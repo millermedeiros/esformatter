@@ -66,3 +66,8 @@ var foo = function foo() {
 var foo = function() {
   bar()
 }
+
+// default params (#285)
+var defaultParams = function defaults(z, x = 1, y = 2) {
+  return z + x + y;
+}

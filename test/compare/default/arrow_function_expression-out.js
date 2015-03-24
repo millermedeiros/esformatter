@@ -9,3 +9,8 @@ arr.map(d => {
   return d * 2;
 });
 arr.map((e, f, g) => e * f - g);
+
+// default params (#285)
+let defaultParams = (x, y = 1, z = 2) => {
+  return x + y + z;
+}
