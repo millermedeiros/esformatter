@@ -37,7 +37,7 @@ try
 }
 catch (e)
 {
-// Empty Catch comment
+  // Empty Catch comment
 }
 
 

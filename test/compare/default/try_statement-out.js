@@ -23,7 +23,7 @@ try {
 try {
   bar("foo");
 } catch (e) {
-// Empty Catch comment
+  // Empty Catch comment
 }
 
 

@@ -72,7 +72,7 @@ noArgs();
 noArgs2();
 noArgs3();
 noArgs4(
-// not passing any args for some reason
+  // not passing any args for some reason
 );
 
 
