@@ -48,3 +48,14 @@ dothis()
 break
 default:
 }
+
+// issue #290
+switch (x) {
+  case true:
+    x();
+    break;
+  default:
+    if (x) {
+      x();
+    }
+}
