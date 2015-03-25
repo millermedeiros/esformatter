@@ -143,15 +143,45 @@ describe('plugin API', function() {
     });
 
   });
+
+  describe('> execute in the right order', function() {
+    var plugin;
+
+    beforeEach(function() {
+      plugin = makePlugin();
+      esformatter.register(plugin);
+      esformatter.format('\/\/ foo');
+    });
+
+    afterEach(function() {
+      esformatter.unregister(plugin);
+    });
+
+    it('should call methods in the right order', function() {
+      expect(plugin.callOrder).to.eql([
+        'setOptions',
+        'stringBefore',
+        'transformBefore',
+        'tokenBefore',
+        'nodeBefore',
+        'nodeAfter',
+        'tokenAfter',
+        'transformAfter',
+        'stringAfter'
+      ]);
+    });
+  });
+
 });
 
 
 // extremely basic stub method, I know I could have used something more
 // complex like sinon, but this is good enough for now
-function stub(isIdentity) {
+function stub(name, isIdentity) {
   var fn = function() {
     fn.count += 1;
     fn.args.push.apply(fn.args, arguments);
+    if (this.callOrder) this.callOrder.push(name);
     if (isIdentity) {
       return arguments[0];
     }
@@ -166,14 +196,15 @@ function stub(isIdentity) {
 
 function makePlugin() {
   return {
-    setOptions: stub(),
-    stringBefore: stub(true),
-    stringAfter: stub(true),
-    tokenBefore: stub(),
-    tokenAfter: stub(),
-    nodeBefore: stub(),
-    nodeAfter: stub(),
-    transformAfter: stub(),
-    transformBefore: stub()
+    callOrder: [],
+    setOptions: stub('setOptions'),
+    stringBefore: stub('stringBefore', true),
+    stringAfter: stub('stringAfter', true),
+    tokenBefore: stub('tokenBefore'),
+    tokenAfter: stub('tokenAfter'),
+    nodeBefore: stub('nodeBefore'),
+    nodeAfter: stub('nodeAfter'),
+    transformAfter: stub('transformAfter'),
+    transformBefore: stub('transformBefore')
   };
 }
