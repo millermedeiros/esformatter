@@ -128,5 +128,24 @@ describe('esformatter.format()', function() {
 
   });
 
+  describe('shebang', function() {
+
+    it('should allow by default', function() {
+      var result = esformatter.format('#!/usr/bin/env node\nif(foo){bar()}');
+      expect(result).to.equal('#!/usr/bin/env node\nif (foo) {\n  bar()\n}');
+    });
+
+    it('should throw if not allowed', function() {
+      expect(function() {
+        esformatter.format('#!/usr/bin/env node\nif(foo){bar()}', {
+          esformatter: {
+            allowShebang: false
+          }
+        });
+      }).to.Throw();
+    });
+
+  });
+
 });
 

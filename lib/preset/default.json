@@ -1,4 +1,8 @@
 {
+  "esformatter": {
+    "allowShebang": true
+  },
+
   "indent" : {
     "value": "  ",
     "ArrayExpression": 1,
