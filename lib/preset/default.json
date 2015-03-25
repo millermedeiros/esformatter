@@ -11,6 +11,7 @@
     "CallExpression.LogicalExpression": 1,
     "CatchClause": 1,
     "ConditionalExpression": 1,
+    "CommentInsideEmptyBlock": 1,
     "ClassDeclaration": 1,
     "DoWhileStatement": 1,
     "ForInStatement": 1,
