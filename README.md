@@ -206,6 +206,26 @@ If a locally installed `esformatter` is found, the CLI uses that instead of the
 global executable (this means you can have multiple projects depending on
 different versions of esformatter).
 
+**protip:** add `esformatter` and all the plugins that you need on your project
+to the [package.json `devDependencies`](https://docs.npmjs.com/files/package.json#devdependencies)
+that way you can use locally installed plugins and also make sure everyone on
+your team is using the same version/settings.
+
+```json
+{
+  "devDependencies": {
+    "esformatter": "~0.6.0",
+    "esformatter-quotes": "^1.0.1"
+  },
+  "esformatter": {
+    "plugins": ["esformatter-quotes"],
+    "quotes": {
+      "type": "single"
+    }
+  }
+}
+```
+
 ### Configuration
 
 For a live preview check [esformatter-visualize](http://lloiser.github.io/esformatter-visualize/)
