@@ -152,4 +152,5 @@ require ('something');
 var Sidebar = Backbone.Model.extend
 ({
 //...
+lorem: 'ipsum'
 });

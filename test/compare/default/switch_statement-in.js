@@ -58,4 +58,16 @@ switch (x) {
     if (x) {
       x();
     }
+  }
+
+// comment alignment (#209)
+switch (foo) {
+  case bar:
+      baz();
+      // falls through
+    // yes, this should be aligned too
+
+  // align with case
+    case biz:
+        what();
 }

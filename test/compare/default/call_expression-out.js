@@ -152,4 +152,5 @@ promise().then(function(foo) {
 require('something');
 var Sidebar = Backbone.Model.extend({
   //...
+  lorem: 'ipsum'
 });

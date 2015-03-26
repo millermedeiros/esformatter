@@ -1,6 +1,8 @@
 {
   "indent" : {
     "value": "  ",
+    "AlignComments": true,
+
     "ArrayExpression": 1,
     "ArrowFunctionExpression": 1,
     "AssignmentExpression": 1,
@@ -11,6 +13,7 @@
     "CallExpression.LogicalExpression": 1,
     "CatchClause": 1,
     "ConditionalExpression": 1,
+    "CommentInsideEmptyBlock": 1,
     "ClassDeclaration": 1,
     "DoWhileStatement": 1,
     "ForInStatement": 1,

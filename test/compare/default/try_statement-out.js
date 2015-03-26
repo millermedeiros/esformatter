@@ -52,7 +52,7 @@ function foo(obj) {
   } finally {
     // finally a comment
     top = 0;
-    // weird
+  // weird
   }
 }
 
@@ -60,15 +60,15 @@ jQuery.ready.promise = function(obj) {
   try {
     // try 2
     top = window.frameElement == null && document.documentElement;
-    // try after 2
+  // try after 2
   } catch (e) {
     // catch 2
     console.log(e);
-    // catch after 2
+  // catch after 2
   } finally {
     // finally a comment 2
     top = 0;
-    // finally after 2
+  // finally after 2
   }
 };
 
@@ -80,11 +80,11 @@ function nestedTryCatch() {
     try {
       // try
       alternatePath();
-      // just a little bit harder
+    // just a little bit harder
     } catch (e) {
       // catch
       console.log(e);
-      // if you can
+    // if you can
     } finally {}
   } finally {
     shouldBreak = true;
@@ -97,4 +97,13 @@ try {
   doStuff()
 } catch (e) {
   yesThisIsWeird()
+}
+
+// comment alignment (#270)
+try {
+  bla();
+// comment
+// too
+} catch (e) {
+  throw e;
 }
