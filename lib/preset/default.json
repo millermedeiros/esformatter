@@ -1,6 +1,8 @@
 {
   "indent" : {
     "value": "  ",
+    "AlignComments": true,
+
     "ArrayExpression": 1,
     "ArrowFunctionExpression": 1,
     "AssignmentExpression": 1,
