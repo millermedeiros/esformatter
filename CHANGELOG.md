@@ -1,5 +1,23 @@
 # esformatter changelog
 
+## v0.6.0 (2015-03-26)
+
+ - add support for the pipe option on the config file, allowing user to pipe other CLI tools. closes #168
+ - add support for ES6 classes. closes #286
+ - add support for ES6 default params. closes #285
+ - add support for ES6 arrow functions. closes #255
+ - change comment indentation behavior to match next/prev code block based on context. fixes #209. fixes #270.
+ - extract helpers from lib/indent.js into rocambole-indent. closes #277
+ - fixes SwitchCase indentation range. closes #290
+ - ignore shebang by default. closes #284
+ - add setting to limit line breaks and white spaces around BreakKeyword. fixes #213
+ - limit spaces before function name. closes #283
+ - make sure plugins.setOptions is called before plugins.stringBefore. fixes #288
+ - replace lib/lineBreak.js with rocambole-linebreak. closes #279
+ - replace lib/whiteSpace.js with rocambole-whitespace. closes #278
+ - support in place edits. fixes #275
+ - use locally installed esformatter version if available. closes #190
+
 ## v0.5.1 (2015-03-17)
 
  - make it work with esprima@2.1 AST!
