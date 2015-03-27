@@ -1,6 +1,6 @@
 /*jshint node:true*/
 /*global describe:false, it:false*/
-"use strict";
+'use strict';
 
 var spawn = require('child_process').spawn;
 var path = require('path');
@@ -28,14 +28,14 @@ describe('Command line interface', function() {
       input = null;
     }
     if (options) {
-      args = args.concat(options.split(" "));
+      args = args.concat(options.split(' '));
     }
-    it('[cli '+ id +'] ' + options, function(mochaCallback) {
+    it('[cli ' + id + '] ' + options, function(mochaCallback) {
       var childprocess = spawn('node', args, {
         stdio: ['pipe', 'pipe', 'pipe']
       });
-      var output = "";
-      var errorInChildProcess = "";
+      var output = '';
+      var errorInChildProcess = '';
       childprocess.stdout.on('data', function(data) {
         output += data.toString();
       });
@@ -80,7 +80,7 @@ describe('Command line interface', function() {
   // Format a file specifying some options
   filePath = path.join(__dirname + '/compare/custom/basic_function_indent-in.js');
   configPath = path.join(__dirname + '/compare/custom/basic_function_indent-config.json');
-  spawnEsformatter('config', "--config " + configPath + " " + filePath, function(formattedFile) {
+  spawnEsformatter('config', '--config ' + configPath + ' ' + filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/custom/basic_function_indent'));
   });
 
@@ -93,13 +93,13 @@ describe('Command line interface', function() {
   // Format a file from standard input with options
   filePath = path.join(__dirname + '/compare/custom/call_expression-in.js');
   configPath = path.join(__dirname + '/compare/custom/call_expression-config.json');
-  spawnEsformatter('stdin+config', "--config " + configPath, filePath, function(formattedFile) {
+  spawnEsformatter('stdin+config', '--config ' + configPath, filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/custom/call_expression'));
   });
 
   // Format file with jquery preset
   filePath = path.join(__dirname + '/compare/jquery/spacing-in.js');
-  spawnEsformatter('preset', "--preset jquery " + filePath, function(formattedFile) {
+  spawnEsformatter('preset', '--preset jquery ' + filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/jquery/spacing'));
   });
 
@@ -136,7 +136,7 @@ describe('Command line interface', function() {
 
   // make sure it shows descriptive error message when config doesn't exist
   filePath = path.join(__dirname + '/compare/default/call_expression-in.js');
-  spawnEsformatter('invalid config', '-c non-existent.json '+ filePath, function(formattedFile) {
+  spawnEsformatter('invalid config', '-c non-existent.json ' + filePath, function(formattedFile) {
     expect(formattedFile.message).to.equal('Can\'t parse configuration file: "non-existent.json"\nException: ENOENT, no such file or directory \'non-existent.json\'\n');
   });
 
@@ -148,7 +148,7 @@ describe('Command line interface', function() {
   // comments should be allowed on config.json files
   filePath = path.join(__dirname + '/compare/custom/commented_config-in.js');
   configPath = path.join(__dirname + '/compare/custom/commented_config-config.json');
-  spawnEsformatter('config', "--config " + configPath + " " + filePath, function(formattedFile) {
+  spawnEsformatter('config', '--config ' + configPath + ' ' + filePath, function(formattedFile) {
     expect(formattedFile).to.equal(helpers.readOut('/custom/commented_config'));
   });
 
@@ -173,7 +173,24 @@ describe('Command line interface', function() {
   fs.writeFileSync(cpInPlace, fs.readFileSync(originalInPlace));
   spawnEsformatter('default', '-i', cpInPlace, function(formattedFile) {
     fs.unlinkSync(cpInPlace);
-    expect(formattedFile).to.equal(fs.readFileSync(expectedInPlace, { encoding: 'utf8' }));
+    expect(formattedFile).to.equal(fs.readFileSync(expectedInPlace, {
+      encoding: 'utf8'
+    }));
+  });
+
+  // glob expansion
+  filePath = path.join(__dirname + '/compare/default/arr*-in.js');
+  spawnEsformatter('glob', filePath, function(formattedFile) {
+    expect(formattedFile).to.equal(
+      helpers.readOut('default/array_expression') +
+      helpers.readOut('default/arrow_function_expression')
+    );
+  });
+
+  // invalid glob expansion should throw error
+  filePath = path.join(__dirname + '/compare/default/fake-file*-in.js');
+  spawnEsformatter('glob', filePath, function(formattedFile) {
+    expect(formattedFile.message).to.equal('Can\'t read source file: "/Users/millermedeiros/Projects/opensource/esformatter/test/compare/default/fake-file*-in.js"\nException: ENOENT, no such file or directory \'/Users/millermedeiros/Projects/opensource/esformatter/test/compare/default/fake-file*-in.js\'\n');
   });
 
 });

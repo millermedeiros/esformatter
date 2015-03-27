@@ -179,7 +179,8 @@ Options:
   -h, --help     Display help and usage details.
   -v, --version  Display the current version.
   --plugins      Comma separated list of plugins.
-  -i             Edit input files in place.
+  -i             Edit input files in place; overwrite source file, use with
+                 care!
 ````
 
 ### Examples:
@@ -198,6 +199,10 @@ esformatter test.js > test.out.js
 esformatter test.js --indent.value="\t" --lineBreak.before.IfStatementOpeningBrace=0
 # format "test.js" and output result to "test.js"
 esformatter -i test.js
+# format and overwrite all the ".js" files inside the "lib/" folder
+esformatter -i lib/*.js
+# format and overwrite all the ".js" files inside "lib/" and it's subfolders
+esformatter -i lib/**/*.js
 ```
 
 ### Local version
