@@ -1,7 +1,16 @@
 "use strict";
 
-// IMPORTANT: run `npm rm esformatter-test-plugin && npm i` every time you
-// update this file!
+// IMPORTANT: run `npm rm esformatter-test-plugin && npm i test/plugin` every
+// time you update this file!
+
+exports.setOptions = function(opts) {
+  opts.foo = 'bar';
+  opts.bar = 123;
+  // makes sure we are able to read default values and edit it
+  opts.indent.ArrayExpression += 2;
+  this.opts = opts;
+};
+
 exports.tokenBefore = function(token) {
   if (token.value === 'true') {
     token.value = 'false';

@@ -1,11 +1,13 @@
 //jshint node:true
 /*global describe, it, beforeEach, afterEach*/
-"use strict";
+'use strict';
 
 var expect = require('chai').expect;
 var mockery = require('mockery');
 var esformatter = require('../lib/esformatter');
+var esformatterOptions = require('../lib/options');
 var rocambole = require('rocambole');
+var testPlugin = require('esformatter-test-plugin');
 
 var input = 'var foo=lorem?"bar":"baz";';
 var output = 'var foo = lorem ? "bar" : "baz";';
@@ -26,7 +28,7 @@ describe('plugin API', function() {
       esformatter.unregister(plugin);
     });
 
-    it('should call setOptions', function() {
+    it('should call setOptions and not override user set options', function() {
       expect(plugin.setOptions.count).to.eql(1);
       expect(plugin.setOptions.args[0].indent.value).to.eql('  ');
     });
@@ -170,6 +172,39 @@ describe('plugin API', function() {
         'stringAfter'
       ]);
     });
+  });
+
+  describe('> setOptions', function() {
+    var plugin = testPlugin;
+    var opts = {
+      foo: 'ipsum'
+    };
+
+    beforeEach(function() {
+      esformatter.register(plugin);
+      esformatter.format(input, opts);
+    });
+
+    afterEach(function() {
+      esformatter.unregister(plugin);
+    });
+
+    it('should set default options and allow user and plugin to override them', function() {
+      var o = plugin.opts;
+      // it clones the user proveid options object to avoid undesired side effects
+      expect(o).not.to.eql(opts);
+      // it should pass options object by reference
+      expect(o).to.eql(esformatterOptions.get());
+      // user should be able to override options
+      expect(o.foo).to.eql('ipsum');
+      // plugin should be able to create a new value
+      expect(o.bar).to.eql(123);
+      // plugin should be able to override a value
+      expect(o.indent.ArrayExpression).to.eql(3);
+      // default value
+      expect(o.indent.value).to.eql('  ');
+    });
+
   });
 
 });
