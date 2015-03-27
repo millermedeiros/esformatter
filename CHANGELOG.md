@@ -1,5 +1,11 @@
 # esformatter changelog
 
+## v0.6.1 (2015-03-27)
+
+ - fix comment alignment if surrounded by whitespaces. closes #297
+ - improve ObjectExpression hook logic to handle values surrounded by parenthesis. fixes #295
+ - fix setOptions behavior to allow user to override plugin default settings. fixes #293
+
 ## v0.6.0 (2015-03-26)
 
  - add support for the pipe option on the config file, allowing user to pipe other CLI tools. closes #168
