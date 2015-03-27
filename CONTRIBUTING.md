@@ -164,8 +164,6 @@ BAIL=true npm test
 GREP='indent' npm test
 # can also use "INVERT=true" to only execute specs that doesn't contain "cli" in the name
 GREP=cli INVERT=true npm test
-# to check code coverage run
-npm test --coverage
 # to set the mocha reporter
 REPORTER=dot npm test
 # enable logging for the specified module

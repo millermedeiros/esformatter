@@ -7,7 +7,7 @@
     "esformatter": "./bin/esformatter"
   },
   "scripts": {
-    "test": "istanbul test test/runner.js",
+    "test": "node test/runner.js",
     "lint": "jshint lib/*.js lib/**/*.js test/*.js"
   },
   "repository": {
@@ -37,7 +37,6 @@
     "esformatter-test-plugin": "file:test/plugin",
     "esprima": "^2.0.0",
     "glob": "3.1",
-    "istanbul": "~0.1.23",
     "jshint": "~2.3.0",
     "mocha": "https://github.com/millermedeiros/mocha/tarball/latest",
     "mockery": "^1.4.0"
