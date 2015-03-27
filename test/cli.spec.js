@@ -190,7 +190,7 @@ describe('Command line interface', function() {
   // invalid glob expansion should throw error
   filePath = path.join(__dirname + '/compare/default/fake-file*-in.js');
   spawnEsformatter('glob', filePath, function(formattedFile) {
-    expect(formattedFile.message).to.equal('Can\'t read source file: "/Users/millermedeiros/Projects/opensource/esformatter/test/compare/default/fake-file*-in.js"\nException: ENOENT, no such file or directory \'/Users/millermedeiros/Projects/opensource/esformatter/test/compare/default/fake-file*-in.js\'\n');
+    expect(formattedFile.message).to.equal('Can\'t read source file: "' + __dirname + '/compare/default/fake-file*-in.js"\nException: ENOENT, no such file or directory \'' + __dirname + '/compare/default/fake-file*-in.js\'\n');
   });
 
 });
