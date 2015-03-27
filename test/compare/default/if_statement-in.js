@@ -156,3 +156,12 @@ delete obj.hello
 , 'world') {
 // more code
 }
+
+// issue #297
+if (foo) {
+  bar()
+
+  // this comment should be indented
+
+  baz();
+}
