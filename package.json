@@ -58,5 +58,8 @@
     "stdin": "*",
     "strip-json-comments": "~0.1.1"
   },
+  "esformatter": {
+    "root": true
+  },
   "license": "MIT"
 }
