@@ -160,3 +160,15 @@ x = {
   y,
   z
 }
+
+// issue #295
+o = {
+  foo: (
+    lorem &&
+    ipsum
+  ),
+  bar: (
+    dolor ||
+    amet
+  )
+};

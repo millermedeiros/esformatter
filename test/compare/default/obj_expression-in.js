@@ -142,3 +142,15 @@ x = {
 
 // ES6 Object Literal Property Value Shorthand
 x = { w, y, z }
+
+// issue #295
+o = {
+  foo: (
+    lorem &&
+    ipsum
+  ),
+  bar: (
+    dolor ||
+    amet
+  )
+};
