@@ -103,21 +103,30 @@ npm install [-g] esformatter
 ### Usage:
 
 ````sh
-esformatter [OPTIONS] [FILES]
+Usage: esformatter [command] [options] [files]
+
+Commands:
+  check     Check if files are formatted properly.
+  format    Formats files. (default command)
 
 Options:
-  -c, --config   Path to custom configuration file.
-  -p, --preset   Set style guide preset ("jquery", "default").
-  -h, --help     Display help and usage details.
-  -v, --version  Display the current version.
-  --plugins      Comma separated list of plugins.
-  -i             Edit input files in place; overwrite source file, use with
-                 care!
+  -c, --config        Path to custom configuration file.
+  -p, --preset        Set style guide preset ("jquery", "default").
+  -v, --version       Display the current version.
+  --plugins           Comma separated list of plugins.
+  -i                  Edit input files in place; use with care!
+  -h, --help          Display help and usage details.
+  --unified           Output unified diff.
+  --unified-no-color  Output unified diff without colors.
+  --chars             Output char diff. (default diff format)
 ````
 
 ### Examples:
 
 ```sh
+# Format
+# ======
+
 # format "test.js" and output result to stdout
 esformatter test.js
 # you can also pipe other shell commands (read file from stdin)
@@ -135,6 +144,20 @@ esformatter -i test.js
 esformatter -i lib/*.js
 # format and overwrite all the ".js" files inside "lib/" and it's subfolders
 esformatter -i lib/**/*.js
+
+# Check
+# ======
+
+# check if "test.js" matches style and output diff to stdout
+esformatter check test.js
+# check if "test.js" matches style and output unified diff to stdout
+esformatter check --unified test.js
+# check if "test.js" matches style and output unified diff (no color) to stdout
+esformatter check --unified-no-color test.js
+# check if "test.js" matches "options.json" style and output diff to stdout
+esformatter check --config options.json test.js
+# check all files inside "lib/" and it's subfolders
+esformatter check lib/**/*.js
 ```
 
 ### Local version

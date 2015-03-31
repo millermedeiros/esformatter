@@ -34,28 +34,14 @@ var cli = require(cliPath);
 // we expose 2 methods to allow processing the data before executing the
 // command (all the logic above)
 if ('run' in cli) {
-
-  // on v0.7 we converted the cli module into an event emitter for better
-  // error handling
-  if ('on' in cli) {
-    var hasError = false;
-    cli.on('error', function(e) {
-      hasError = true;
-      // we log the error as soon as possible because when formatting 100's of
-      // files it can take a while to end the process
-      console.error(e.message);
-    });
-
-    process.on('exit', function(code) {
-      if (code === 0 && hasError) {
-        // if node detected a different error we let it use the standard error
-        // code: https://nodejs.org/api/process.html#process_exit_codes
-        // otherwise we make sure it's set to 1 if we had any errors
-        process.exit(1);
-      }
-    });
-  }
-
+  process.on('exit', function(code) {
+    if (code === 0 && cli.hasError) {
+      // if node detected a different error we let it use the standard error
+      // code: https://nodejs.org/api/process.html#process_exit_codes
+      // otherwise we make sure it's set to 1 if we had any errors
+      process.exit(1);
+    }
+  });
   cli.run(cli.parse(argv));
 } else {
   cli.parse(argv);

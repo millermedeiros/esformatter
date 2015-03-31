@@ -33,6 +33,7 @@ if (process.env.INVERT) {
 
 m.addFile('test/format.spec.js');
 m.addFile('test/transform.spec.js');
+m.addFile('test/check.spec.js');
 m.addFile('test/cli.spec.js');
 m.addFile('test/api.spec.js');
 m.addFile('test/plugins.spec.js');
