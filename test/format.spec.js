@@ -2,7 +2,7 @@
 /*global describe:false, it:false*/
 "use strict";
 
-var esprima = require('esprima');
+var espree = require('espree');
 var expect = require('chai').expect;
 var _glob = require('glob');
 var _path = require('path');
@@ -42,7 +42,7 @@ describe('esformatter.format()', function() {
         // result should be valid JS
         expect(function() {
           try {
-            esprima.parse(result);
+            espree.parse(result, esformatter.format.parseOptions);
           } catch (e) {
             throw new Error('esformatter.format() result produced a non-valid output.\n' + e);
           }
@@ -78,7 +78,7 @@ describe('esformatter.format()', function() {
         // result should be valid JS
         expect(function() {
           try {
-            esprima.parse(result);
+            espree.parse(result, esformatter.format.parseOptions);
           } catch (e) {
             throw new Error('esformatter.format() result produced a non-valid output.\n' + e);
           }
@@ -113,7 +113,7 @@ describe('esformatter.format()', function() {
         // result should be valid JS
         expect(function() {
           try {
-            esprima.parse(result);
+            espree.parse(result, esformatter.format.parseOptions);
           } catch (e) {
             throw new Error('esformatter.format() result produced a non-valid output.\n' + e);
           }
