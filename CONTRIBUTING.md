@@ -45,6 +45,7 @@ We rely on some external libraries to add/remove/find tokens:
  - [rocambole-token](https://github.com/millermedeiros/rocambole-token)
  - [rocambole-whitespace](https://github.com/millermedeiros/rocambole-whitespace)
  - [rocambole-linebreak](https://github.com/millermedeiros/rocambole-linebreak)
+ - [rocambole-indent](https://github.com/millermedeiros/rocambole-indent)
 
 ### Recursion
 
@@ -65,9 +66,14 @@ We do the indentation after the whole process; that is necessary since the
 parent nodes affects the indentation of the child nodes (line breaks might be
 added or removed during the process).
 
-The core logic is handled by `lib/indent.js`, but most nodes actually require
-specific rules to detect the *indent edges*, so most `lib/hooks` also implement
-a method `getIndentEdges` that can return:
+Indentation starts from root node and moves up the tree until it reaches the
+leaf nodes (this allow child nodes to decrement the indent added by parent
+nodes and is more intuitive).
+
+The core logic is handled by `lib/indent.js` and
+[rocambole-indent](https://github.com/millermedeiros/rocambole-indent), but
+most nodes actually require specific rules to detect the *indent edges*, so
+most `lib/hooks` also implement a method `getIndentEdges` that can return:
 
  - *falsy* value: means the node should **not** be indented;
  - single `IndentEdge` object: indent in between `startToken` and `endToken`;
@@ -83,17 +89,15 @@ The `IndentEdge` is just a Plain JavaScript Object with the properties:
  - `level:Int` (optional): sets how many indents should be added for that
    `IndentEdge`, that is very useful for cases where you might have different
    options for the same parent node (eg. the `FunctionExpression` hook also
-   handles the `ParameterList` indentation); if `level <= 0` that *edge* is not
-   indented (we don't support negative indent so far)
+   handles the `ParameterList` indentation); if `level === 0` that *edge* is not
+   indented, if `level < 0` we decrement one indent level.
 
 If the hook doesn't implement `getIndentEdges` we consider `node.startToken`
 and `node.endToken` as the default edge. We only indent nodes that have a value
 greater than zero on the configuration options.
 
 Also important to notice that we only add `Indent` tokens to the beginning of
-lines and if `edge.startToken` is `{` or `[` or `(` we use the
-`edge.startToken.next` as the first token since that is usually the expected
-behavior (you want to indent what is inside the braces/parenthesis).
+lines.
 
 The reason why we decided to handle indentation as multiple `IndentEdge`s is
 because there are many cases where the lines between `node.startToken` and
@@ -114,6 +118,10 @@ We will create `-wip` branches (work in progress) for *unfinished* features
 code. We will try hard to not rewrite the commit history of `master` branch but
 will do it for `-wip` branches.
 
+Sometimes we even open pull requests just to notify/discuss the work in
+progress, specially if it's a new feature or a bug that will take many days to
+solve.
+
 If you plan to implement a new feature check the existing branches, I will push
 all my local `-wip` branches if I don't complete the feature in the same day.
 So that should give a good idea on what I'm currently working.
@@ -131,11 +139,11 @@ requests](https://github.com/necolas/issue-guidelines/blob/master/CONTRIBUTING.m
 The default settings should be as *conservative* as possible, [Google
 JavaScript Style
 Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
-should be used as a reference.
+is a good reference.
 
 We have plans to support other presets like
 [Idiomatic.js](https://github.com/rwldrn/idiomatic.js/) and [jQuery Style
-Guide](http://contribute.jquery.org/style-guide/js).
+Guide](http://contribute.jquery.org/style-guide/js) as external plugins.
 
 
 

@@ -17,6 +17,11 @@
   "bugs": {
     "url": "https://github.com/millermedeiros/esformatter/issues"
   },
+  "directories": {
+    "doc": "./doc",
+    "bin": "./bin",
+    "lib": "./lib"
+  },
   "keywords": [
     "beautifier",
     "beautify",
@@ -36,7 +41,6 @@
     "esformatter-pipe-test": "file:test/pipe",
     "esformatter-test-plugin": "file:test/plugin",
     "esprima": "^2.0.0",
-    "glob": "3.1",
     "jshint": "~2.3.0",
     "mocha": "https://github.com/millermedeiros/mocha/tarball/latest",
     "mockery": "^1.4.0"
