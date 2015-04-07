@@ -154,3 +154,7 @@ var Sidebar = Backbone.Model.extend
 //...
 lorem: 'ipsum'
 });
+
+// issue #306
+foo(!!(lorem ||
+      ipsum || dolor));

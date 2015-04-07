@@ -154,3 +154,10 @@ o = {
     amet
   )
 };
+
+// issue #306
+unary = {
+  a: !!(dolor ||
+        amet && ipsum
+       )
+};

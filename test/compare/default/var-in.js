@@ -54,3 +54,10 @@ var lorem = ipsum ||
   dolor &&
   (sit || amet);
 
+// issue #306: UnaryExpression
+  var hasNativeRequestAnimationFrame = !!(
+  window.requestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.msRequestAnimationFrame
+  );

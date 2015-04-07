@@ -12,9 +12,11 @@
     "AssignmentExpression": 1,
     "AssignmentExpression.BinaryExpression": 1,
     "AssignmentExpression.LogicalExpression": 1,
+    "AssignmentExpression.UnaryExpression": 1,
     "CallExpression": 1,
     "CallExpression.BinaryExpression": 1,
     "CallExpression.LogicalExpression": 1,
+    "CallExpression.UnaryExpression": 1,
     "CatchClause": 1,
     "ConditionalExpression": 1,
     "CommentInsideEmptyBlock": 1,
@@ -31,6 +33,7 @@
     "ObjectExpression": 1,
     "ObjectExpression.BinaryExpression": 1,
     "ObjectExpression.LogicalExpression": 1,
+    "ObjectExpression.UnaryExpression": 1,
     "ParameterList": 1,
     "ReturnStatement": 1,
     "SwitchCase": 1,
@@ -39,6 +42,7 @@
     "TryStatement": 1,
     "VariableDeclaration.BinaryExpression": 1,
     "VariableDeclaration.LogicalExpression": 1,
+    "VariableDeclaration.UnaryExpression": 1,
     "WhileStatement": 1
   },
 

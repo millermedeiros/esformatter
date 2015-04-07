@@ -50,3 +50,11 @@ function iss8() {
     proxy.guid = fn.guid = fn.guid || jQuery.guid++;
   }
 }
+
+// issue #306: UnaryExpression
+hasNativeRequestAnimationFrame = !!(
+  window.requestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.msRequestAnimationFrame
+);
