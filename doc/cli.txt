@@ -9,3 +9,6 @@ Options:
   -i                  Edit input files in place; use with care!
   --diff              Check code style and output char diff.
   --diff-unified      Check code style and output unified diff.
+  --no-color          Remove colors from diff (default if terminal doesn't
+                      support colors).
+  --color             Force colored diffs even if terminal doesn't support it.

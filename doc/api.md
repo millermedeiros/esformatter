@@ -50,35 +50,38 @@ assert(outputAST === inputAST, 'edits AST in place');
 assert(outputAST.toString() === 'var foo = 123;', 'formats input');
 ```
 
-## esformatter.check
+## esformatter.diff
 
 esformatter is also able to check if files are formatted properly and return
 pretty diffs.
 
-These methods will return an empty string if input is already in the proper
-format.
+### esformatter.diff.chars(str[, opts, fileName]):String
 
-### esformatter.check.chars(str[, opts, fileName]):String
+Gets a colored char diff if file is not formatted properly. Otherwise it
+returns an empty string.
 
 ```js
-// outputs a colorized char diff
-var diff = esformatter.check.chars(code);
+var diff = esformatter.diff.chars(code);
 console.log(diff);
 ```
 
-### esformatter.check.unified(str[, opts, fileName]):String
+### esformatter.diff.unified(str[, opts, fileName]):String
+
+Gets a colored unified diff if file is not formatted properly. Otherwise it
+returns an empty string.
 
 ```js
-// outputs a colored unified diff
-var diff = esformatter.check.unified(code);
+var diff = esformatter.diff.unified(code);
 console.log(diff);
 ```
 
-### esformatter.check.unifiedNoColors(str[, opts, fileName]):String
+### esformatter.diff.unifiedNoColors(str[, opts, fileName]):String
+
+Gets an unified diff if file is not formatted properly. Otherwise it returns an
+empty string.
 
 ```js
-// outputs a unified diff
-var diff = esformatter.check.unifiedNoColors(code);
+var diff = esformatter.diff.unifiedNoColors(code);
 console.log(diff);
 ```
 
