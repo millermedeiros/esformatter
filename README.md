@@ -103,22 +103,17 @@ npm install [-g] esformatter
 ### Usage:
 
 ````sh
-Usage: esformatter [command] [options] [files]
-
-Commands:
-  check     Check if files are formatted properly.
-  format    Formats files. (default command)
+Usage: esformatter [options] [files...]
 
 Options:
+  -v, --version       Display the current version.
+  -h, --help          Display help and usage details.
   -c, --config        Path to custom configuration file.
   -p, --preset        Set style guide preset ("jquery", "default").
-  -v, --version       Display the current version.
   --plugins           Comma separated list of plugins.
   -i                  Edit input files in place; use with care!
-  -h, --help          Display help and usage details.
-  --unified           Output unified diff.
-  --unified-no-color  Output unified diff without colors.
-  --chars             Output char diff. (default diff format)
+  --diff              Check code style and output char diff.
+  --diff-unified      Check code style and output unified diff.
 ````
 
 ### Examples:
@@ -145,19 +140,17 @@ esformatter -i lib/*.js
 # format and overwrite all the ".js" files inside "lib/" and it's subfolders
 esformatter -i lib/**/*.js
 
-# Check
+# Diff
 # ======
 
 # check if "test.js" matches style and output diff to stdout
-esformatter check test.js
+esformatter --diff test.js
 # check if "test.js" matches style and output unified diff to stdout
-esformatter check --unified test.js
-# check if "test.js" matches style and output unified diff (no color) to stdout
-esformatter check --unified-no-color test.js
+esformatter --diff-unified test.js
 # check if "test.js" matches "options.json" style and output diff to stdout
-esformatter check --config options.json test.js
+esformatter --diff --config options.json test.js
 # check all files inside "lib/" and it's subfolders
-esformatter check lib/**/*.js
+esformatter --diff lib/**/*.js
 ```
 
 ### Local version
