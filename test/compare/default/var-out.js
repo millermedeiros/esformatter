@@ -60,4 +60,4 @@ var hasNativeRequestAnimationFrame = !!(
   window.webkitRequestAnimationFrame ||
   window.mozRequestAnimationFrame ||
   window.msRequestAnimationFrame
-  );
+);
