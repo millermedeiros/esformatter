@@ -7,6 +7,17 @@ closest `.esformatter` file and use that as a setting unless you specify
 You also have the option to put your `esformatter` settings inside the
 `package.json` file under the `esformatter` property.
 
+## property names
+
+Most of the property names are based on the [esprima AST node
+types](http://esprima.org/demo/parse.html). For a list of node types you can
+also check the [estree spec](https://github.com/estree/estree).
+
+Our [default settings](../lib/preset/default.json) should have all the names
+that we recognize, even if we don't list them in all the places the config
+probably use the same ids on all the settings (`indent`, `lineBreak` and
+`whiteSpace`), don't get intimidated by the names!
+
 ## root
 
 Settings from multiple files will be merged until it finds a config file that
