@@ -50,6 +50,41 @@ assert(outputAST === inputAST, 'edits AST in place');
 assert(outputAST.toString() === 'var foo = 123;', 'formats input');
 ```
 
+## esformatter.diff
+
+esformatter is also able to check if files are formatted properly and return
+pretty diffs.
+
+### esformatter.diff.chars(str[, opts, fileName]):String
+
+Gets a colored char diff if file is not formatted properly. Otherwise it
+returns an empty string.
+
+```js
+var diff = esformatter.diff.chars(code);
+console.log(diff);
+```
+
+### esformatter.diff.unified(str[, opts, fileName]):String
+
+Gets a colored unified diff if file is not formatted properly. Otherwise it
+returns an empty string.
+
+```js
+var diff = esformatter.diff.unified(code);
+console.log(diff);
+```
+
+### esformatter.diff.unifiedNoColors(str[, opts, fileName]):String
+
+Gets an unified diff if file is not formatted properly. Otherwise it returns an
+empty string.
+
+```js
+var diff = esformatter.diff.unifiedNoColors(code);
+console.log(diff);
+```
+
 ## esformatter.rc([filePath], [customOptions]):Object
 
 Used by task runners and/or plugin authors to retrieve the configuration stored

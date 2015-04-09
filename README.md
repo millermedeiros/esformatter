@@ -103,21 +103,25 @@ npm install [-g] esformatter
 ### Usage:
 
 ````sh
-esformatter [OPTIONS] [FILES]
+Usage: esformatter [options] [files...]
 
 Options:
-  -c, --config   Path to custom configuration file.
-  -p, --preset   Set style guide preset ("jquery", "default").
-  -h, --help     Display help and usage details.
-  -v, --version  Display the current version.
-  --plugins      Comma separated list of plugins.
-  -i             Edit input files in place; overwrite source file, use with
-                 care!
+  -v, --version       Display the current version.
+  -h, --help          Display help and usage details.
+  -c, --config        Path to custom configuration file.
+  -p, --preset        Set style guide preset ("jquery", "default").
+  --plugins           Comma separated list of plugins.
+  -i                  Edit input files in place; use with care!
+  --diff              Check code style and output char diff.
+  --diff-unified      Check code style and output unified diff.
 ````
 
 ### Examples:
 
 ```sh
+# Format
+# ======
+
 # format "test.js" and output result to stdout
 esformatter test.js
 # you can also pipe other shell commands (read file from stdin)
@@ -135,6 +139,18 @@ esformatter -i test.js
 esformatter -i lib/*.js
 # format and overwrite all the ".js" files inside "lib/" and it's subfolders
 esformatter -i lib/**/*.js
+
+# Diff
+# ======
+
+# check if "test.js" matches style and output diff to stdout
+esformatter --diff test.js
+# check if "test.js" matches style and output unified diff to stdout
+esformatter --diff-unified test.js
+# check if "test.js" matches "options.json" style and output diff to stdout
+esformatter --diff --config options.json test.js
+# check all files inside "lib/" and it's subfolders
+esformatter --diff lib/**/*.js
 ```
 
 ### Local version
