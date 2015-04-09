@@ -144,6 +144,18 @@ describe('plugin API', function() {
       expect(plugin1.stringAfter.count).to.eql(0);
     });
 
+    it('format: error message', function() {
+      expect(function() {
+        esformatter.format(input, {
+          plugins: ['my-invalid-plugin']
+        });
+      }).to.throws(
+        'Error: Cannot find plugin \'my-invalid-plugin\'. Make ' +
+        'sure you used the correct name on the config file or run ' +
+        '`npm install --save-dev my-invalid-plugin` to add it as a project ' +
+        'dependency.'
+      );
+    });
   });
 
   describe('> execute in the right order', function() {
