@@ -5,7 +5,7 @@
 
   "indent" : {
     "value": "  ",
-    "AlignComments": true,
+    "alignComments": true,
 
     "ArrayExpression": 1,
     "ArrowFunctionExpression": 1,
