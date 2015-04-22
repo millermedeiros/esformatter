@@ -40,7 +40,6 @@
     "chai": "1.4",
     "esformatter-pipe-test": "file:test/pipe",
     "esformatter-test-plugin": "file:test/plugin",
-    "esprima": "^2.0.0",
     "jshint": "~2.3.0",
     "mocha": "https://github.com/millermedeiros/mocha/tarball/latest",
     "mockery": "^1.4.0"
@@ -48,12 +47,13 @@
   "dependencies": {
     "debug": "^0.7.4",
     "disparity": "^2.0.0",
+    "esprima": "~2.1.0",
     "glob": "^5.0.3",
     "minimist": "^1.1.1",
     "mout": ">=0.9 <2.0",
     "npm-run": "^1.1.1",
     "resolve": "^1.1.5",
-    "rocambole": ">=0.5 <2.0",
+    "rocambole": ">=0.6 <2.0",
     "rocambole-indent": "^2.0.3",
     "rocambole-linebreak": "^1.0.0",
     "rocambole-node": "~1.0",
