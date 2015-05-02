@@ -34,8 +34,9 @@ For more reasoning behind it and history of the project see: [esformatter
 
 ## How?
 
-This tool uses [rocambole](https://github.com/millermedeiros/rocambole) (based
-on Esprima) to recursively parse the tokens and transform it *in place*.
+This tool uses [rocambole](https://github.com/millermedeiros/rocambole) and
+[espree](https://github.com/eslint/espree) to recursively parse the tokens and
+transform it *in place*.
 
 
 

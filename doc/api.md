@@ -34,6 +34,27 @@ var options = {
 var formattedCode = esformatter.format(codeStr, options);
 ```
 
+### Custom Parser
+
+Since v0.7 we started to use [espree](https://github.com/eslint/espree) because
+it supports ES6 and JSX syntax and produces an AST that is similar to
+[esprima](http://esprima.org). To override the parser you can do:
+
+```js
+var esprima = require('esprima');
+// function used by `rocambole` to parse the program
+esformatter.format.parseFn = esprima.parse;
+// the `this` value inside the `parseFn`
+esformatter.format.parseContext = esprima;
+// options passed to the parser
+esformatter.format.parseOptions = {
+  // we need range, comment and tokens info to build the rocambole AST
+  range: true,
+  tokens: true,
+  comment: true
+};
+```
+
 ## esformatter.transform(ast[, opts]):AST
 
 or you can use the `transform()` method to manipulate an AST in place (allows
