@@ -58,3 +58,15 @@ hasNativeRequestAnimationFrame = !!(
   window.mozRequestAnimationFrame ||
   window.msRequestAnimationFrame
 );
+
+// issue #316
+export class Foobar extends EventEmitter {
+  constructor(foo, bar, d = {}) {
+    super();
+    var fooBar = {
+      foo,
+      bar
+    };
+  }
+}
+
