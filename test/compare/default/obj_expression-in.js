@@ -161,3 +161,13 @@ unary = {
         amet && ipsum
        )
 };
+
+// issue ##287
+var i = 0;
+var obj = {
+  ["foo" + ++i]: i,
+      [   "foo" + ++i ]   : i,
+    ["foo" + ++i]
+    :
+    1
+};
