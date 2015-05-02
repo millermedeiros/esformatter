@@ -43,6 +43,10 @@ function foo() { // single line after token that requires line break
   }
 }
 
+foo
+  .bar()
+
+// surrounded by empty lines and after chained expression
 
 // issue #139
 var pfun = new PFunction(function(hello /*, foo )
