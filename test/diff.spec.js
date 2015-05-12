@@ -51,8 +51,9 @@ describe('esformatter.diff', function() {
         '\u001b[33m--- actual\u001b[39m',
         '\u001b[33m+++ expected\u001b[39m',
         '\u001b[35m@@ -1,1 +1,1 @@\u001b[39m',
+        '\u001b[31m-var foo="bar"\u001b[39m',
         '\u001b[32m+var foo = "bar"\u001b[39m',
-        '\u001b[31m-var foo="bar"\u001b[39m\n'
+        ''
       ].join('\n'));
     });
 
@@ -63,8 +64,9 @@ describe('esformatter.diff', function() {
         '\u001b[33m--- lorem/ipsum.js	actual\u001b[39m',
         '\u001b[33m+++ lorem/ipsum.js	expected\u001b[39m',
         '\u001b[35m@@ -1,1 +1,1 @@\u001b[39m',
+        '\u001b[31m-var foo="bar"\u001b[39m',
         '\u001b[32m+var foo = "bar"\u001b[39m',
-        '\u001b[31m-var foo="bar"\u001b[39m\n'
+        ''
       ].join('\n'));
     });
   });
@@ -82,8 +84,9 @@ describe('esformatter.diff', function() {
         '--- actual',
         '+++ expected',
         '@@ -1,1 +1,1 @@',
+        '-var foo="bar"',
         '+var foo = "bar"',
-        '-var foo="bar"\n'
+        ''
       ].join('\n'));
     });
 
@@ -94,8 +97,9 @@ describe('esformatter.diff', function() {
         '--- foo/bar.js	actual',
         '+++ foo/bar.js	expected',
         '@@ -1,1 +1,1 @@',
+        '-var foo="bar"',
         '+var foo = "bar"',
-        '-var foo="bar"\n'
+        ''
       ].join('\n'));
     });
   });
