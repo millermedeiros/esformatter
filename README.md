@@ -130,9 +130,12 @@ esformatter test.js --indent.value="\t" --lineBreak.before.IfStatementOpeningBra
 # format "test.js" and output result to "test.js"
 esformatter -i test.js
 # format and overwrite all the ".js" files inside the "lib/" folder
-esformatter -i lib/*.js
+esformatter -i 'lib/*.js'
 # format and overwrite all the ".js" files inside "lib/" and it's subfolders
-esformatter -i lib/**/*.js
+esformatter -i 'lib/**/*.js'
+
+**important:** surround the glob with single quotes to avoid expansion; [glob
+syntax reference](https://github.com/isaacs/node-glob/#glob-primer)
 
 # Diff
 # ======
@@ -144,7 +147,7 @@ esformatter --diff-unified test.js
 # check if "test.js" matches "options.json" style and output diff to stdout
 esformatter --diff --config options.json test.js
 # check all files inside "lib/" and it's subfolders
-esformatter --diff lib/**/*.js
+esformatter --diff 'lib/**/*.js'
 ```
 
 ### Local version
