@@ -199,6 +199,7 @@ describe('Command line interface', function() {
   spawnEsformatter('glob', filePath, function(formattedFile) {
     expect(formattedFile).to.equal(
       helpers.readOut('default/array_expression') +
+      helpers.readOut('default/array_pattern') +
       helpers.readOut('default/arrow_function_expression')
     );
   });
