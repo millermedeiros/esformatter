@@ -1,5 +1,25 @@
 # esformatter changelog
 
+## v0.7.0 (2015-05-13)
+
+ - handle all the ES6 import/export formats. closes #311
+ - add support for ArrayPattern (array destructuring). closes #302
+ - better support for ObjectPattern (object detructuring). closes #301
+ - fix error when constructor call don't use parentheses. fixes #318
+ - handle ES6 Object literal Property value shorthand properly
+ - add lineBreak[before|after].CommentGroup support. closes #310
+ - add support for computed property names in ObjectExpression and change default line break rules for PropertyName and PropertyValue. fixes #287
+ - use espree to parse the programs by default (more ES6 features and JSX support) and allow user to replace parser if needed
+ - better defaults for ObjectExpressionOpeningBrace and ObjectExpressionClosingBrace
+ - rename indent.AlignComments to indent.alignComments for consistency
+ - explain that the config property names are derived from the esprima AST node types. closes #307
+ - show a descriptive error message when we can't find a plugin. fixes #309
+ - add --diff flags and replace optimist with minimist. closes #292
+ - fix VariableDeclaration.init indentation when value is surrounded by parenthesis. see #306
+ - indent UnaryExpression by default if inside AssignmentExpression, CallExpression, ObjectExpression and VariableDeclaration. fixes #306
+ - better error messages and avoids terminating the process on first error. fixes #303
+ - add glob expansion support. closes #291
+
 ## v0.6.1 (2015-03-27)
 
  - fix comment alignment if surrounded by whitespaces. closes #297
