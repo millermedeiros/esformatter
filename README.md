@@ -218,6 +218,9 @@ in the config file:
 List of plugins and plugins wish list:
 https://github.com/millermedeiros/esformatter/wiki/Plugins
 
+List of plugins with easy filterable search:
+http://pgilad.github.io/esformatter-plugins/
+
 For detailed information about plugins structure and API see
 [doc/plugins.md](./doc/plugins.md)
 
