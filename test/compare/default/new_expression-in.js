@@ -7,3 +7,7 @@ now.getFullYear(), now.getMonth(), now.getDate() + 1,
 
 // issue #318
 var time = new Date;
+
+// issue #321
+var foo = new
+Ctor();

@@ -7,3 +7,6 @@ var midnight = new Date(
 
 // issue #318
 var time = new Date;
+
+// issue #321
+var foo = new Ctor();
