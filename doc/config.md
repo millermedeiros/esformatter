@@ -194,5 +194,5 @@ properties you need to adjust for your specific needs. Better yet, adopt one of
 the presets to avoid having to configure anything beyond the most basic
 settings (like `indent.value`).
 
-For a live preview check [esformatter-visualize](http://lloiser.github.io/esformatter-visualize/)
+[Live preview on Requirebin](http://requirebin.com/embed?gist=0d67452e01754269660f)
 

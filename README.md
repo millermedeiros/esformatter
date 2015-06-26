@@ -4,7 +4,7 @@
 
 ECMAScript code beautifier/formatter.
 
-Live preview: [lloiser/esformatter-visualize](http://lloiser.github.io/esformatter-visualize/)
+[Live preview on Requirebin](http://requirebin.com/embed?gist=0d67452e01754269660f)
 
 
 ## Important
