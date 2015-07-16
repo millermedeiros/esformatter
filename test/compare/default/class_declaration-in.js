@@ -33,3 +33,15 @@ return this.properties;
 }
 
 }
+
+// Multi line declaration
+class
+Foo
+extends
+Bar
+{
+}
+// The value to be extended can be produced by an arbitrary expression.
+class Foo extends BarNamespace.Bar{}
+class Foo extends BarNamespace [ 'Bar' ] . Bar [ "Bar" ] ( 'bar' ) . Bar ( "bar", "bar" ){}
+class Foo extends(BarNamespace.bar)(){}
