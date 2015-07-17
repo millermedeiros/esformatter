@@ -1,5 +1,16 @@
 # esformatter changelog
 
+## v0.7.2 (2015-07-17)
+
+ - Fix the CLI --diff-unified flag
+ - make sure we load the global config if findAndMergeConfigs returns an empty object. fixes #336
+ - add ModuleSpecifierOpeningBrace and ModuleSpecifierClosingBrace settings
+
+## v0.7.1 (2015-06-26)
+
+ - limit line break and white space after new keyword. fixes #321
+ - use user-home dependency to locate the global config file. fixes #323
+
 ## v0.7.0 (2015-05-13)
 
  - handle all the ES6 import/export formats. closes #311
