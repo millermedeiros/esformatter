@@ -36,6 +36,7 @@ class Foo extends Bar {
   }
 
 }
+
 // Multi line declaration
 class Foo extends Bar {
 }
