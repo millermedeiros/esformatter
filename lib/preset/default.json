@@ -38,6 +38,7 @@
     "ObjectPattern": 1,
     "ParameterList": 1,
     "ReturnStatement": 1,
+    "SingleVariableDeclaration": 0,
     "SwitchCase": 1,
     "SwitchStatement": 1,
     "TopLevelFunctionBlock": 1,
