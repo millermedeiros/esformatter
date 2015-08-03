@@ -61,3 +61,12 @@ var hasNativeRequestAnimationFrame = !!(
   window.mozRequestAnimationFrame ||
   window.msRequestAnimationFrame
 );
+
+// issue #334
+var a = 'foo';
+var b = '3';
+
+// comma-first + asi
+var foo = 123,
+  bar = 456;
+[1, 2, 3].forEach(echo)

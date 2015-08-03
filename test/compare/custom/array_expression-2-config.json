@@ -13,7 +13,8 @@
         "before" : {
             "ArrayExpressionOpening" : ">=1",
             "ArrayExpressionClosing" : 1,
-            "ArrayExpressionComma" : 1
+            "ArrayExpressionComma" : 1,
+            "VariableDeclarationSemiColon" : -1
         },
         "after" : {
             "ArrayExpressionOpening" : 1,
