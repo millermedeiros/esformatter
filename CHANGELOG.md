@@ -1,5 +1,12 @@
 # esformatter changelog
 
+## v0.7.3 (2015-08-03)
+
+ -  limit the amount of white spaces and line breaks on MemberExpression. fixes #343
+ -  add support for indent.SingleVariableDeclaration. closes #339
+ -  limit the amount of line breaks and white spaces after VariableValue and around VariableDeclarationSemiColon. closes #334
+ -  fix ClassDeclaration `extends` expressions. closes #337
+
 ## v0.7.2 (2015-07-17)
 
  - Fix the CLI --diff-unified flag
@@ -26,7 +33,7 @@
  - explain that the config property names are derived from the esprima AST node types. closes #307
  - show a descriptive error message when we can't find a plugin. fixes #309
  - add --diff flags and replace optimist with minimist. closes #292
- - fix VariableDeclaration.init indentation when value is surrounded by parenthesis. see #306
+ - fix VariableDeclaration.init indentation when value is surounded by parenthesis. see #306
  - indent UnaryExpression by default if inside AssignmentExpression, CallExpression, ObjectExpression and VariableDeclaration. fixes #306
  - better error messages and avoids terminating the process on first error. fixes #303
  - add glob expansion support. closes #291
