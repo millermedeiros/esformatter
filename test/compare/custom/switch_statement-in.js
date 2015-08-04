@@ -1,6 +1,6 @@
 switch ( event.keyCode ) {
-    case $.ui.keyCode.ENTER:
-        case $.ui.keyCode.SPACE:
+    case $.ui.keyCode.ENTER :
+        case $.ui.keyCode.SPACE:        case $.ui.keyCode.DOWN_ARROW:
         // line comment
         z();
         break
