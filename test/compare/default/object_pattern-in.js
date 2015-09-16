@@ -7,3 +7,5 @@ var {
   bar
 }
 = object;
+
+var { type  , parties, sentences, ...props  }  = this.props;
