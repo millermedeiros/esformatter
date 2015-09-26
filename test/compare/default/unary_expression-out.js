@@ -20,12 +20,20 @@ bar--;
 delete foo.bar;
 delete bar.amet;
 
+// issue #347
+delete foo['bar'];
+delete bar['amet'];
+
 // need to check indent as well
 function fn() {
   !!(!foo);
   delete this.bar
   delete this.amet;
   delete this.ipsum;
+
+  delete this['bar']
+  delete this['amet'];
+  delete this['ipsum'];
 }
 
 typeof a === "number" ? x : y;
