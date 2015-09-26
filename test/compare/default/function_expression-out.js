@@ -71,3 +71,14 @@ var foo = function() {
 var defaultParams = function defaults(z, x = 1, y = 2) {
   return z + x + y;
 }
+
+// issue #350
+var foo = function*() {
+  yield '123';
+  yield '456';
+};
+
+var foo = function*() {
+  yield '123';
+  yield '456';
+};

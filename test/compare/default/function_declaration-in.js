@@ -87,3 +87,17 @@ bar
 function defaultParams(z, x    =     1, y=2) {
   return x + y + z;
 }
+
+// issue #350
+function    *   gen() {
+  yield '123';
+  yield '456';
+}
+function* gen() {
+  yield '123';
+  yield '456';
+}
+function*gen() {
+  yield '123';
+  yield '456';
+}
