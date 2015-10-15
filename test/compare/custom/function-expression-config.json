@@ -1,4 +1,9 @@
 {
+    "lineBreak" : {
+        "after": {
+            "ParameterComma": 0
+        }
+    },
     "whiteSpace" : {
         "before" : {
             "FunctionName" : 1,

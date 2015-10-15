@@ -177,3 +177,6 @@ var object = {
 (function boozArg () {
   something();
 }());
+
+// issue #373
+var foo = function (a, b) {};

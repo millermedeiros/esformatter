@@ -66,3 +66,7 @@ var foo = function        () {
 var defaultParams = function defaults(z, x=      1, y   =  2) {
   return z + x + y;
 }
+
+// issue #373
+var foo = function(a,
+b){};

@@ -121,3 +121,7 @@ var object = {
 // Named function expression with body
 (function booz(a,b,c){something();}());
 (function boozArg(){something();}());
+
+// issue #373
+var foo = function(a,
+				   b){};
