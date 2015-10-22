@@ -75,3 +75,14 @@ var defaultParams = function defaults(z, x = 1, y = 2) {
 // issue #373
 var foo = function(a,
   b) {};
+
+// issue #350
+var foo = function*() {
+  yield '123';
+  yield '456';
+};
+
+var foo = function*() {
+  yield '123';
+  yield '456';
+};

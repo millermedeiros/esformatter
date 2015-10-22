@@ -18,6 +18,11 @@ var bazArg = function(a,b,c){something();};
 var booz = function booz(a,b,c){something();};
 var boozArg = function boozArg(){something();};
 
+// Generator function
+var gen = function * (){};
+var gen = function *(){};
+var gen = function* (){};
+
 /**
  * Function expression as arguments
  */

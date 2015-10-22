@@ -8,7 +8,8 @@
         "before" : {
             "FunctionName" : 1,
             "FunctionExpressionOpeningBrace" : 1,
-            "FunctionExpressionClosingBrace" : 1
+            "FunctionExpressionClosingBrace" : 1,
+            "FunctionGeneratorAsterisk" : 1
         },
         "after" : {
             "FunctionReservedWord": 1,
