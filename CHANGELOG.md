@@ -1,5 +1,18 @@
 # esformatter changelog
 
+## v0.8.0 (2015-10-28)
+
+ - pass esformatter instance to plugins during `setOptions`. closes #348
+ - remove semver dep (not needed anymore)
+ - fix line breaks around ParameterComma not enforced for FunctionExpression #373
+ - fixes generator functions
+ - fixes delete p['t']
+ - add support for "for...of" statements
+ - add support for experimental object spread operator. closes #353
+ - avoid applying FunctionReservedWord whitespace to class method definition
+ - migrate to espree 2.x
+ - added option for SwitchCaseColon for normalizing spacing around switch cases
+
 ## v0.7.3 (2015-08-03)
 
  -  limit the amount of white spaces and line breaks on MemberExpression. fixes #343
