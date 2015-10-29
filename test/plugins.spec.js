@@ -217,6 +217,11 @@ describe('plugin API', function() {
       expect(o.indent.value).to.eql('  ');
     });
 
+    it('should pass esformatter instance as second argument', function() {
+      // allows plugins to reuse esformatter logic
+      expect(plugin.esformatter).to.equal(esformatter);
+    });
+
   });
 
 });
