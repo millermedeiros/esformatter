@@ -1,5 +1,9 @@
 # esformatter changelog
 
+## v0.8.1 (2015-10-28)
+
+ - ops, forgot to lint.
+
 ## v0.8.0 (2015-10-28)
 
  - pass esformatter instance to plugins during `setOptions`. closes #348
