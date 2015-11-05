@@ -151,7 +151,6 @@ describe('Command line interface', function() {
     } else {
       expect(formattedFile.message).to.equal("Error: Can't parse configuration file 'non-existent.json'. Exception: ENOENT: no such file or directory, open 'non-existent.json'\n");
     }
-    expect(nodeVersion.major).to.equal(4);
   });
 
   // make sure it shows descriptive error message when config file isn't valid
