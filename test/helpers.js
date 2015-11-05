@@ -68,3 +68,17 @@ exports.mkdir = function(dir) {
 exports.lineFeed = function(text) {
   return text.replace(/\r\n?|[\n\u2028\u2029]/g, "\n");
 };
+
+
+exports.getNodeVersion = function() {
+  var parts = process.version.split('.'),
+      major = parts[0].replace(/v/, ''),
+      minor = parts[1],
+      patch = parts[2];
+
+  return {
+    major: parseInt(major, 10),
+    minor: parseInt(minor, 10),
+    patch: parseInt(patch, 10)
+  };
+};
