@@ -7,6 +7,7 @@ var path = require('path');
 var fs = require('fs');
 var expect = require('chai').expect;
 var helpers = require('./helpers');
+var nodeVersion = helpers.getNodeVersion();
 
 // ---
 
@@ -145,7 +146,12 @@ describe('Command line interface', function() {
   // make sure it shows descriptive error message when config doesn't exist
   filePath = comparePath('default/call_expression-in.js');
   spawnEsformatter('invalid config', '-c non-existent.json ' + filePath, function(formattedFile) {
-    expect(formattedFile.message).to.equal("Error: Can't parse configuration file 'non-existent.json'. Exception: ENOENT, no such file or directory 'non-existent.json'\n");
+    if (nodeVersion.major < 4) {
+      expect(formattedFile.message).to.equal("Error: Can't parse configuration file 'non-existent.json'. Exception: ENOENT, no such file or directory 'non-existent.json'\n");
+    } else {
+      expect(formattedFile.message).to.equal("Error: Can't parse configuration file 'non-existent.json'. Exception: ENOENT: no such file or directory, open 'non-existent.json'\n");
+    }
+    expect(nodeVersion.major).to.equal(4);
   });
 
   // make sure it shows descriptive error message when config file isn't valid
@@ -158,7 +164,11 @@ describe('Command line interface', function() {
 
   // make sure it shows descriptive error message when file doesn't exist
   spawnEsformatter('invalid file', 'fake-esformatter-123.js', function(formattedFile) {
-    expect(formattedFile.message).to.equal("Error: Can't read source file. Exception: ENOENT, no such file or directory 'fake-esformatter-123.js'\n");
+    if (nodeVersion.major < 4) {
+      expect(formattedFile.message).to.equal("Error: Can't read source file. Exception: ENOENT, no such file or directory 'fake-esformatter-123.js'\n");
+    } else {
+      expect(formattedFile.message).to.equal("Error: Can't read source file. Exception: ENOENT: no such file or directory, open 'fake-esformatter-123.js'\n");
+    }
   });
 
   // comments should be allowed on config.json files
@@ -209,7 +219,12 @@ describe('Command line interface', function() {
   spawnEsformatter('glob', filePath, function(formattedFile) {
     var msg = formattedFile.message.trim();
     var filePath = comparePath('default/fake-file*-in.js');
-    expect(msg).to.equal("Error: Can't read source file. Exception: ENOENT, no such file or directory '" + filePath + "'");
+
+    if (nodeVersion.major < 4) {
+      expect(msg).to.equal("Error: Can't read source file. Exception: ENOENT, no such file or directory '" + filePath + "'");
+    } else {
+      expect(msg).to.equal("Error: Can't read source file. Exception: ENOENT: no such file or directory, open '" + filePath + "'");
+    }
   });
 
   // invalid JS files should throw errors
