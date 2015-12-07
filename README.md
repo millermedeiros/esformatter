@@ -176,6 +176,20 @@ your team is using the same version/settings.
 }
 ```
 
+
+
+## IDE / Editor integration
+
+Since esformatter is available as a command-line tool, it can be used in any editor that supports external shell commands.
+
+- Vim - [vim-esformatter](https://github.com/millermedeiros/vim-esformatter)
+- Vim - [https://gist.github.com/nisaacson/6939960](https://gist.github.com/nisaacson/6939960)
+- Sublime Text - [sublime-esformatter](https://github.com/piuccio/sublime-esformatter)
+- Atom - [atom-esformatter](https://github.com/sindresorhus/atom-esformatter)
+
+
+
+
 ## Configuration
 
 See [doc/config.md](./doc/config.md).
@@ -242,16 +256,6 @@ See project Wiki for more info: https://github.com/millermedeiros/esformatter/wi
 
 See [CONTRIBUTING.md](https://github.com/millermedeiros/esformatter/blob/master/CONTRIBUTING.md)
 
-
-
-## IDE / Editor integration
-
-Since esformatter is available as a command-line tool, it can be used in any editor that supports external shell commands.
-
-- Vim - [vim-esformatter](https://github.com/millermedeiros/vim-esformatter)
-- Vim - [https://gist.github.com/nisaacson/6939960](https://gist.github.com/nisaacson/6939960)
-- Sublime Text - [sublime-esformatter](https://github.com/piuccio/sublime-esformatter)
-- Atom - [atom-esformatter](https://github.com/sindresorhus/atom-esformatter)
 
 
 ## Popular Alternatives
