@@ -15,6 +15,20 @@ default:
   x();
 }
 
+switch ( event.keyCode )
+{
+case $.ui.keyCode.ENTER:
+  whatever = 'nothing';
+  break
+
+case $.ui.keyCode.ESCAPE:
+  whatever = 'something';
+  break;
+
+default:
+  x();
+}
+
 call(function() {
   switch ( fruit )
   {
