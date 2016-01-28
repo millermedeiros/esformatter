@@ -145,7 +145,7 @@ describe('Command line interface', function() {
   // make sure it shows descriptive error message when config doesn't exist
   filePath = comparePath('default/call_expression-in.js');
   spawnEsformatter('invalid config', '-c non-existent.json ' + filePath, function(formattedFile) {
-    expect(formattedFile.message).to.equal("Error: Can't parse configuration file 'non-existent.json'. Exception: ENOENT, no such file or directory 'non-existent.json'\n");
+    expect(formattedFile.message).to.contain("Error: Can't parse configuration file 'non-existent.json'");
   });
 
   // make sure it shows descriptive error message when config file isn't valid
@@ -158,7 +158,8 @@ describe('Command line interface', function() {
 
   // make sure it shows descriptive error message when file doesn't exist
   spawnEsformatter('invalid file', 'fake-esformatter-123.js', function(formattedFile) {
-    expect(formattedFile.message).to.equal("Error: Can't read source file. Exception: ENOENT, no such file or directory 'fake-esformatter-123.js'\n");
+    expect(formattedFile.message).to.contain("Error: Can't read source file.");
+    expect(formattedFile.message).to.contain("fake-esformatter-123.js");
   });
 
   // comments should be allowed on config.json files
@@ -209,7 +210,8 @@ describe('Command line interface', function() {
   spawnEsformatter('glob', filePath, function(formattedFile) {
     var msg = formattedFile.message.trim();
     var filePath = comparePath('default/fake-file*-in.js');
-    expect(msg).to.equal("Error: Can't read source file. Exception: ENOENT, no such file or directory '" + filePath + "'");
+    expect(msg).to.contain("Error: Can't read source file.");
+    expect(msg).to.contain(filePath);
   });
 
   // invalid JS files should throw errors
