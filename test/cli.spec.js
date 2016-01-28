@@ -221,8 +221,8 @@ describe('Command line interface', function() {
     // using match because of absolute path and also because file order might
     // be different in some OS. we just make sure that error message contains
     // what we expect to find
-    expect(msg).to.match(/Error: .+invalid-1.js:4 Unexpected token &/);
-    expect(msg).to.match(/Error: .+invalid-2.js:3 Invalid regular expression/);
+    expect(msg).to.match(/Error: .+invalid-1.js:4:0 Unexpected token/);
+    expect(msg).to.match(/Error: .+invalid-2.js:3:9 Invalid regular expression/);
   });
 
 });
