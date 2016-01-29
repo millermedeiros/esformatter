@@ -11,3 +11,12 @@ foo.
 lorem
   .ipsum
   .dolor();
+
+// issue #378
+expected[property] = group[property]
+expect(foo)
+
+bar = f[
+  'loremipsumdolorsitamet' + a + '_' + 'somethig_else'
+]
+ipsum(bar)
