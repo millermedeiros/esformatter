@@ -9,9 +9,9 @@ You also have the option to put your `esformatter` settings inside the
 
 ## property names
 
-Most of the property names are based on the [esprima AST node
-types](http://esprima.org/demo/parse.html). For a list of node types you can
-also check the [estree spec](https://github.com/estree/estree).
+Most of the property names are based on the [babel-eslint node
+types](https://astexplorer.net/). For a list of node types you can also check
+the [estree spec](https://github.com/estree/estree).
 
 Our [default settings](../lib/preset/default.json) should have all the names
 that we recognize, even if we don't list them in all the places the config

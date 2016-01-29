@@ -19,9 +19,9 @@ are very welcome.
 
 ## Why?
 
-[jsbeautifier.org](http://jsbeautifier.org/) doesn't have enough options and
-not all IDEs/Editors have a good JavaScript code formatter. I would like to
-have a command line tool (and standalone lib) as powerful/flexible as the
+[jsbeautifier.org](http://jsbeautifier.org/) doesn't have enough options and not
+all IDEs/Editors have a good JavaScript code formatter. I would like to have
+a command line tool (and standalone lib) at least as powerful/flexible as the
 [WebStorm](http://www.jetbrains.com/webstorm/) and
 [FDT](http://fdt.powerflasher.com/) code formatters so that it can be plugged
 into any editor and reused by other tools like
@@ -35,8 +35,8 @@ For more reasoning behind it and history of the project see: [esformatter
 ## How?
 
 This tool uses [rocambole](https://github.com/millermedeiros/rocambole) and
-[espree](https://github.com/eslint/espree) to recursively parse the tokens and
-transform it *in place*.
+[babylon](https://www.npmjs.com/package/babylon) to recursively parse the tokens
+and transform it *in place*.
 
 
 
@@ -183,7 +183,6 @@ your team is using the same version/settings.
 Since esformatter is available as a command-line tool, it can be used in any editor that supports external shell commands.
 
 - Vim - [vim-esformatter](https://github.com/millermedeiros/vim-esformatter)
-- Vim - [https://gist.github.com/nisaacson/6939960](https://gist.github.com/nisaacson/6939960)
 - Sublime Text - [sublime-esformatter](https://github.com/piuccio/sublime-esformatter)
 - Atom - [atom-esformatter](https://github.com/sindresorhus/atom-esformatter)
 

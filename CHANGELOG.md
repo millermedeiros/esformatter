@@ -1,5 +1,9 @@
 # esformatter changelog
 
+## v0.9.0 (2016-01-29)
+
+ - use babylon as the default parser to allow experimental features support.
+
 ## v0.8.2 (2016-01-28)
 
  - avoid indenting body of arrow functions twice. fixes #357

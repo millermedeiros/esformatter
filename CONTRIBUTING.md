@@ -15,9 +15,12 @@ review/merge easier.
 ## New Features / Bugs
 
 The easiest way to add new features and fix bugs is to create a test file with
-mixed input and use the [rocambole-visualize](http://piuccio.github.io/rocambole-visualize/)
-or the [esprima parser demo](http://esprima.org/demo/parse.html) to visualize
-the syntax tree and implement each step separately.
+mixed input and use the
+[rocambole-visualize](http://piuccio.github.io/rocambole-visualize/) (outdated
+but gives a good idea of the available properties on each node/token) or use the
+[ast explorer](https://astexplorer.net/) with the `babel-eslint` parser
+(supports more features and is updated) to visualize the syntax tree and
+implement each step separately.
 
 A good example of a commit that fixes a bug:
 https://github.com/millermedeiros/esformatter/commit/ebafa00f76 and a good
@@ -36,7 +39,7 @@ can be used to traverse the AST (similar to the DOM).
 
 The whole process is very similar to working with the DOM. Don't feel
 intimidated by *complex names* like `ConditionalExpressionConsequent`, use the
-[esprima parser demo](http://esprima.org/demo/parse.html) and/or
+[ast explorer](https://astexplorer.net/) with the `babel-eslint` parser and/or
 [rocambole-visualize](http://piuccio.github.io/rocambole-visualize/) as reference
 and you should be good to go.
 

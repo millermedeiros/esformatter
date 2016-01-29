@@ -38,7 +38,10 @@ var formattedCode = esformatter.format(codeStr, options);
 
 Since v0.7 we started to use [espree](https://github.com/eslint/espree) because
 it supports ES6 and JSX syntax and produces an AST that is similar to
-[esprima](http://esprima.org). To override the parser you can do:
+[esprima](http://esprima.org). On v0.9 we replaced the parser with
+[babylon](https://www.npmjs.com/package/babylon) and
+[acorn-to-esprima](https://www.npmjs.com/package/acorn-to-esprima). To override
+the parser you can do:
 
 ```js
 var esprima = require('esprima');

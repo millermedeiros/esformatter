@@ -1,6 +1,6 @@
 {
   "name": "esformatter",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "ECMAScript code beautifier/formatter",
   "main": "lib/esformatter.js",
   "bin": {
@@ -24,14 +24,18 @@
     "lib": "./lib"
   },
   "keywords": [
+    "babel"
     "beautifier",
     "beautify",
-    "formatter",
     "ecmascript",
+    "esprima",
+    "format",
+    "formatter",
     "javascript",
-    "syntax",
+    "jscs",
     "source",
-    "esprima"
+    "style",
+    "syntax"
   ],
   "author": {
     "name": "Miller Medeiros",
