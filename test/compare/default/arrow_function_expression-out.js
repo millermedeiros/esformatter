@@ -14,3 +14,13 @@ arr.map((e, f, g) => e * f - g);
 let defaultParams = (x, y = 1, z = 2) => {
   return x + y + z;
 }
+
+// issue #393
+a = () => {
+  test(() => {
+    return 1
+  })
+  test(() => {
+    return 1
+  })
+}
