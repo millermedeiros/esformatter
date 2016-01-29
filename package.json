@@ -24,7 +24,7 @@
     "lib": "./lib"
   },
   "keywords": [
-    "babel"
+    "babel",
     "beautifier",
     "beautify",
     "ecmascript",
