@@ -46,3 +46,11 @@ let ipsum = class Foo extends BarNamespace['Bar'].Bar["Bar"]('bar').Bar("bar", "
 }
 const ullamcor = class Foo extends (BarNamespace.bar)() {
 }
+
+
+// issue #358
+function makeClass() {
+  return class MyClass {
+    method() {}
+  };
+}

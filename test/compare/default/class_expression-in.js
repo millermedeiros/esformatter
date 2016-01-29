@@ -45,3 +45,11 @@ Bar
 var amet = class Foo extends BarNamespace.Bar{}
 let ipsum = class Foo extends BarNamespace['Bar'].Bar["Bar"]('bar').Bar("bar", "bar"){}
 const ullamcor = class Foo extends(BarNamespace.bar)(){}
+
+
+// issue #358
+function makeClass() {
+  return class MyClass {
+    method() {}
+  };
+}
