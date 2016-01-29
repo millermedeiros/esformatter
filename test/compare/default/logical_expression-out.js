@@ -36,3 +36,11 @@ function x() {
     // comment
     call();
 }
+
+// issue #380
+let property = property || {
+  name: '111'
+}
+prop = prop || {
+  foo: '111'
+}

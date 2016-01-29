@@ -42,3 +42,15 @@ num == null ?
 // issue #253
 var format = isSameDate(startDate, endDate) ? this._oneDayLabelFormat :
   'event-multiple-day-duration';
+
+// issue #380
+var foo = lorem ?
+  ipsum :
+  {
+    dolor: 'sit'
+  };
+amet = qwert ?
+  asd :
+  {
+    zxc: 'opi'
+  };
