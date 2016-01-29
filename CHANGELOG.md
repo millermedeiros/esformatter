@@ -1,5 +1,19 @@
 # esformatter changelog
 
+## v0.8.2 (2016-01-28)
+
+ - avoid indenting body of arrow functions twice. fixes #357
+ - add test for arrow function indentation. closes #393
+ - avoid double indent for nodes during assignment. fixes #380
+ - change default value for MemberExpression line breaks. fixes #378
+ - add test for returning class expression. closes #358
+ - add option to set space after MethodDefinitionName. closes #384
+ - fix ReturnStatement indentation. fixes #377
+ - add support for ClassExpression. fixes #359
+ - fix SwitchCaseColon when not immediately followed by another case. closes #392
+ - update npm-run to v2.0, fixes unit tests on node v4.2; closes #376
+ - fix ENOENT error tests. see #376. closes #383.
+
 ## v0.8.1 (2015-10-28)
 
  - ops, forgot to lint.
