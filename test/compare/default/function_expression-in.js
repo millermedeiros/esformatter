@@ -81,3 +81,8 @@ var foo = function*() {
   yield '123';
   yield '456';
 };
+
+// issue #377
+let index = _.findLast(test, function (t) {
+  return obj && obj[t]
+})
