@@ -24,3 +24,22 @@ a = () => {
     return 1
   })
 }
+
+// issue #357
+const object = x => ({
+  x
+});
+
+const retObject = x => {
+  return {
+    x
+  };
+}
+
+const array = x => [
+  x
+];
+
+const callWithObject = x => f({
+  x
+});
