@@ -91,3 +91,5 @@ var foo = function*() {
 let index = _.findLast(test, function(t) {
   return obj && obj[t]
 })
+
+var asyncFunctionExpression = async function() {};

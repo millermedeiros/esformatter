@@ -101,3 +101,6 @@ function*gen() {
   yield '123';
   yield '456';
 }
+
+async function asyncFunction() {
+}
