@@ -43,3 +43,8 @@ const array = x => [
 const callWithObject = x => f({
   x
 });
+
+// issue #399
+const helloWorld = () => (
+  'Hello' + ' ' + 'World'
+)
