@@ -1,5 +1,13 @@
 # esformatter changelog
 
+## v0.9.1 (2016-02-13)
+
+ - safeguard for userHome. fixes #362
+ - re-enable VariableDeclarationWithoutInit. fixes #382
+ - fix indent edges of arrow function expression. fixes #399
+ - fix do while without semicolon indentation. fixes #401
+ - Fix incorrect removal of space around async functions
+
 ## v0.9.0 (2016-01-29)
 
  - use babylon as the default parser to allow experimental features support.
