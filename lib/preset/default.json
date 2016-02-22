@@ -368,7 +368,7 @@
       "CatchOpeningBrace" : 1,
       "CatchClosingBrace" : 1,
       "CatchKeyword" : 1,
-      "ClasOpeningBrace" : 1,
+      "ClassOpeningBrace" : 1,
       "ClassClosingBrace" : 1,
       "CommaOperator" : 1,
       "ConditionalExpressionConsequent" : 1,
