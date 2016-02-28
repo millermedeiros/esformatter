@@ -145,7 +145,7 @@ describe('Command line interface', function() {
   // make sure it shows descriptive error message when config doesn't exist
   filePath = comparePath('default/call_expression-in.js');
   spawnEsformatter('invalid config', '-c non-existent.json ' + filePath, function(formattedFile) {
-    expect(formattedFile.message).to.contain("Error: Can't parse configuration file 'non-existent.json'");
+    expect(formattedFile.message).to.contain("Can't parse configuration file 'non-existent.json'");
   });
 
   // make sure it shows descriptive error message when config file isn't valid
@@ -153,7 +153,7 @@ describe('Command line interface', function() {
   configPath = comparePath('error/invalid.json');
   spawnEsformatter('invalid config 2', '-c ' + configPath + ' ' + filePath, function(formattedFile) {
     var configPath = comparePath('error/invalid.json');
-    expect(formattedFile.message).to.equal("Error: Can't parse configuration file '" + configPath + "'. Exception: Unexpected token l\n");
+    expect(formattedFile.message).to.contain("Can't parse configuration file '" + configPath + "'. Exception: Unexpected token l\n");
   });
 
   // make sure it shows descriptive error message when file doesn't exist
