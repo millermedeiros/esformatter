@@ -1,5 +1,10 @@
 # esformatter changelog
 
+## v0.9.2 (2016-02-27)
+
+ - fix export not followed by semicolon. fixes #408
+ - add stack trace to a few error logs to make it easier to debug.
+
 ## v0.9.1 (2016-02-13)
 
  - safeguard for userHome. fixes #362
