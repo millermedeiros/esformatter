@@ -52,6 +52,9 @@ export default class {
     }
 }
 
+// #408
+export { lorem, hipstersum, nosemicolon }
+
 export { MY_CONST, myFunc };
 export { MY_CONST as THE_CONST, myFunc as theFunc };
 
