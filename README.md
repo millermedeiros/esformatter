@@ -4,8 +4,6 @@
 
 ECMAScript code beautifier/formatter.
 
-[Live preview on Requirebin](http://requirebin.com/embed?gist=0d67452e01754269660f)
-
 
 ## Important
 
