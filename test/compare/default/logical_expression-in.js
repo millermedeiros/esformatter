@@ -43,3 +43,10 @@ let property = property || {
 prop = prop || {
     foo: '111'
 }
+
+// issue #421
+let foo = foo ||
+42;
+
+let bar = bar() ||
+42;
