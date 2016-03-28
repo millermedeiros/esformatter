@@ -81,3 +81,7 @@ function getInverseAnswer() {
   inverse = answer * -1;
   return inverse;
 }
+
+// issue #416
+var foo = bar + baz +
+  barbaz;
