@@ -35,7 +35,9 @@ an example see test files inside the `"test/compare/rc"` folder.
 
 Indent is responsible for whitespace at the front of each line. `indent.value`
 is used for each indentation. The default indents with two spaces. Setting
-`indent.value` to `"\t"` will switch to indentation using tabs.
+`indent.value` to `"\t"` will switch to indentation using tabs. If you want to
+set indentation to 4 spaces, set `indent.value` to `"    "` (literal string
+with 4 spaces)
 
 The other properties for indent toggle indentation for specific elements. These
 all refer to regular JavaScript statements except for `TopLevelFunctionBlock`.
