@@ -170,3 +170,25 @@ if (foo) {
 
   baz();
 }
+
+// # 426
+if (foo)
+  bar
+else if (baz)
+  done
+else
+  dolor
+
+if (foo)
+  bar
+else
+  dolor
+
+// #438
+if (a == 1) {
+  b;
+} else if (a == 2) { // notice the space before else
+  c;
+} else {
+  d;
+}
