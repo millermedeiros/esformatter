@@ -1,0 +1,13 @@
+{
+  "whiteSpace": {
+    "before": {
+      "UnaryExpressionOperator": 1,
+      "UpdateExpressionOperator": 1
+    },
+    "after": {
+      "UnaryExpressionOperator": 1,
+      "UpdateExpressionOperator": 1
+
+    }
+  }
+}
