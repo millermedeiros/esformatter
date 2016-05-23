@@ -71,3 +71,14 @@ switch (foo) {
     case biz:
         what();
 }
+
+// Block inside Case (#432)
+var f = function (action, state) {
+    switch (action.type) {
+        case ADD_GROCERY: {
+            var foo = 'bar'
+        }
+        default:
+            return state
+    }
+}
