@@ -1,0 +1,10 @@
+{
+  "whiteSpace": {
+    "before": {
+      "CalleeClosingParentheses": "1"
+    },
+    "after": {
+      "CalleeOpeningParentheses": "1"
+    }
+  }
+}

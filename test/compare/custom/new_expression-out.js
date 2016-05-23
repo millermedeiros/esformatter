@@ -12,5 +12,6 @@ var time = new Date;
 var foo = new Ctor();
 
 // #434
-context = new (window.AudioContext || window.webkitAudioContext)();
-(foo || bar)();
+context = new ( window.AudioContext || window.webkitAudioContext )();
+new ( a.b );
+( foo || bar )();
