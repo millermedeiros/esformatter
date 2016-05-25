@@ -1,5 +1,17 @@
 # esformatter changelog
 
+## v0.9.4 (2016-05-25)
+
+ - add CalleeOpeningParentheses and CalleeClosingParentheses support. closes #434
+ - add UpdateExpressionOperator support. see #435
+ - don't add line break around Property if inside ObjectPattern. fixes #441
+ - fix indent and line break on NewExpression with comments. closes #439
+ - fix line break before "else if". closes #426. closes #438
+ - handle BlockStatement as SwitchCase.consequent; closes #432
+ - handle standalone BlockStatement. closes #430
+ - improve UnaryExpressionOperator behavior. closes #435
+ - safe guard against no startToken on expressionParentheses. fixes #427
+
 ## v0.9.3 (2016-03-27)
 
  - correct ClassOpeningBrace spelling #411
