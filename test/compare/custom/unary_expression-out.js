@@ -1,9 +1,9 @@
 ! a
-! ! foo
+!! foo
 ! (foo);
-;(! ! foo)
+;(!! foo)
 ! (! foo);
-! ! (! foo);
+!! (! foo);
 
 - x;
 - y;
@@ -26,7 +26,7 @@ delete bar['amet'];
 
 // need to check indent as well
 function fn() {
-  ! ! (! foo);
+  !! (! foo);
   delete this.bar
   delete this.amet;
   delete this.ipsum;
