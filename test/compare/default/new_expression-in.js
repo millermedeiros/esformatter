@@ -15,3 +15,9 @@ Ctor();
 // #434
 context = new ( window.AudioContext || window.webkitAudioContext )();
 ( foo || bar )();
+
+// #439
+var foo = new // ARRAY_COPY(
+  Date();
+
+console.log(foo);
