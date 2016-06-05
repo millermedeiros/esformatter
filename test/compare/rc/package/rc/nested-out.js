@@ -1,3 +1,3 @@
-function foo() {
-	bar();
+function foo () {
+				lorem();
 }

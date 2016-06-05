@@ -1,5 +1,5 @@
 {
-  "indent": {
-    "value": "\t"
-  }
+  "extends": [
+    "./indent.json"
+  ]
 }

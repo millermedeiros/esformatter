@@ -1,0 +1,11 @@
+{
+  "indent": {
+    "value": "    ",
+    "FunctionDeclaration": 2
+  },
+  "whiteSpace": {
+    "after": {
+      "FunctionName": 1
+    }
+  }
+}

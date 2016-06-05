@@ -1,6 +1,10 @@
 {
   "root": true,
+  "extends": [
+    "./function.json"
+  ],
   "indent": {
-    "value": "\t"
+    "value": "\t",
+    "FunctionDeclaration": 4
   }
 }

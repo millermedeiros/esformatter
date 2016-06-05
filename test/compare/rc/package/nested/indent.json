@@ -1,0 +1,6 @@
+{
+  "extends": "../rc/function.json",
+  "indent": {
+    "value": "\t"
+  }
+}
