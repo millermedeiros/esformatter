@@ -115,3 +115,11 @@ function* gen() {
 
 async function asyncFunction() {
 }
+
+// #443
+function test(arr) {
+  return !arr.some(v => {
+    return v >>
+      123;
+  });
+}
