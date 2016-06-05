@@ -5,3 +5,6 @@ var [
   y,
   z
 ] = position;
+
+// #444
+var [a , , b] = [1,2,3];
