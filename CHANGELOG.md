@@ -1,5 +1,11 @@
 # esformatter changelog
 
+## v0.9.5 (2016-06-05)
+
+ - skip ReturnStatement indentation if argument is an UnaryExpression. fixes #443
+ - handle ArrayPattern with null elements. fixes #444
+ - use esformatter-parser. closes #440
+
 ## v0.9.4 (2016-05-25)
 
  - add CalleeOpeningParentheses and CalleeClosingParentheses support. closes #434
