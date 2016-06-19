@@ -33,6 +33,12 @@ else
 if (asi && noBraces2) dolor()
 else amet();
 
+// yet another trap!
+if (asi && noBraces2) dolor()
+else {
+  amet();
+}
+
 // issue #7
 function iss7() {
   if (wait === true ? --jQuery.readyWait : jQuery.isReady) {
