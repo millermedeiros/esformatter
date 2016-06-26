@@ -153,7 +153,7 @@ describe('Command line interface', function() {
   configPath = comparePath('error/invalid.json');
   spawnEsformatter('invalid config 2', '-c ' + configPath + ' ' + filePath, function(formattedFile) {
     var configPath = comparePath('error/invalid.json');
-    expect(formattedFile.message).to.contain("Can't parse configuration file '" + configPath + "'. Exception: Unexpected token l\n");
+    expect(formattedFile.message).to.contain("Can't parse configuration file '" + configPath + "'. Exception: Unexpected token l");
   });
 
   // make sure it shows descriptive error message when file doesn't exist
