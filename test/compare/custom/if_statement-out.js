@@ -38,6 +38,14 @@ if(asi && noBraces)
 else
   amet();
 
+// another trap!
+if(asi && noBraces)
+  dolor()
+else
+{
+  amet();
+}
+
 
 
 // issue #34 (break line comment into individual line)
