@@ -187,3 +187,16 @@ var obj = {
   ["foo" + ++i]: i,
   ["foo" + ++i]: 1
 };
+
+// issue #456
+const a = {
+  g() {
+    switch (x) {
+      case 1:
+        ret = 0;
+        break;
+    }
+  },
+
+  f() {}
+};
