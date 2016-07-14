@@ -4,6 +4,7 @@
 
 var expect = require('chai').expect;
 var esformatter = require('../lib/esformatter');
+var path = require('path');
 
 
 describe('API', function() {
@@ -79,6 +80,25 @@ describe('API', function() {
       expect(result.indent.value).to.be.eql('\t');
       expect(result.lineBreak.before.FunctionDeclarationOpeningBrace).to.be.eql(1);
       expect(result.lineBreak.before.FunctionDeclarationClosingBrace).to.be.eql(0);
+    });
+
+    it('should load presets from node modules + merge with user settings', function() {
+      var result = esformatter.rc(null, {
+        'extends': [
+          'preset:fake-2',
+          './test/compare/rc/.esformatter'
+        ],
+        indent: {
+          value: '>>'
+        }
+      });
+
+      expect(result.root).to.be.eql(true);
+      expect(result.indent.value).to.be.eql('>>');
+      expect(result.indent.FunctionDeclaration).to.be.eql(2);
+      expect(result.indent.FunctionExpression).to.be.eql(42);
+      expect(result.whiteSpace.before.FunctionDeclarationOpeningBrace).to.be.eql(0);
+      expect(result.plugins).to.have.lengthOf(1);
     });
   });
 });

@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "esformatter-preset-fake-2",
+  "version": "1.0.0",
+  "description": "test if esformatter is able to load locally installed presets",
+  "main": "esformatter-preset-fake-2.js",
+  "author": "Miller Medeiros",
+  "license": "MIT",
+  "dependencies": {
+    "esformatter-preset-fake-1": "file:../fake1"
+  }
+}

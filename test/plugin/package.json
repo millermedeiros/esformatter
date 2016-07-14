@@ -3,7 +3,7 @@
   "name": "esformatter-test-plugin",
   "version": "1.0.0",
   "description": "test if esformatter is able to load locally installed plugins from the cli",
-  "main": "index.js",
+  "main": "esformatter-test-plugin.js",
   "author": "Miller Medeiros",
   "license": "ISC"
 }
