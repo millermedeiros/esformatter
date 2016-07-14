@@ -1,5 +1,11 @@
 # esformatter changelog
 
+## v0.9.6 (2016-07-13)
+
+ - remove line break between VariableName and equal sign
+ - handle object expression method properties. fixes #456
+ - fix IfStatement line break if `consequent` is not a BlockStatement #446
+
 ## v0.9.5 (2016-06-05)
 
  - skip ReturnStatement indentation if argument is an UnaryExpression. fixes #443
