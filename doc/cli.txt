@@ -12,3 +12,4 @@ Options:
   --no-color          Remove colors from diff (default if terminal doesn't
                       support colors).
   --color             Force colored diffs even if terminal doesn't support it.
+  --exclude [files]   Exclude files (--exclude file1,file2,dir/**/*.txt)
