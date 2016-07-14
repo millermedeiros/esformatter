@@ -44,7 +44,8 @@
   "devDependencies": {
     "chai": "1.4",
     "esformatter-pipe-test": "file:test/pipe",
-    "esformatter-preset-fake": "file:test/preset/fake1",
+    "esformatter-preset-fake-1": "file:test/preset/fake1",
+    "esformatter-preset-fake-2": "file:test/preset/fake2",
     "esformatter-test-plugin": "file:test/plugin",
     "jshint": "~2.3.0",
     "mocha": "https://github.com/millermedeiros/mocha/tarball/latest",
