@@ -4,7 +4,6 @@
 
 var expect = require('chai').expect;
 var esformatter = require('../lib/esformatter');
-var path = require('path');
 
 
 describe('API', function() {
