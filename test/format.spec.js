@@ -106,7 +106,9 @@ describe('esformatter.format()', function() {
       it(id, function() {
         var input = readIn(id);
         var compare = readOut(id);
-        var result = esformatter.format(input, {preset:'jquery'});
+        var result = esformatter.format(input, {
+          preset: 'jquery'
+        });
 
         expect(result).to.equal(compare);
 
@@ -121,7 +123,9 @@ describe('esformatter.format()', function() {
 
         // make sure formatting can be applied multiple times
         // (idempotent)
-        expect(esformatter.format(result, {preset:'jquery'})).to.equal(compare);
+        expect(esformatter.format(result, {
+          preset: 'jquery'
+        })).to.equal(compare);
       });
 
     });

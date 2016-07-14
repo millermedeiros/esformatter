@@ -41,24 +41,32 @@ describe('API', function() {
 
     it('should return custom options if root == true', function() {
       expect(
-        esformatter.rc(null, {root:true})
-      ).to.be.eql({root:true});
+        esformatter.rc(null, {
+          root: true
+        })
+      ).to.be.eql({
+        root: true
+      });
     });
 
     it('should return custom options if preset', function() {
       expect(
-        esformatter.rc(null, {preset:'default'})
-      ).to.be.eql({preset:'default'});
+        esformatter.rc(null, {
+          preset: 'default'
+        })
+      ).to.be.eql({
+        preset: 'default'
+      });
     });
 
     it('should merge the custom option', function() {
       var customOpts = {
         whiteSpace: {
           before: {
-            "ArrayExpressionClosing" : 1
+            "ArrayExpressionClosing": 1
           },
           after: {
-            "ArrayExpressionOpening" : 1
+            "ArrayExpressionOpening": 1
           }
         }
       };

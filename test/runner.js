@@ -15,7 +15,7 @@ var Mocha = require('mocha');
 var opts = {
   ui: 'bdd',
   bail: !!(process.env.BAIL),
-  reporter:( process.env.REPORTER || 'spec'),
+  reporter: (process.env.REPORTER || 'spec'),
   grep: process.env.GREP
 };
 
