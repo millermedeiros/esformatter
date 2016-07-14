@@ -135,8 +135,8 @@ describe('Command line interface', function() {
   testCLI(
     'default',
     ['--preset=default', comparePath('default/array_expression-in.js')],
-    function(formattedFile) {
-      expect(formattedFile).to.equal(readOut('/default/array_expression'));
+    function(result) {
+      expect(result).to.equal(readOut('/default/array_expression'));
     }
   );
 
@@ -148,8 +148,8 @@ describe('Command line interface', function() {
       comparePath('custom/basic_function_indent-config.json'),
       comparePath('custom/basic_function_indent-in.js')
     ],
-    function(formattedFile) {
-      expect(formattedFile).to.equal(readOut('/custom/basic_function_indent'));
+    function(result) {
+      expect(result).to.equal(readOut('/custom/basic_function_indent'));
     }
   );
 
@@ -157,8 +157,8 @@ describe('Command line interface', function() {
   testCLI(
     'preset',
     ['--preset', 'jquery', comparePath('jquery/spacing-in.js')],
-    function(formattedFile) {
-      expect(formattedFile).to.equal(readOut('/jquery/spacing'));
+    function(result) {
+      expect(result).to.equal(readOut('/jquery/spacing'));
     }
   );
 
@@ -166,27 +166,27 @@ describe('Command line interface', function() {
   testCLI(
     'package.json',
     [comparePath('rc/package/package-in.js')],
-    function(formattedFile) {
-      expect(formattedFile).to.equal(readOut('/rc/package/package'));
+    function(result) {
+      expect(result).to.equal(readOut('/rc/package/package'));
     }
   );
 
   // use settings from .esformatter file
-  testCLI('rc', [comparePath('rc/top-in.js')], function(formattedFile) {
-    expect(formattedFile).to.equal(readOut('/rc/top'));
+  testCLI('rc', [comparePath('rc/top-in.js')], function(result) {
+    expect(result).to.equal(readOut('/rc/top'));
   });
 
   // use settings from .esformatter file
-  testCLI('rc nested', [comparePath('rc/nested/nested-in.js')], function(formattedFile) {
-    expect(formattedFile).to.equal(readOut('/rc/nested/nested'));
+  testCLI('rc nested', [comparePath('rc/nested/nested-in.js')], function(result) {
+    expect(result).to.equal(readOut('/rc/nested/nested'));
   });
 
   // make sure .esformatter file have higher priority than package.json
   testCLI(
     'rc nested package',
     [comparePath('rc/package/rc/nested-in.js')],
-    function(formattedFile) {
-      expect(formattedFile).to.equal(readOut('/rc/package/rc/nested'));
+    function(result) {
+      expect(result).to.equal(readOut('/rc/package/rc/nested'));
     }
   );
 
@@ -195,8 +195,8 @@ describe('Command line interface', function() {
   testCLI(
     'nested package+rc',
     [comparePath('rc/package/nested/pkg_nested-in.js')],
-    function(formattedFile) {
-      expect(formattedFile).to.equal(readOut('/rc/package/nested/pkg_nested'));
+    function(result) {
+      expect(result).to.equal(readOut('/rc/package/nested/pkg_nested'));
     }
   );
 
@@ -204,8 +204,8 @@ describe('Command line interface', function() {
   testCLI(
     'invalid config',
     ['-c', 'non-existent.json', comparePath('default/call_expression-in.js')],
-    function(formattedFile) {
-      expect(formattedFile.message).to.contain("Can't parse configuration file 'non-existent.json'");
+    function(result) {
+      expect(result.message).to.contain("Can't parse configuration file 'non-existent.json'");
     }
   );
 
@@ -213,18 +213,18 @@ describe('Command line interface', function() {
   testCLI(
     'invalid config 2',
     ['-c', comparePath('error/invalid.json'), comparePath('default/call_expression-in.js')],
-    function(formattedFile) {
+    function(result) {
       var configPath = comparePath('error/invalid.json');
-      expect(formattedFile.message).to.contain(
+      expect(result.message).to.contain(
         "Can't parse configuration file '" + configPath + "'. Exception: Unexpected token l"
       );
     }
   );
 
   // make sure it shows descriptive error message when file doesn't exist
-  testCLI('invalid file', ['fake-esformatter-123.js'], function(formattedFile) {
-    expect(formattedFile.message).to.contain("Error: Can't read source file.");
-    expect(formattedFile.message).to.contain("fake-esformatter-123.js");
+  testCLI('invalid file', ['fake-esformatter-123.js'], function(result) {
+    expect(result.message).to.contain("Error: Can't read source file.");
+    expect(result.message).to.contain("fake-esformatter-123.js");
   });
 
   // comments should be allowed on config.json files
@@ -234,8 +234,8 @@ describe('Command line interface', function() {
       comparePath('custom/commented_config-config.json'),
       comparePath('custom/commented_config-in.js')
     ],
-    function(formattedFile) {
-      expect(formattedFile).to.equal(readOut('/custom/commented_config'));
+    function(result) {
+      expect(result).to.equal(readOut('/custom/commented_config'));
     }
   );
 
@@ -249,8 +249,8 @@ describe('Command line interface', function() {
       'esformatter-test-plugin',
       comparePath('custom/commented_config-in.js')
     ],
-    function(formattedFile) {
-      expect(formattedFile).to.equal(readOut('/custom/commented_config').replace(/true/, 'false'));
+    function(result) {
+      expect(result).to.equal(readOut('/custom/commented_config').replace(/true/, 'false'));
     }
   );
 
@@ -300,8 +300,8 @@ describe('Command line interface', function() {
   testCLI(
     'glob invalid',
     [comparePath('default/fake-file*-in.js')],
-    function(formattedFile) {
-      var msg = formattedFile.message.trim();
+    function(result) {
+      var msg = result.message.trim();
       var filePath = comparePath('default/fake-file*-in.js');
       expect(msg).to.contain("Error: Can't read source file.");
       expect(msg).to.contain(filePath);
@@ -309,8 +309,8 @@ describe('Command line interface', function() {
   );
 
   // invalid JS files should throw errors
-  testCLI('invalid js', [comparePath('error/invalid-*.js')], function(formattedFile) {
-    var msg = formattedFile.message;
+  testCLI('invalid js', [comparePath('error/invalid-*.js')], function(result) {
+    var msg = result.message;
     // using match because of absolute path and also because file order might
     // be different in some OS. we just make sure that error message contains
     // what we expect to find
@@ -330,9 +330,9 @@ describe('Command line interface', function() {
       fs.unlinkSync(cpInPlace);
     });
 
-    testCLI('default', ['-i', cpInPlace], function(formattedFile) {
+    testCLI('default', ['-i', cpInPlace], function(result) {
       // in place option should modify the input file and not output any data
-      expect(formattedFile).to.equal('');
+      expect(result).to.equal('');
       expect(fs.readFileSync(cpInPlace, {
         encoding: 'utf8'
       })).to.equal(fs.readFileSync(expectedInPlace, {
@@ -350,8 +350,8 @@ describe('Command line interface', function() {
     'stdin',
     '--preset=default',
     comparePath('default/assignment_expression-in.js'),
-    function(formattedFile) {
-      expect(formattedFile).to.equal(readOut('/default/assignment_expression'));
+    function(result) {
+      expect(result).to.equal(readOut('/default/assignment_expression'));
     }
   );
 
@@ -360,8 +360,8 @@ describe('Command line interface', function() {
     'stdin+config',
     '--config ' + comparePath('custom/call_expression-config.json'),
     comparePath('custom/call_expression-in.js'),
-    function(formattedFile) {
-      expect(formattedFile).to.equal(readOut('/custom/call_expression'));
+    function(result) {
+      expect(result).to.equal(readOut('/custom/call_expression'));
     }
   );
 
@@ -369,8 +369,8 @@ describe('Command line interface', function() {
   spawnEsformatter(
     'local install',
     ['--config', path.join(__dirname, 'bin/config.json'), comparePath('custom/commented_config-in.js')].join(' '),
-    function(formattedFile) {
-      expect(formattedFile.trim()).to.equal('fake-esformatter v0.0.0-alpha');
+    function(result) {
+      expect(result.trim()).to.equal('fake-esformatter v0.0.0-alpha');
     }
   );
 
