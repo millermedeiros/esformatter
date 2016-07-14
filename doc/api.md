@@ -11,7 +11,7 @@ var esformatter = require('esformatter');
 var fs = require('fs');
 var codeStr = fs.readFileSync('path/to/js/file.js').toString();
 
-// for a list of available options check "lib/preset/default.json"
+// for a list of available options check "lib/preset/default.js"
 var options = {
   indent: {
     value: '  '

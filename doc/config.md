@@ -13,7 +13,7 @@ Most of the property names are based on the [babel-eslint node
 types](https://astexplorer.net/). For a list of node types you can also check
 the [estree spec](https://github.com/estree/estree).
 
-Our [default settings](../lib/preset/default.json) should have all the names
+Our [default settings](../lib/preset/default.js) should have all the names
 that we recognize, even if we don't list them in all the places the config
 probably use the same ids on all the settings (`indent`, `lineBreak` and
 `whiteSpace`), don't get intimidated by the names!
@@ -191,7 +191,7 @@ For detailed information about plugins structure and API see
 
 
 Documenting each property here wouldn't be practical. For now we recommend you
-look at the [lib/preset/default.json](../lib/preset/default.json) to find the
+look at the [lib/preset/default.js](../lib/preset/default.js) to find the
 properties you need to adjust for your specific needs. Better yet, adopt one of
 the presets to avoid having to configure anything beyond the most basic
 settings (like `indent.value`).

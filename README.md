@@ -60,7 +60,7 @@ var esformatter = require('esformatter');
 var fs = require('fs');
 var codeStr = fs.readFileSync('path/to/js/file.js').toString();
 
-// for a list of available options check "lib/preset/default.json"
+// for a list of available options check "lib/preset/default.js"
 var options = {
   indent : {
     value : '  '
@@ -122,7 +122,7 @@ cat test.js | esformatter
 esformatter --config options.json test.js
 # process "test.js" and writes to "test.out.js"
 esformatter test.js > test.out.js
-# you can override the default settings, see lib/preset/default.json for
+# you can override the default settings, see lib/preset/default.js for
 # a list of available options
 esformatter test.js --indent.value="\t" --lineBreak.before.IfStatementOpeningBrace=0
 # format "test.js" and output result to "test.js"
@@ -132,8 +132,8 @@ esformatter -i 'lib/*.js'
 # format and overwrite all the ".js" files inside "lib/" and it's subfolders
 esformatter -i 'lib/**/*.js'
 
-**important:** surround the glob with single quotes to avoid expansion; [glob
-syntax reference](https://github.com/isaacs/node-glob/#glob-primer)
+# **important:** surround the glob with single quotes to avoid expansion; [glob
+# syntax reference](https://github.com/isaacs/node-glob/#glob-primer)
 
 # Diff
 # ======
