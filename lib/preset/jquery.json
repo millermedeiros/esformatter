@@ -1,5 +1,7 @@
 {
-  "preset" : "default",
+  "extends": [
+    "./default.json"
+  ],
 
   "indent" : {
     "value" : "\t",
