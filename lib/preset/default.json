@@ -240,6 +240,7 @@
       "TryKeyword": -1,
       "TryOpeningBrace" : ">=1",
       "TryClosingBrace" : 0,
+      "VariableName" : 0,
       "VariableValue" : -1,
       "VariableDeclaration" : ">=1",
       "VariableDeclarationSemiColon" : ">=1",

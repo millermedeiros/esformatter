@@ -5,6 +5,8 @@ var parentheses = (123);
 
 var dolor;
 
+var bar = ipsum;
+
 var a,
   b = true,
   c = 3,

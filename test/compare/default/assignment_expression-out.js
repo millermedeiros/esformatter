@@ -9,6 +9,7 @@ maecennas += "ullamcor"
 
 foo = fn(1);
 
+bar = 123;
 
 // assignment operators
 
