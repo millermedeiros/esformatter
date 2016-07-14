@@ -24,7 +24,14 @@ describe('API', function() {
       expect(options.get).to.be.a('function');
       expect(options.getRc).to.be.a('function');
       expect(options.loadAndParseConfig).to.be.a('function');
+      expect(esformatter.diff.chars).to.be.a('function');
+      expect(esformatter.hooks.FunctionExpression.format).to.be.a('function');
+      expect(esformatter.format).to.be.a('function');
+      expect(esformatter.transform).to.be.a('function');
       expect(esformatter.rc).to.be.a('function');
+      expect(esformatter.register).to.be.a('function');
+      expect(esformatter.unregister).to.be.a('function');
+      expect(esformatter.unregisterAll).to.be.a('function');
     });
   });
 
