@@ -1,5 +1,5 @@
 //jshint node:true
-/*global describe, it, beforeEach, afterEach*/
+/*global describe, it, after, beforeEach, afterEach*/
 'use strict';
 
 var expect = require('chai').expect;
@@ -14,6 +14,10 @@ var output = 'var foo = lorem ? "bar" : "baz";';
 
 
 describe('plugin API', function() {
+
+  after(function() {
+    esformatter.unregisterAll();
+  });
 
   describe('> register plugin', function() {
     var plugin;
@@ -116,6 +120,7 @@ describe('plugin API', function() {
     afterEach(function() {
       mockery.deregisterAll();
       mockery.disable();
+      esformatter.unregisterAll();
     });
 
     it('format: should load plugins from node_modules and register it', function() {

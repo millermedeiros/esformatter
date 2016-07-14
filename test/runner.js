@@ -34,9 +34,11 @@ if (process.env.INVERT) {
 m.addFile('test/format.spec.js');
 m.addFile('test/transform.spec.js');
 m.addFile('test/diff.spec.js');
-m.addFile('test/cli.spec.js');
 m.addFile('test/api.spec.js');
 m.addFile('test/plugins.spec.js');
+// run slower tests later for faster feedback cyle
+// extremely helpful when running tests with `BAIL=true npm test`
+m.addFile('test/cli.spec.js');
 m.addFile('test/pipe.spec.js');
 
 m.run(function(err) {

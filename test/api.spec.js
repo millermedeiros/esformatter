@@ -1,5 +1,5 @@
 //jshint node:true
-/*global describe, it*/
+/*global describe, it, afterEach*/
 "use strict";
 
 var expect = require('chai').expect;
@@ -7,6 +7,11 @@ var esformatter = require('../lib/esformatter');
 
 
 describe('API', function() {
+
+  afterEach(function() {
+    // clean up plugins to avoid undesired side effects
+    esformatter.unregisterAll();
+  });
 
   describe('exposed API', function() {
     // plugins might need to access some internal methods from esformatter
