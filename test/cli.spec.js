@@ -255,21 +255,58 @@ describe('Command line interface', function() {
   );
 
   // glob expansion
-  testCLI('glob', [comparePath('default/arr*-in.js')], function(formattedFile) {
-    expect(formattedFile).to.equal(
-      readOut('default/array_expression') +
-      readOut('default/array_pattern') +
-      readOut('default/arrow_function_expression')
-    );
-  });
+  testCLI(
+    'glob',
+    [comparePath('default/arr*-in.js')],
+    function(result) {
+      expect(result).to.equal(
+        readOut('default/array_expression') +
+        readOut('default/array_pattern') +
+        readOut('default/arrow_function_expression')
+      );
+    }
+  );
+
+  // glob expansion + ignore
+  testCLI(
+    'glob ignore',
+    ['--ignore', '**/*_pattern-in.js', comparePath('default/arr*-in.js')],
+    function(result) {
+      expect(result).to.equal(
+        readOut('default/array_expression') +
+        readOut('default/arrow_function_expression')
+      );
+    }
+  );
+
+  // glob + multiple ignore
+  testCLI(
+    'glob ignore multi',
+    [
+      '--ignore',
+      '**/*_pattern-in.js',
+      '--ignore',
+      '**/array_expression-in.js',
+      comparePath('default/arr*-in.js')
+    ],
+    function(result) {
+      expect(result).to.equal(
+        readOut('default/arrow_function_expression')
+      );
+    }
+  );
 
   // invalid glob expansion should throw error
-  testCLI('glob', [comparePath('default/fake-file*-in.js')], function(formattedFile) {
-    var msg = formattedFile.message.trim();
-    var filePath = comparePath('default/fake-file*-in.js');
-    expect(msg).to.contain("Error: Can't read source file.");
-    expect(msg).to.contain(filePath);
-  });
+  testCLI(
+    'glob invalid',
+    [comparePath('default/fake-file*-in.js')],
+    function(formattedFile) {
+      var msg = formattedFile.message.trim();
+      var filePath = comparePath('default/fake-file*-in.js');
+      expect(msg).to.contain("Error: Can't read source file.");
+      expect(msg).to.contain(filePath);
+    }
+  );
 
   // invalid JS files should throw errors
   testCLI('invalid js', [comparePath('error/invalid-*.js')], function(formattedFile) {
@@ -303,7 +340,6 @@ describe('Command line interface', function() {
       }));
     });
   });
-
 
   // -----------------------------
   // SLOW TESTS are executed later
