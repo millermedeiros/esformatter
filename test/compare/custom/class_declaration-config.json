@@ -1,0 +1,16 @@
+{
+  "lineBreak": {
+    "before": {
+      "MethodDefinition": 3,
+      "MethodDefinitionOpeningBrace": 1
+    },
+    "after": {
+      "MethodDefinitionClosingBrace": 3
+    }
+  },
+  "whiteSpace": {
+    "after": {
+      "MethodDefinitionName": 1
+    }
+  }
+}
