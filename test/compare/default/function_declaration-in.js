@@ -105,6 +105,9 @@ function*gen() {
 async function asyncFunction() {
 }
 
+async    function asyncFunction2() {
+}
+
 // #443
 function test(arr) {
   return !arr.some(v => {
