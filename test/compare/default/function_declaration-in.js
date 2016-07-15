@@ -115,3 +115,7 @@ function test(arr) {
       123;
   });
 }
+
+// #458
+function flow(one: OneType<string>, two: TwoTypes<string, string>    ,    three: string) {
+}
