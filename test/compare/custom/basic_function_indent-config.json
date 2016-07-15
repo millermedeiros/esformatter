@@ -15,7 +15,6 @@
     },
     "whiteSpace" : {
         "before" : {
-            "ParameterList" : 1,
             "ParameterComma" : 0,
             "ParameterList" : 1,
             "FunctionDeclarationOpeningBrace" : 0,

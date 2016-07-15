@@ -1,0 +1,12 @@
+{
+  "whiteSpace": {
+    "before": {
+      "ArgumentList": 1,
+      "ParameterList": 1
+    },
+    "after": {
+      "ArgumentList": 1,
+      "ParameterList": 1
+    }
+  }
+}
