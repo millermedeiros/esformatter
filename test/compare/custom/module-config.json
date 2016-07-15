@@ -1,10 +1,20 @@
 {
-  "whiteSpace": {
+  "lineBreak": {
     "before": {
-      "ModuleSpecifierClosingBrace": 3
+      "ExportAllDeclaration": 2,
+      "ExportDefaultDeclaration": 2,
+      "ExportNamedDeclaration": 2,
+      "ModuleSpecifierClosingBrace": 1,
+      "ModuleSpecifierComma": 0
     },
     "after": {
-      "ModuleSpecifierOpeningBrace": 3
+      "ExportAllDeclaration": 2,
+      "ExportDefaultDeclaration": 2,
+      "ExportNamedDeclaration": 2,
+      "ImportDeclaration": 2,
+      "ModuleSpecifierOpeningBrace": 1,
+      "ModuleSpecifierClosingBrace": -1,
+      "ModuleSpecifierComma": 1
     }
   }
 }
