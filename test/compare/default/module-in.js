@@ -59,5 +59,8 @@ export { MY_CONST, myFunc };
 export { MY_CONST as THE_CONST, myFunc as theFunc };
 
 export  *  from  'src/other_module';
-export {    foo   ,  bar   }from 'src/other_module';
+export {
+  foo   , 
+  bar  
+}from 'src/other_module';
 export   {foo as myFoo,bar}    from    'src/other_module';

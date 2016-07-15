@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "node test/runner.js",
-    "lint": "jshint lib/*.js lib/**/*.js test/*.js",
-    "format": "esformatter -i 'lib/**/*.js'"
+    "lint": "jshint lib/*.js lib/**/*.js test/*.js && esformatter --diff 'lib/**/*.js' 'test/*.js'",
+    "format": "esformatter -i 'lib/**/*.js' 'test/*.js'"
   },
   "repository": {
     "type": "git",

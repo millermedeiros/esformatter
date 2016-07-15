@@ -1,6 +1,10 @@
 {
   "lineBreak": {
     "before": {
+      // there is a conflict between the
+      // lineBreak.after.FunctionDeclarationClosingBrace and the line break
+      // around nodes logic, so we need to set "before" & "after" for all the
+      // export/import declarations to override it
       "ExportAllDeclaration": 2,
       "ExportDefaultDeclaration": 2,
       "ExportNamedDeclaration": 2,
