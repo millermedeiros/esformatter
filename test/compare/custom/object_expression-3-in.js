@@ -16,5 +16,9 @@ x = {
 b: function b() {
 a();
 },
-a: b
+a: b,
+          c,
+      someMethod    () {
+    bar()
+    }
 };

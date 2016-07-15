@@ -18,6 +18,7 @@
       "ObjectExpressionClosingBrace": 1
     },
     "after" : {
+      "MethodName": 1,
       "ObjectExpressionOpeningBrace": 1,
       "PropertyValue": -1
     }
