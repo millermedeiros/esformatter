@@ -15,5 +15,11 @@
       "ParameterComma" : 0,
       "ParameterList" : -1
     }
+  },
+
+  "lineBreak": {
+    "before": {
+      "ClassExtendsKeyword": -1
+    }
   }
 }

@@ -6,3 +6,9 @@ const {foo, bar} = baz
 
 function regularFun(a, b, c){}
 
+// issue #423
+class Foo
+extends Bar {
+  fn() {}
+}
+
