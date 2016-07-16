@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "testing extends inside package.json",
+  "esformatter": {
+    "root": true,
+    "extends": [
+      "preset:fake-2"
+    ]
+  }
+}
