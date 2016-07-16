@@ -346,9 +346,9 @@ describe('Command line interface', function() {
     'extends preset + package.json',
     [comparePath('fake-preset/2-in.js')],
     function(result) {
-      expect(result).to.equal(readOut('fake-preset/2'))
+      expect(result).to.equal(readOut('fake-preset/2'));
     }
-  )
+  );
 
   // -----------------------------
   // SLOW TESTS are executed later
