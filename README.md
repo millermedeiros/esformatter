@@ -183,6 +183,7 @@ Since esformatter is available as a command-line tool, it can be used in any edi
 - Vim - [vim-esformatter](https://github.com/millermedeiros/vim-esformatter)
 - Sublime Text - [sublime-esformatter](https://github.com/piuccio/sublime-esformatter)
 - Atom - [atom-esformatter](https://github.com/sindresorhus/atom-esformatter)
+- Visual Studio Code - [vscode-esformatter](https://github.com/leftstick/vscode-esformatter)
 
 
 
