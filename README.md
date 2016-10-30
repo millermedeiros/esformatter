@@ -193,6 +193,28 @@ Since esformatter is available as a command-line tool, it can be used in any edi
 See [doc/config.md](./doc/config.md).
 
 
+## Presets
+
+Presets are reusable config files that can `require` other presets/plugins and
+override configs.
+
+```js
+{
+  // presets are used as "base settings"
+  "extends": [
+    "preset:foobar", // load "esformatter-preset-foobar" from "./node_modules"
+    "./lorem_ipsum.json" // load relative config file
+  ],
+
+  // you can still override any setting from the preset if needed
+  "indent": {
+    "value": "  "
+  }
+}
+```
+
+For more info see [presets.md](./doc/presets.md)
+
 ## Pipe other CLI tools
 
 Since we don't expect everyone to write plugins that only works with
