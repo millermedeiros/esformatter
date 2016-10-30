@@ -46,14 +46,6 @@ export class MyClass {
   }
 }
 
-export default 123;
-
-export default function (x) {
-  return x
-}
-
-export default x => x;
-
 export default class {
   constructor(x, y) {
     this.x = x;
@@ -62,8 +54,8 @@ export default class {
 }
 
 export {
-  MY_CONST,
-  myFunc
+  FOO_CONST,
+  myOtherFunc
 };
 
 export {
@@ -80,6 +72,6 @@ export {
 
 export {
   foo as myFoo,
-  bar
+  baz
 } from 'src/other_module';
 
