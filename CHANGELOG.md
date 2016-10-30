@@ -1,5 +1,18 @@
 # esformatter changelog
 
+## v0.10.0 (2016-10-30)
+
+ - add "extends" support, to make it easier to share presets. see #328
+ - add --ignore support to cli. closes #329
+ - add MethodDefinition{Closing,Opening}Brace support. closes #417
+ - add configs for ModuleSpecifier{Opening,Closing}Brace and ModuleSpecifierComma. closes #402
+ - add support for ClassKeyword and ClassExtendsKeyword settings. closes
+ - add support for MethodName setting. closes #368
+ - convert default presets to JS instead of JSON. closes #457
+ - fix ParameterComma + flow. closes #458
+ - fix expressionParentheses edge case related to ArrowFunctionExpression.
+ - limit amount of spaces between `async function`. closes #404
+
 ## v0.9.6 (2016-07-13)
 
  - remove line break between VariableName and equal sign
