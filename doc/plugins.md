@@ -41,11 +41,12 @@ The plugin methods are executed in the following order: `setOptions` > `stringBe
 
 **IMPORTANT:** If you need to edit the structure of the AST (add/remove nodes,
 change the order of elements) we recommend you to write it as a standalone CLI
-tool whenever possible and use the [pipe](./config.md#pipe) option instead of writting a plugin
-(eg. [strip-debug](https://www.npmjs.com/package/strip-debug)). Plugins should
-ideally only add/remove/edit the `WhiteSpace`, `Indent`, `LineBreak` and
-`Comment` tokens, otherwise you might have conflicts with other plugins and
-esformatter itself.
+tool whenever possible (eg.
+[strip-debug](https://www.npmjs.com/package/strip-debug)) and use the
+[pipe](./config.md#pipe) option or implement it using
+`stringBefore`/`stringAfter`. Plugins should ideally only add/remove/edit the
+`WhiteSpace`, `Indent`, `LineBreak` and `Comment` tokens, otherwise you might
+have conflicts with other plugins and esformatter itself.
 
 **protip:** You can use
 [rocambole-token](https://github.com/millermedeiros/rocambole-token) and
@@ -82,8 +83,9 @@ plugin.stringBefore = function(str) {
 ```
 
 PS: you should only really use this method if you need to store some state
-during `stringBefore` to be used by your other methods; otherwise favor the
-[pipe](./config.md#pipe) option.
+during `stringBefore` to be used by your other methods or if you need to
+change the program structure (eg. add/remove nodes/semi-colons, anything that
+would generate a different AST structure)
 
 ### stringAfter(outputString):String
 
@@ -99,8 +101,10 @@ plugin.stringAfter = function(str) {
 ```
 
 PS: you should only really use this method if you need to recover from some of
-the changes you introduced by the other plugin methods; otherwise favor the
-[pipe](./config.md#pipe) option.
+the changes introduced by the other plugin methods or esformatter itself; favor
+`stringBefore` to reduce conflicts with other plugins (eg. if you introduce
+a single quote and the `esformatter-quotes` plugin should convert all quotes to
+double quotes)
 
 ### tokenBefore(token)
 
@@ -197,6 +201,6 @@ It's very important to note that adding/removing/reordering `nodes` might cause
 undesired side effects on other plugins (`rocambole.moonwalk` and
 `rocambole.walk` might not work as expected and/or you might forget some
 `node.[start|end]Token` and/or `token.[next|prev]` and break other plugins). So
-if you need to edit the tree structure please use the `stringAfter` method or
-  write a standalone CLI tool that can be used on the [pipe](./config.md#pipe)
-  setting.
+if you need to edit the tree structure please use the `stringBefore` and
+`stringAfter` methods or write a standalone CLI tool that can be used on the
+[pipe](./config.md#pipe) setting.

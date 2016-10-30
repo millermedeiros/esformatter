@@ -7,6 +7,7 @@ closest `.esformatter` file and use that as a setting unless you specify
 You also have the option to put your `esformatter` settings inside the
 `package.json` file under the `esformatter` property.
 
+
 ## property names
 
 Most of the property names are based on the [babel-eslint node
@@ -18,18 +19,24 @@ that we recognize, even if we don't list them in all the places the config
 probably use the same ids on all the settings (`indent`, `lineBreak` and
 `whiteSpace`), don't get intimidated by the names!
 
+
 ## root
 
 Settings from multiple files will be merged until it finds a config file that
-contains the property `"root": true`; that makes it easy to define exceptions
-to the project rules without needing to copy all the shared properties. - for
-an example see test files inside the `"test/compare/rc"` folder.
+contains the property `"root": true`; that makes it easy to define exceptions to
+the project/global rules without needing to copy all the shared properties.
+For an example see test files inside the `"test/compare/rc"` folder.
 
 ```js
 {
   "root": true
 }
 ```
+
+protip: set `"esformatter": {"root": true}` inside the project `package.json`
+(or `.esformatter` file ) to avoid conflicts between contributor settings (it
+will avoid loading the global user config).
+
 
 ## indent
 
@@ -140,7 +147,7 @@ is not followed by a line break.
 ## pipe
 
 Since we don't expect everyone to write plugins that only works with
-esformatter we decided to encourage the usage of standalone CLI tools.
+esformatter we decided to support the usage of standalone CLI tools.
 
 ```js
 {
@@ -170,6 +177,10 @@ locally installed executables inside the `node_modules` folder. If it can't
 find a local executable it will fallback to global commands. (this allows you
 to install `devDependencies` that are only used by a single project)
 
+PS: piped commands are usually *slower* than esformatter plugins because they
+usually require parsing the file another time and spawning new processes isn't
+cheap. But it might still be a good way to reuse existing scripts.
+
 
 ## plugins
 
@@ -185,6 +196,23 @@ in the config file:
 
 For detailed information about plugins structure and API see
 [plugins.md](./plugins.md)
+
+
+## extends
+
+Extends allows users to share presets easily.
+
+```js
+{
+  "extends": [
+    "preset:foobar", // load "esformatter-preset-foobar" from "./node_modules"
+    "./lorem_ipsum.json" // load relative config file
+  ]
+}
+```
+
+Read the [presets.md](./presets.md) file for info on how to write reusable
+configs.
 
 
 ---
