@@ -45,3 +45,11 @@ Bar
 class Foo extends BarNamespace.Bar{}
 class Foo extends BarNamespace['Bar'].Bar["Bar"]('bar').Bar("bar", "bar"){}
 class Foo extends(BarNamespace.bar)(){}
+
+// #470
+const mySym = Symbol('some-symbol');
+class Foo {
+  [  mySym      ]() {
+    return true;
+  }
+}
