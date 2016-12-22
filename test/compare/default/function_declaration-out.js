@@ -130,3 +130,15 @@ function test(arr) {
 // #458
 function flow(one: OneType<string>, two: TwoTypes<string, string>, three: string) {
 }
+
+// #465
+function indentReturnParentheses() {
+  if (bar) {
+    return (
+      bar
+    )
+  }
+  return (
+    dolorAmet
+  );
+}
