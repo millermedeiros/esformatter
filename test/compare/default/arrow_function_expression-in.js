@@ -7,6 +7,13 @@ arr.map(d    =>
         {return d * 2;});
         arr.map(   ( e , f     , g)  => e * f - g );
 
+// noop (#487)
+const f1 = () => {};
+const f2  =  (  )  =>  {    };
+const f3  =  (  )  =>  {
+
+};
+
 // default params (#285)
 let defaultParams = (x, y   =   1, z  =  2  ) => {
   return x + y + z;
