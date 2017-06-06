@@ -280,6 +280,7 @@ See [CONTRIBUTING.md](https://github.com/millermedeiros/esformatter/blob/master/
 
 ## Popular Alternatives
 
+ - [prettier](https://github.com/prettier/prettier)
  - [jsbeautifier](http://jsbeautifier.org/)
  - [codepainter](https://npmjs.org/package/codepainter)
  - [jscs](http://jscs.info/)
