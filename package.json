@@ -42,7 +42,7 @@
     "url": "http://blog.millermedeiros.com/"
   },
   "devDependencies": {
-    "chai": "1.4",
+    "chai": "^4.2.0",
     "esformatter-pipe-test": "file:test/pipe",
     "esformatter-preset-fake-1": "file:test/preset/fake1",
     "esformatter-preset-fake-2": "file:test/preset/fake2",
