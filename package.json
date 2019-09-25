@@ -48,7 +48,7 @@
     "esformatter-preset-fake-2": "file:test/preset/fake2",
     "esformatter-test-plugin": "file:test/plugin",
     "jshint": "~2.3.0",
-    "mocha": "https://github.com/millermedeiros/mocha/tarball/latest",
+    "mocha": "^6.2.0",
     "mockery": "^1.4.0"
   },
   "dependencies": {
