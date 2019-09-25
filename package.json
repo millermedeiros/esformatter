@@ -54,7 +54,7 @@
   "dependencies": {
     "acorn-to-esprima": "^2.0.6",
     "babel-traverse": "^6.4.5",
-    "debug": "^0.7.4",
+    "debug": "^4.1.1",
     "disparity": "^2.0.0",
     "esformatter-parser": "^1.0.0",
     "glob": "^7.0.5",
