@@ -70,7 +70,7 @@
     "rocambole-token": "^1.1.2",
     "rocambole-whitespace": "^1.0.0",
     "stdin": "*",
-    "strip-json-comments": "~0.1.1",
+    "strip-json-comments": "^3.0.1",
     "supports-color": "^7.0.0",
     "user-home": "^2.0.0"
   },
