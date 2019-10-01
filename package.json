@@ -6,6 +6,11 @@
   "bin": {
     "esformatter": "./bin/esformatter"
   },
+  "files": [
+    "bin",
+    "doc",
+    "lib"
+  ],
   "scripts": {
     "test": "node test/runner.js",
     "lint": "jshint lib/*.js lib/**/*.js test/*.js && ./bin/esformatter --diff 'lib/**/*.js' 'test/*.js'",
