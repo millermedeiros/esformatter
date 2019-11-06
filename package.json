@@ -55,8 +55,8 @@
     "esformatter-preset-fake-1": "file:test/preset/fake1",
     "esformatter-preset-fake-2": "file:test/preset/fake2",
     "esformatter-test-plugin": "file:test/plugin",
-    "jshint": "^2.10.2",
-    "mocha": "^6.2.0",
+    "jshint": "^2.10.3",
+    "mocha": "^6.2.2",
     "mockery": "^2.1.0"
   },
   "dependencies": {
@@ -65,7 +65,7 @@
     "debug": "^4.1.1",
     "disparity": "^3.0.0",
     "esformatter-parser": "^1.0.0",
-    "glob": "^7.0.5",
+    "glob": "^7.1.6",
     "minimatch": "^3.0.2",
     "minimist": "^1.1.1",
     "mout": ">=0.9 <2.0",
@@ -79,7 +79,7 @@
     "rocambole-whitespace": "^1.0.0",
     "stdin": "*",
     "strip-json-comments": "^3.0.1",
-    "supports-color": "^7.0.0",
+    "supports-color": "^7.1.0",
     "user-home": "^2.0.0"
   },
   "esformatter": {
