@@ -11,6 +11,9 @@
     "doc",
     "lib"
   ],
+  "engines": {
+    "node": ">=8"
+  },
   "scripts": {
     "test": "node test/runner.js",
     "lint": "jshint lib/*.js lib/**/*.js test/*.js && ./bin/esformatter --diff 'lib/**/*.js' 'test/*.js'",
