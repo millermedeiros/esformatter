@@ -1,5 +1,19 @@
 # esformatter changelog
 
+## v0.11.2 (2019-12-06)
+
+ - Updated dependencies
+ - Fixes vulnerability issues with transitive dependencies
+
+## v0.11.1 (2019-09-30)
+
+ - no longer publishes test folder to npm
+
+## v0.11.0 (2019-09-30)
+
+ - BREAKING: requires node >= 8
+ - Updated dependencies
+
 ## v0.10.0 (2016-10-30)
 
  - add "extends" support, to make it easier to share presets. see #328
