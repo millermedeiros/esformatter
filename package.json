@@ -56,7 +56,7 @@
     "esformatter-preset-fake-2": "file:test/preset/fake2",
     "esformatter-test-plugin": "file:test/plugin",
     "jshint": "^2.11.0",
-    "mocha": "^7.1.0",
+    "mocha": "^10.2.0",
     "mockery": "^2.1.0"
   },
   "dependencies": {
